@@ -1,0 +1,17 @@
+.example-form {
+    display       : flex;
+    flex-direction: column;
+}
+
+.example-form>* {
+    width: 100%;
+}
+
+.action-container {
+    width: 100%;
+}
+
+.action-container button {
+    width : 49%;
+    margin: 2px;
+}

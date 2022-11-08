@@ -1,0 +1,84 @@
+.container {
+    display        : flex;
+    justify-content: center;
+}
+
+.card {
+    min-width: 80%;
+}
+
+.example-container {
+    display       : flex;
+    flex-direction: column;
+    max-height    : 320px;
+    min-width     : 100%;
+    overflow      : auto;
+}
+
+table {
+    width: 100%;
+}
+
+a {
+    cursor: pointer;
+}
+
+td.mat-column-pu {
+    min-width    : 15%;
+    padding-right: 8px;
+}
+
+th {
+    font-weight: bold;
+    font-size  : 16px;
+}
+
+.example-card {
+    max-width : 200px;
+    max-height: 40px;
+}
+
+.example-header-image {
+    background-image: url("/assets/images/img_analyse.jpg");
+    background-size : cover;
+}
+
+.search-field-container {
+    display        : flex;
+    flex-direction : row;
+    justify-content: flex-end;
+    width          : 100%;
+}
+
+.search-field {
+    width: 50%;
+}
+
+tr.example-detail-row {
+    height          : 0;
+    background-color: rgb(212, 203, 150);
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: #a4b5e4;
+}
+
+tr.example-expanded-row {
+    background: #a4b5e4;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    display        : flex;
+    flex-direction : row;
+    width          : 100%;
+    justify-content: flex-start;
+    overflow       : hidden;
+}
+
+.example-element-detail>* {
+    width: 30%;
+}

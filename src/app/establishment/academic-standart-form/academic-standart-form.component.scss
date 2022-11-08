@@ -1,0 +1,36 @@
+.example-form {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    flex-wrap      : wrap;
+    width          : 100%;
+}
+
+.checkContainer {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    flex-wrap      : wrap;
+    width          : 100%;
+}
+
+.checkContainer>* {
+    width: 40%;
+}
+
+.action-container {
+    width: 100%;
+}
+
+.action-container button {
+    width : 49%;
+    margin: 2px;
+}
+
+.element {
+    width: 30%;
+}
+
+.year-field {
+    width: 32%;
+}

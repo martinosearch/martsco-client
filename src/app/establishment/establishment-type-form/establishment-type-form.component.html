@@ -1,0 +1,17 @@
+<h3 mat-dialog-title>{{data.titre}}</h3>
+<div mat-dialog-content>
+  <form class="example-form" (ngSubmit)="onSubmit()" novalidate>
+    <mat-form-field class="element">
+      <input matInput placeholder="Désignation" type="text" required [(ngModel)]="model.designation" name="designation">
+    </mat-form-field>
+
+    <mat-form-field class="element">
+      <input matInput placeholder="Diminutif" type="text" required [(ngModel)]="model.dim" name="dim">
+    </mat-form-field>
+
+    <div class="action-container">
+      <span><button mat-raised-button type="submit" color="primary">Valider</button></span>
+      <span><button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button></span>
+    </div>
+  </form>
+</div>

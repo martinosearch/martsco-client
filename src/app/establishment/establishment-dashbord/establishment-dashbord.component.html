@@ -1,0 +1,132 @@
+<div class="main-container">
+    <div class="size-container mat-elevation-z8">
+        <div class="article-title">Effectif des classes</div>
+
+        <div class="table-container">
+            <table mat-table [dataSource]="effectifBeans">
+                <!-- Item Column -->
+                <ng-container matColumnDef="class">
+                    <th mat-header-cell *matHeaderCellDef class="table-eff-header"> Classes </th>
+                    <td mat-cell *matCellDef="let item">
+                        <div class="designation">{{item.schoolClass.designation}}</div>
+                        <div class="titulaire"><span class="title">Titulaire:</span> {{item.principal}}</div>
+                    </td>
+                    <td mat-footer-cell *matFooterCellDef class="table-eff-footer"> Total </td>
+                </ng-container>
+
+                <!-- Cost Column -->
+                <ng-container matColumnDef="male">
+                    <th mat-header-cell *matHeaderCellDef class="table-eff-header"> Garçons </th>
+                    <td mat-cell *matCellDef="let item" class="numberCell"> {{item.male}}</td>
+                    <td mat-footer-cell *matFooterCellDef class="table-eff-footer"> {{totalEffectifBean.male}} </td>
+                </ng-container>
+
+                <!-- Cost Column -->
+                <ng-container matColumnDef="female">
+                    <th mat-header-cell *matHeaderCellDef class="table-eff-header"> Filles </th>
+                    <td mat-cell *matCellDef="let item" class="numberCell"> {{item.female}} </td>
+                    <td mat-footer-cell *matFooterCellDef class="table-eff-footer"> {{totalEffectifBean.female}} </td>
+                </ng-container>
+
+                <!-- Cost Column -->
+                <ng-container matColumnDef="sum">
+                    <th mat-header-cell *matHeaderCellDef class="table-eff-header"> Total </th>
+                    <td mat-cell *matCellDef="let item" class="totalCell"> {{item.sumMaleFemale}}</td>
+                    <td mat-footer-cell *matFooterCellDef class="table-eff-footer"> {{totalEffectifBean.sumMaleFemale}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                <tr mat-footer-row *matFooterRowDef="displayedColumns; sticky: true"></tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="etat-main">
+        <div class="article-title">Etat</div>
+
+        <div class="etat-container">
+            <mat-card class="etat">
+                <mat-card-header>
+                    <div mat-card-avatar class="mdi mdi-account mdi-36px"></div>
+                    <mat-card-title class="etat-title">Nbre de Classes</mat-card-title>
+                    <mat-card-subtitle class="etat-value">{{numberOfClasses}}</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+
+            <mat-card class="etat">
+                <mat-card-header>
+                    <div mat-card-avatar class="mdi mdi-account mdi-36px"></div>
+                    <mat-card-title class="etat-title">Nbre d'employées</mat-card-title>
+                    <mat-card-subtitle class="etat-value">{{numberOfEmployees}} (G: {{employees|male}} | F: {{employees|female}})
+                    </mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+
+            <mat-card class="etat">
+                <mat-card-header>
+                    <div mat-card-avatar class="mdi mdi-account mdi-36px"></div>
+                    <mat-card-title class="etat-title">Nbre de matières</mat-card-title>
+                    <mat-card-subtitle class="etat-value">{{numberOfSubjects}}</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+        </div>
+    </div>
+
+    <div class="students-container mat-elevation-z8">
+        <div class="article-title">20 derniers élèves inscrits</div>
+
+        <div class="table-container">
+            <table mat-table [dataSource]="twentythStudents">
+                <!-- Item Column -->
+                <ng-container matColumnDef="num">
+                    <th mat-header-cell *matHeaderCellDef class="table-st-header"> N° ord. </th>
+                    <td mat-cell *matCellDef="let item; let i = index;">
+                        {{i+1}}
+                    </td>
+                </ng-container>
+
+                <!-- Cost Column -->
+                <ng-container matColumnDef="date">
+                    <th mat-header-cell *matHeaderCellDef class="table-st-header"> Date d'entrée </th>
+                    <td mat-cell *matCellDef="let item" class="date"> {{item.inscriptionInfo.entryDate|date:"shortDate"}}
+                    </td>
+                </ng-container>
+
+                <!-- Cost Column -->
+                <ng-container matColumnDef="nom">
+                    <th mat-header-cell *matHeaderCellDef class="table-st-header"> Nom </th>
+                    <td mat-cell *matCellDef="let item" class="identity"> {{item.identity.lastName}} </td>
+                </ng-container>
+
+                <!-- Cost Column -->
+                <ng-container matColumnDef="prenoms">
+                    <th mat-header-cell *matHeaderCellDef class="table-st-header"> Prénoms </th>
+                    <td mat-cell *matCellDef="let item" class="identity"> {{item.identity.firstName}}</td>
+                </ng-container>
+
+                <!-- Cost Column -->
+                <ng-container matColumnDef="sexe">
+                    <th mat-header-cell *matHeaderCellDef class="table-st-header"> Sexe </th>
+                    <td mat-cell *matCellDef="let item" class="sex"> {{item.identity.sex|sex}}</td>
+                </ng-container>
+
+                <!-- Cost Column -->
+                <ng-container matColumnDef="matricule">
+                    <th mat-header-cell *matHeaderCellDef class="table-st-header"> N° matricule </th>
+                    <td mat-cell *matCellDef="let item" class="totalCell"> {{item.inscriptionInfo.numMatricule}}</td>
+                </ng-container>
+
+                <!-- Cost Column -->
+                <ng-container matColumnDef="classe">
+                    <th mat-header-cell *matHeaderCellDef class="table-st-header"> Classe </th>
+                    <td mat-cell *matCellDef="let item" class="sex"> {{item.id|currentClass|async}}</td>
+                </ng-container>
+
+                <tr mat-header-row class="table-eff-tr" *matHeaderRowDef="studentsDisplayedColumns; sticky: true"></tr>
+                <tr mat-row class="table-eff-tr" *matRowDef="let row; columns: studentsDisplayedColumns;"></tr>
+            </table>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,42 @@
+.first-toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0;
+  height: 45px;
+}
+
+.menu-app-name {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 23%;
+  gap: 5px;
+  margin-left: 5px;
+}
+
+.navigation-items-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0;
+  cursor: pointer;
+}
+
+.navigation-items-container > * {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 5px;
+}
+
+mat-form-field {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 20px;
+  color: yellow;
+  margin: 0;
+}

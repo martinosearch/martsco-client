@@ -1,0 +1,44 @@
+<br>
+<div>
+  <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" fxLayoutAlign="space-around center" class="content">
+    <div class="blocks">
+      <button mat-raised-button color="primary">
+        <mat-icon>edit</mat-icon><span>Ajouter du forfait</span>
+      </button>
+    </div>
+  </div>
+  <br>
+  <div>
+    <div fxLayout="row" fxLayoutAlign="center" class="content">
+      <mat-card class="card">
+        <mat-card-title fxLayout.gt-xs="row" fxLayout.xs="column">
+          <h3>Etat du forfait d'utilisation</h3>
+        </mat-card-title>
+        <mat-card-content>
+          <div class="mat-elevation-z8 example-container">
+            <div class="columns">
+              <div class="info-forfait">
+                <div class="title">Serial: </div>
+                <div>{{serial|async}}</div>
+                <div class="title">Forfait actuel: </div>
+                <div>{{currentForfait.code}}</div>
+                <div class="title">Date d'activation: </div>
+                <div>{{currentForfait.activationDate|date:"medium"}}</div>
+                <div class="title">Montant initial: </div>
+                <div>{{currentForfait.initialAmount|number:"1.2-2"|devise}}</div>
+                <div class="title">Montant restant: </div>
+                <div>{{currentForfait.remainAmount|number:"1.2-2"|devise}}</div>
+                <div class="title">Estimation de la date d'épuisement: </div>
+                <div>{{currentForfait.expirationDate|date:"medium"}}</div>
+                <div class="title">Coût par minute: </div>
+                <div>{{currentForfait.costMinute|number:"1.2-2"|devise}}</div>
+              </div>
+              <div class="graph-conso" [chart]="chart">
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,47 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.top-actions-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 10px;
+}
+
+mat-accordion {
+  width: 80%;
+}
+
+mat-panel-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: rgb(62, 62, 211);
+  width: 50%;
+}
+
+mat-panel-description {
+  text-align: start;
+  width: 50%;
+}
+
+.connexion-params-form {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  height: 100px;
+}
+
+.element {
+  width: 40%;
+}
+
+input {
+  font-size: 16px;
+}

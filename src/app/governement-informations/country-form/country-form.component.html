@@ -1,0 +1,32 @@
+<h3 mat-dialog-title>{{data.titre}}</h3>
+<form (ngSubmit)="onSubmit()">
+  <div class="two-column" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+    <div class="example-form">
+      <mat-form-field class="element">
+        <input matInput placeholder="Désignation" type="text" required [(ngModel)]="model.designation"
+          name="designation">
+      </mat-form-field>
+      <mat-form-field class="element">
+        <input matInput placeholder="Devise" type="text" required [(ngModel)]="model.devise" name="devise">
+      </mat-form-field>
+    </div>
+
+    <div class="image_container">
+      <div class="image">
+        <div class="image_title">Drapeau</div>
+        <img [src]="flagURL | safeHtml" alt="image" class="image_entete" />
+        <div class="image_name mdi mdi-pencil mdi-24px" (click)="onChooseFlag()"></div>
+      </div>
+
+      <div class="image">
+        <div class="image_title">Armoirie</div>
+        <img [src]="armoirieURL | safeHtml" alt="image" class="image_fond" />
+        <div class="image_name mdi mdi-pencil mdi-24px" (click)="onChooseArmoirie()"></div>
+      </div>
+    </div>
+  </div>
+  <div class="action-container">
+    <span><button mat-raised-button color="primary" type="submit7">Valider</button></span>
+    <span><button mat-raised-button color="warn" (click)="onNoClick()" type="button">Annuler</button></span>
+  </div>
+</form>

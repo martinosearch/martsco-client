@@ -1,0 +1,75 @@
+<mat-accordion>
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+    <mat-expansion-panel-header class="item">
+      Données de base
+    </mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toCountryList()">Pays</div>
+    <div mat-menu-item class="sub-item" (click)="toMinistaryList()">Ministère</div>
+    <div mat-menu-item class="sub-item" (click)="toExamNationalList()">Examens nationaux</div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+    <mat-expansion-panel-header class="item">Découpage</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toDecoupages()">Découpages</div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+    <mat-expansion-panel-header class="item">
+      Etablissements
+    </mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toEstablishmentTypeList()">Types d'établissements</div>
+    <div mat-menu-item class="sub-item" (click)="toEstablishmentList()">Établissements</div>
+    <div mat-menu-item class="sub-item" (click)="toCycleList()">Cycle</div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu">
+    <mat-expansion-panel-header class="item">
+      Niveaux d'enseignement
+    </mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toAcademicStandartList()">Niveaux d'enseignement
+    </div>
+    <div mat-menu-item class="sub-item" (click)="toSchoolClassList()">Classes
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu">
+    <mat-expansion-panel-header class="item">Inscriptions</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toStudentList() ">Élèves</div>
+    <div mat-menu-item class="sub-item" (click)="toEmployeeList()">Agents</div>
+    <div mat-menu-item class="sub-item" (click)="toParentsList()">Parents d'élèves</div>
+    <div mat-menu-item class="sub-item" (click)="toStudentRepartition()">Répartion des anciens (Moy. de passage)</div>
+    <div mat-menu-item class="sub-item" (click)="toStudentRepartitionManuelle()">Redistribution des élèves en classes
+    </div>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu">
+    <mat-expansion-panel-header class="item">Matières</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toSubjectTypeList()">Types de Matières</div>
+    <div mat-menu-item class="sub-item" (click)="toSubjectList()">Matières</div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu">
+    <mat-expansion-panel-header class="item">
+      Liste de classe (Imprimable)
+    </mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="onListClassPdf(1)">Liste nominative</div>
+    <div mat-menu-item class="sub-item" (click)="onListClassPdf(2)">Liste de présence</div>
+    <div mat-menu-item class="sub-item" (click)="onListClassPdf(3)">Fiche de notes (4 notes)</div>
+    <div mat-menu-item class="sub-item" (click)="onListClassPdf(4)">Fiche de notes (10 notes)</div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu">
+    <mat-expansion-panel-header class="item">
+      Carte d'identité
+    </mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="onStudentCard()">Carte d'identité (Elèves)</div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu">
+    <mat-expansion-panel-header class="item">
+      Formulaires
+    </mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="onFormulaireImportList()">Fichier excel (Import élèves)</div>
+  </mat-expansion-panel>
+</mat-accordion>

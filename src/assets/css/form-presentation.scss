@@ -1,0 +1,106 @@
+.example-form {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 100%;
+    width: 100%;
+}
+
+.example-form-with-tabgroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    height: 85%;
+    width: 100%;
+}
+
+.main-card {
+    width: 90%;
+    height: 85%;
+}
+
+.action-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.action-container button {
+    width: 20%;
+    margin: 2px;
+}
+
+.element {
+    width: 98%;
+}
+
+mat-tab-group {
+    width: 100%;
+    height: 100%;
+}
+
+.table-container {
+    height: 80%;
+    max-height: 80%;
+    width: 100%;
+    overflow: auto;
+    //padding: 2px;
+}
+
+.two-columns {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(86, 214, 231);
+    padding-left: 5px;
+    padding-right: 5px;
+    overflow: hidden;
+}
+
+.first-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 45%;
+    //background-color: blue;
+}
+
+.second-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 45%;
+}
+
+.movement-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 4%;
+    //background-color: blue;
+}
+
+.movement-button-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 150px;
+    justify-content: space-between;
+    align-items: center;
+    //background-color: blue;
+}
+
+.movement-button {
+    width: 80%;
+    height: 30px
+}

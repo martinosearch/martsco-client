@@ -1,0 +1,32 @@
+@import "../../../assets/css/page-presentation-2-details.scss";
+@import "../../../assets/css/mat-table.scss";
+// **************************************************
+.card-identity {
+    width: 35%;
+}
+
+.card-payment {
+    width: 55%;
+}
+
+.card-title-identity {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 20px;
+}
+
+.card-title-choosed-invoice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: 20px;
+}
+
+.inscritNumber {
+    font-weight: bold;
+    font-size: 14pt;
+    text-align: center;
+    color: blue;
+    margin-left: 10px;
+}

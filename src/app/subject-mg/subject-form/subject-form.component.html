@@ -1,0 +1,28 @@
+<h3 mat-dialog-title>{{data.titre}}</h3>
+<div mat-dialog-content>
+    <form (ngSubmit)="onSubmit()">
+        <div class="example-form">
+            <mat-form-field class="element">
+                <input matInput placeholder="Désignation" type="text" required [(ngModel)]="model.designation"
+                    name="designation">
+            </mat-form-field>
+
+            <mat-form-field class="element">
+                <input matInput placeholder="Diminutif" type="text" required [(ngModel)]="model.dim" name="dim">
+            </mat-form-field>
+
+            <mat-form-field class="element">
+                <mat-select matInput placeholder="Type" required [(ngModel)]="subjectTypeId" name="subjectTypeId">
+                    <mat-option *ngFor="let type of types|async" [value]="type.id">
+                        {{type.designation}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+    <div class="action-container">
+        <span><button mat-raised-button color="primary" (click)="onSubmit()">Valider</button></span>
+        <span><button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button></span>
+    </div>
+
+</div>

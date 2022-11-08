@@ -1,0 +1,110 @@
+<div class="container">
+  <h3 mat-dialog-title>{{ data.titre }}</h3>
+  <div class="parameters">
+    <section class="references">
+      <table>
+        <tr>
+          <td>Année-scolaire:</td>
+          <td>
+            {{ chooserModel.year !== undefined ? chooserModel.year.designation : "" }}
+          </td>
+        </tr>
+        <tr>
+          <td>Période:</td>
+          <td>
+            {{ chooserModel.decoupage !== undefined ? chooserModel.decoupage.designation : "" }}
+          </td>
+        </tr>
+        <tr>
+          <td>Classe:</td>
+          <td>
+            {{ chooserModel.schoolClass !== undefined ? chooserModel.schoolClass.designation : "" }}
+          </td>
+        </tr>
+        <tr>
+          <td>Matière:</td>
+          <td>
+            {{ chooserModel.subject !== undefined ? chooserModel.subject.designation : "" }}
+          </td>
+        </tr>
+        <tr>
+          <td>Enseignant:</td>
+          <td>{{ chargeName }}</td>
+        </tr>
+      </table>
+    </section>
+
+    <section class="type-note" *ngIf="currentStudent && !express">
+      <mat-checkbox class="example-margin" [(ngModel)]="showNote1" *ngIf="eval1">{{ eval1.type.designation }}:
+        {{ eval1.designation }}
+      </mat-checkbox>
+      <mat-checkbox class="example-margin" [(ngModel)]="showNote2" *ngIf="eval2">{{ eval2.type.designation }}:
+        {{ eval2.designation }}
+      </mat-checkbox>
+      <mat-checkbox class="example-margin" [(ngModel)]="showNote3" *ngIf="eval3">{{ eval3.type.designation }}:
+        {{ eval3.designation }}
+      </mat-checkbox>
+      <mat-checkbox class="example-margin" [(ngModel)]="showNote4" *ngIf="eval4">{{ eval4.type.designation }}:
+        {{ eval4.designation }}
+      </mat-checkbox>
+    </section>
+    <section class="type-note-express" *ngIf="currentStudent && express">
+      <mat-radio-group [(ngModel)]="evaluationId" (ngModelChange)="onEvaluationChange()">
+        <mat-radio-button [value]="item.id" *ngFor="let item of evaluations">{{item.designation}}</mat-radio-button>
+      </mat-radio-group>
+    </section>
+  </div>
+
+  <mat-progress-bar mode="indeterminate" *ngIf="!currentStudent" color="primary"></mat-progress-bar>
+
+  <section class="student-name" *ngIf="currentStudent">
+    <div>
+      {{ currentStudent.identity !== undefined ? currentStudent.identity.lastName + " " + currentStudent.identity.firstName : "" }}
+    </div>
+    <div>{{ studentIndex + 1 }} / {{ total }}</div>
+  </section>
+
+  <div mat-dialog-content>
+    <div class="center" *ngIf="currentStudent">
+      <form (ngSubmit)="onSubmit()" [formGroup]="markForm" class="example-form">
+        <div class="fields-container">
+          <mat-form-field class="element" *ngIf="showNote1">
+            <input matInput placeholder="Note 1" type="number" formControlName="note1" lang="fr" #firstNote />
+          </mat-form-field>
+
+          <mat-form-field class="element" *ngIf="showNote2">
+            <input matInput placeholder="Note 2" type="number" formControlName="note2" lang="fr" #secondNote />
+          </mat-form-field>
+
+          <mat-form-field class="element" *ngIf="showNote3">
+            <input matInput placeholder="Devoir" type="number" formControlName="note3" lang="fr" #thirdNote />
+          </mat-form-field>
+
+          <mat-form-field class="element" *ngIf="showNote4">
+            <input matInput placeholder="Compo" type="number" formControlName="note4" lang="fr" #fourthNote />
+          </mat-form-field>
+        </div>
+
+        <div class="action-container">
+          <button mat-raised-button color="primary" [disabled]="markForm.invalid" type="submit">
+            Valider
+          </button>
+          <button mat-raised-button color="warn" type="button" (click)="onNoClick()">
+            Quitter
+          </button>
+        </div>
+      </form>
+
+      <div class="movment-button-container">
+        <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-right mdi-24px"
+          [disabled]="isLast" (click)="toLast()"></button>
+        <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-right mdi-24px"
+          [disabled]="isLast" (click)="next()"></button>
+        <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-left mdi-24px"
+          [disabled]="isFirst" (click)="previous()"></button>
+        <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-left mdi-24px"
+          [disabled]="isFirst" (click)="toFirst()"></button>
+      </div>
+    </div>
+  </div>
+</div>

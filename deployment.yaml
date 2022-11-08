@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: martsco-client
+spec:
+  selector:
+    matchLabels:
+      app: martsco-client
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: martsco-client
+    spec:
+      containers:
+        - name: martsco-client
+          imagePullPolicy: Always
+          image: martinosearch/martsco-client
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: martsco-client
+spec:
+  type: LoadBalancer
+  selector:
+    app: martsco-client
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+      nodePort: 30180

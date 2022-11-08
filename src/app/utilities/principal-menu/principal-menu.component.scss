@@ -1,0 +1,50 @@
+.main {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: 0;
+    height: 45px;
+    //min-height: 7vh;
+    //background-color: rgb(12, 73, 12);
+    background-color: rgb(2, 2, 2);
+}
+
+.menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    color: gold;
+    cursor: pointer;
+    // width           : 100px;
+    font-size: 14px;
+    margin: 0;
+    margin-right: 8px;
+    // background-color   : blue;
+}
+
+.menu:hover {
+    background-color: rgb(230, 191, 191);
+    color: rgb(36, 43, 151);
+}
+
+.active {
+    //background-color: rgb(212, 131, 131);
+    color: rgb(204, 207, 252);
+}
+
+.app-page {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: beige;
+    cursor: pointer;
+    width: 24.5%;
+    font-size: 18px;
+    margin: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 5px;
+    background: rgba(255, 0, 0, 0.5);
+}

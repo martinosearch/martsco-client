@@ -1,0 +1,83 @@
+<br>
+<div>
+  <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" fxLayoutAlign="space-around center" class="content">
+    <div class="blocks">
+      <button mat-raised-button color="primary" (click)="onCreate()">
+        <mat-icon>add</mat-icon><span>Ajouter un motif</span>
+      </button>
+    </div>
+  </div>
+  <br>
+  <div>
+    <div fxLayout="row" fxLayoutAlign="center" class="content">
+      <mat-card class="card">
+        <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" fxLayout.gt-xs="row" fxLayout.xs="column">
+          <h3>Liste des motifs de réduction</h3>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="mdi mdi-human-handsdown mdi-36px"></div>
+              <mat-card-title>Motifs</mat-card-title>
+              <mat-card-subtitle>{{(filteredList|async).length}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </mat-card-title>
+        <mat-card-content>
+          <div class="search-field-container">
+            <mat-form-field class="search-field">
+              <input matInput [formControl]="filterControl" class="search-input" type="text" placeholder="Filtrer"
+                aria-label="Number">
+              <mat-icon matPrefix class="mdi mdi-filter"></mat-icon>
+            </mat-form-field>
+          </div>
+          <div class="mat-elevation-z8 example-container">
+            <table mat-table [dataSource]="filteredList |async" multiTemplateDataRows>
+              <ng-container matColumnDef="num">
+                <th mat-header-cell *matHeaderCellDef> N° ord. </th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex;"> {{i+1}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="designation">
+                <th mat-header-cell *matHeaderCellDef> Désignation </th>
+                <td mat-cell *matCellDef="let element"> {{element.designation}}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="modify">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                  <a class="mdi mdi-pencil mdi-24px" (click)="onModify(element)">
+                  </a>
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="suppr">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element">
+                  <a (click)="onDelete(element)" type="button">
+                    <mat-icon class="icon">delete</mat-icon>
+                  </a>
+                </td>
+              </ng-container>
+
+              <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+              <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                  <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
+              <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
+              </tr>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

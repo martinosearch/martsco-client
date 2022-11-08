@@ -1,0 +1,36 @@
+<h3 mat-dialog-title>{{data.titre}}</h3>
+<div mat-dialog-content>
+    <form (ngSubmit)="onSubmit()" class="example-form" novalidate>
+        <!--year choosing -->
+        <mat-form-field class="element" *ngIf="isExamChooser">
+            <mat-select matInput placeholder="Examen" required [(ngModel)]="currentExamId" name="exam" (ngModelChange)="setSubjectList()">
+                <mat-option *ngFor="let item of exams" [value]="item.id">
+                    {{item.designation}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!--establishment choosing -->
+        <mat-form-field class="element" *ngIf="isEstablishmentChooser">
+            <mat-select matInput placeholder="Establishment" required [(ngModel)]="currentEstablishmentId" name="establishment">
+                <mat-option *ngFor="let item of establishments" [value]="item.id">
+                    {{item.designation}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <!--subject choosing -->
+        <mat-form-field class="element" *ngIf="isSubjectChooser">
+            <mat-select matInput placeholder="Matière" required [(ngModel)]="currentSubjectId" name="subject">
+                <mat-option *ngFor="let item of subjects" [value]="item.id">
+                    {{item.designation}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div class="action-container">
+            <button mat-raised-button color="primary" type="submit">Valider</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" type="button">Annuler</button>
+        </div>
+    </form>
+</div>

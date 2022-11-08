@@ -1,0 +1,121 @@
+<div class="title">
+  <button mat-fab color="primary" class="mdi mdi-arrow-left-thick mdi-24px button-exit" (click)="onExit()"></button>
+  <h3 mat-dialog-title> {{data.titre}}</h3>
+</div>
+
+<div mat-dialog-content>
+  <mat-progress-bar mode="determinate" [value]="progressPer" *ngIf="isRunning" color=primary>
+  </mat-progress-bar>
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="example-form">
+      <div class="evaluations">
+        <div class="term">
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Note 1" required [(ngModel)]="evaluation11Id" name="eval11">
+              <mat-option *ngFor="let item of evaluations1" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Note 2" required [(ngModel)]="evaluation12Id" name="eval12">
+              <mat-option *ngFor="let item of evaluations1" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Devoir" required [(ngModel)]="evaluation13Id" name="eval13">
+              <mat-option *ngFor="let item of evaluations1" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Compo" required [(ngModel)]="evaluation14Id" name="eval14">
+              <mat-option *ngFor="let item of evaluations1" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div class="term">
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Note 1" required [(ngModel)]="evaluation21Id" name="eval21">
+              <mat-option *ngFor="let item of evaluations2" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Note 2" required [(ngModel)]="evaluation22Id" name="eval22">
+              <mat-option *ngFor="let item of evaluations2" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Devoir" required [(ngModel)]="evaluation23Id" name="eval23">
+              <mat-option *ngFor="let item of evaluations2" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Compo" required [(ngModel)]="evaluation24Id" name="eval24">
+              <mat-option *ngFor="let item of evaluations2" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+        <div class="term">
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Note 1" required [(ngModel)]="evaluation31Id" name="eval31">
+              <mat-option *ngFor="let item of evaluations3" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Note 2" required [(ngModel)]="evaluation32Id" name="eval32">
+              <mat-option *ngFor="let item of evaluations3" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Devoir" required [(ngModel)]="evaluation33Id" name="eval33">
+              <mat-option *ngFor="let item of evaluations3" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Compo" required [(ngModel)]="evaluation34Id" name="eval34">
+              <mat-option *ngFor="let item of evaluations3" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="action-container">
+    <button mat-raised-button color="primary" (click)="onSubmit()">Valider</button>
+  </div>
+</div>

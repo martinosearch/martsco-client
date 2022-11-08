@@ -1,0 +1,126 @@
+mat-card-content {
+    display        : flex;
+    flex-direction : column;
+    justify-content: flex-start;
+    align-items    : center;
+    max-height     : 100%;
+    max-width      : 100%;
+    width          : 100%;
+}
+
+mat-card-title {
+    display        : flex;
+    flex-direction : column;
+    justify-content: center;
+    align-items    : center;
+}
+
+.title-section {
+    font-size       : 24px;
+    font-weight     : bold;
+    width           : 100%;
+    background-color: rgb(235, 235, 184);
+}
+
+.search-field-container {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    width          : 100%;
+    font-size      : 14px;
+    margin-top     : 10px;
+}
+
+.search-field {
+    width: 50%;
+}
+
+.child-main {
+    display           : flex;
+    flex-direction    : column;
+    align-items       : center;
+    width             : 100%;
+    height            : 100%;
+    //background-color: green;
+}
+
+.blocks {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    align-items    : center;
+    width          : 80%;
+    margin-top     : 10px;
+    margin-bottom  : 10px;
+}
+
+.blocks>* {
+    width: 25%;
+}
+
+.card {
+    min-width : 80%;
+    max-width : 80%;
+    min-height: 75%;
+    max-height: 75%;
+}
+
+.sta-card {
+    max-height: 30px;
+}
+
+.sta-container {
+    display            : flex;
+    flex-direction     : row;
+    justify-content    : space-between;
+    //  max-height     : 20%;
+    min-width          : 100%;
+}
+
+.table-container {
+    display       : flex;
+    flex-direction: column;
+    max-height    : 65%;
+    min-width     : 100%;
+    max-width     : 100%;
+    overflow      : auto;
+}
+
+table {
+    width: 100%;
+}
+
+th {
+    font-weight: bold;
+    font-size  : 16px;
+}
+
+
+tr.example-detail-row {
+    height          : 0;
+    background-color: rgb(212, 203, 150);
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: #a4b5e4;
+}
+
+tr.example-expanded-row {
+    background: #f39e2f;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    display        : flex;
+    flex-direction : row;
+    width          : 100%;
+    justify-content: space-between;
+    overflow       : hidden;
+}
+
+.example-element-detail>* {
+    width: 50%;
+}

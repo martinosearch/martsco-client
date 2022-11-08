@@ -1,0 +1,66 @@
+.item {
+    height: 20px;
+}
+
+.item-single {
+    display         : flex;
+    flex-direction  : column;
+    justify-content : center;
+    padding-left    : 5px;
+    border-radius   : 0;
+    height          : 15px;
+    background-color: rgb(59, 56, 219);
+}
+
+.item-single:hover {
+    background-color: green;
+    color           : beige;
+}
+
+.item-single:active {
+    background-color: rgb(247, 161, 122);
+    color           : beige;
+}
+
+.item:hover {
+    background-color: rgb(59, 56, 219);
+    color           : beige;
+}
+
+.item:active {
+    background-color: rgb(247, 161, 122);
+    color           : beige;
+}
+
+.sub-item {
+    background-color: rgb(206, 206, 193);
+    background-color: rgb(59, 56, 219);
+}
+
+.side-menu:hover {
+    background-color: rgb(136, 240, 179);
+    color           : beige;
+}
+
+mat-sidenav {
+    width: 23%;
+}
+
+mat-expansion-panel {
+    margin          : 0;
+    background-color: rgb(59, 56, 219);
+    color           : beige;
+}
+
+mat-expansion-panel-header {
+    padding-left    : 5px;
+    padding-top     : 0;
+    padding-bottom  : 0;
+    background-color: rgb(59, 56, 219);
+}
+
+mat-accordion {
+    display         : flex;
+    flex-direction  : column;
+    background-color: rgb(212, 224, 212);
+}

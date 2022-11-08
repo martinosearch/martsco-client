@@ -1,0 +1,21 @@
+<div class="progress-main">
+    <div class="progres-with-message" *ngFor="let action of actionService.actions">
+        <div class="progress-message"> Code action: {{ action.progressId }}</div>
+
+        <div class="progress-container">
+            <mat-progress-spinner [mode]="action.mode" [diameter]="70" [strokeWidth]="7" *ngIf="!action.progressDeterminate" color="primary" (dblclick)="actionService.eventEmitDoubleClick($event)" (click)="actionService.setCurrentProgress(action)">
+            </mat-progress-spinner>
+            <div class="label-spinner" *ngIf="!action.progressDeterminate" (dblclick)="actionService.eventEmitDoubleClick($event)" (click)="actionService.setCurrentProgress(action)">
+
+            </div>
+
+            <mat-progress-spinner [mode]="action.mode" [diameter]="70" [strokeWidth]="7" [value]="action.progressValue" *ngIf="action.progressDeterminate" color="primary" (dblclick)="actionService.eventEmitDoubleClick($event)" (click)="actionService.setCurrentProgress(action)">
+            </mat-progress-spinner>
+            <div class="label-spinner" *ngIf="action.progressDeterminate" (dblclick)="actionService.eventEmitDoubleClick($event)" (click)="actionService.setCurrentProgress(action)">
+                {{ action.progressValue }} %
+            </div>
+        </div>
+
+        <div class="progress-message">{{ action.progressMessage }}</div>
+    </div>
+</div>

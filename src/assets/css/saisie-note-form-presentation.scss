@@ -1,0 +1,96 @@
+.action-container {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.action-container button {
+  width: 49%;
+  margin: 2px;
+}
+
+.element {
+  width: 95%;
+  height: 35px;
+  margin: 10px;
+  border-radius: 10px;
+}
+
+.example-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 300px;
+  width: 80%;
+  background-color: rgb(201, 237, 247);
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 250px;
+  width: 100%;
+}
+
+.parameters {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.type-note {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start
+}
+
+.type-note-express {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 50%;
+  overflow: auto;
+}
+
+.type-note-express>* {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
+  border-width: 1px;
+  border-style: dotted;
+}
+
+.center {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+  background-color: rgb(155, 206, 139);
+  padding: 10px;
+  width: 96%;
+}
+
+.movment-button-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 20%;
+  background-color: rgb(253, 253, 165);
+}
+
+.student-name {
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(69, 69, 189);
+  background-color: rgb(253, 253, 165);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}

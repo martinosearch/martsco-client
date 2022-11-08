@@ -1,0 +1,200 @@
+.container {
+    display           : flex;
+    flex-direction    : column;
+    justify-content   : flex-start;
+    align-items       : center;
+    height            : 550px;
+    overflow          : hidden;
+    //background-color: yellow;
+}
+
+.card {
+    display        : flex;
+    flex-direction : column;
+    justify-content: flex-start;
+    width          : 95%;
+    margin         : 1px;
+    height         : 520px;
+}
+
+mat-card-title {
+    display       : flex;
+    flex-direction: row;
+    font-size     : 14px;
+}
+
+.example-container {
+    display           : flex;
+    flex-direction    : column;
+    height            : 325px;
+    min-width         : 100%;
+    overflow          : auto;
+    //background-color: green;
+}
+
+.selected-list-container {
+    display           : flex;
+    flex-direction    : column;
+    height            : 270px;
+    min-width         : 100%;
+    overflow          : auto;
+    //background-color: green;
+}
+
+.example-form {
+    display             : flex;
+    flex-direction      : row;
+    justify-content     : space-between;
+    //height            : 250px;
+    min-width           : 100%;
+    overflow            : auto;
+    margin-top          : 10px;
+    //background-color  : green;
+}
+
+.element {
+    width: 30%;
+}
+
+.blocks {
+    display          : flex;
+    flex-direction   : row;
+    justify-content  : center;
+    align-items      : center;
+    width            : 100%;
+    //background     : blue;
+}
+
+.button-group {
+    display          : flex;
+    flex-direction   : row;
+    justify-content  : center;
+    align-items      : center;
+    width            : 100%;
+    margin-top       : 5px;
+    //background     : blue;
+}
+
+.two-columns {
+    display         : flex;
+    flex-direction  : row;
+    justify-content : space-around;
+    height          : 500px;
+    width           : 100%;
+    background-color: green;
+    padding-left    : 5px;
+    padding-right   : 5px;
+}
+
+.first-column {
+    display         : flex;
+    flex-direction  : column;
+    width           : 49%;
+    justify-content : center;
+    align-items     : center;
+    background-color: blue;
+}
+
+.second-column {
+    display        : flex;
+    flex-direction : column;
+    width          : 49%;
+    justify-content: center;
+    align-items    : center;
+}
+
+table {
+    width: 100%;
+}
+
+a {
+    cursor: pointer;
+}
+
+td.mat-column-pu {
+    min-width    : 15%;
+    padding-right: 8px;
+}
+
+th {
+    font-weight: bold;
+    font-size  : 16px;
+}
+
+.example-card {
+    width     : 32%;
+    max-height: 40px;
+}
+
+.example-header-image {
+    background-image: url("/assets/images/img_analyse.jpg");
+    background-size : cover;
+}
+
+.search-field-container {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    width          : 100%;
+}
+
+.search-field {
+    width: 50%;
+}
+
+tr.example-detail-row {
+    height          : 0;
+    background-color: rgb(212, 203, 150);
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+    background: #a4b5e4;
+}
+
+tr.example-expanded-row {
+    background: #a4b5e4;
+}
+
+.example-element-row td {
+    border-bottom-width: 0;
+}
+
+.example-element-detail {
+    display        : flex;
+    flex-direction : row;
+    width          : 100%;
+    justify-content: space-between;
+    overflow       : hidden;
+}
+
+.example-element-detail>* {
+    width: 50%;
+}
+
+.content {
+    display        : flex;
+    flex-direction : row;
+    justify-content: center;
+    width          : 100%;
+}
+
+
+.title {
+    text-align    : center;
+    vertical-align: center;
+    font-size     : 30px;
+    font-weight   : bold;
+    color         : rgb(97, 142, 241);
+    height        : 30px;
+}
+
+.progress {
+    display        : flex;
+    flex-direction : row;
+    justify-content: center;
+    width          : 100%;
+}
+
+mat-progress-bar {
+    width: 100%;
+}

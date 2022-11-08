@@ -1,0 +1,20 @@
+.example-form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.action-container {
+    width: 100%;
+}
+
+.action-container button {
+    width: 49%;
+    margin: 2px;
+}
+
+.element {
+    width: 40%;
+}

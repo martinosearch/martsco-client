@@ -1,0 +1,54 @@
+<br>
+<div>
+    <div fxLayout="column" fxLayoutGap="20px" fxLayout.gt-md="row" fxLayoutAlign="space-around center" class="content">
+        <div class="blocks">
+
+        </div>
+    </div>
+    <br>
+    <div>
+        <div fxLayout="row" fxLayoutAlign="center" class="content">
+            <mat-card class="card">
+                <mat-card-title fxLayout="row" fxLayoutAlign="space-between center" fxLayout.gt-xs="row"
+                    fxLayout.xs="column">
+                    <h3>Journal des évènements</h3>
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <div mat-card-avatar class="mdi mdi-human-handsdown mdi-36px"></div>
+                            <mat-card-title>Evenements</mat-card-title>
+                            <mat-card-subtitle>{{(liste|async).length}}</mat-card-subtitle>
+                        </mat-card-header>
+                    </mat-card>
+                </mat-card-title>
+                <mat-card-content>
+                    <div class="mat-elevation-z8 example-container">
+                        <table mat-table [dataSource]="liste |async">
+                            <ng-container matColumnDef="num">
+                                <th mat-header-cell *matHeaderCellDef> N° ord. </th>
+                                <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="user">
+                                <th mat-header-cell *matHeaderCellDef>Utilisateur</th>
+                                <td mat-cell *matCellDef="let element"> {{element.employee.login}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="describ">
+                                <th mat-header-cell *matHeaderCellDef>Description</th>
+                                <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="date">
+                                <th mat-header-cell *matHeaderCellDef>Date</th>
+                                <td mat-cell *matCellDef="let element"> {{element.date|date:'medium' }} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

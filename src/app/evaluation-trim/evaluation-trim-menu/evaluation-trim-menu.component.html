@@ -1,0 +1,128 @@
+<mat-accordion>
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+    <mat-expansion-panel-header class="item">Données de base</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toEvaluationTypeList()">
+      Types d'évaluations
+    </div>
+    <div mat-menu-item class="sub-item" (click)="toEvaluationList()">
+      Évaluations
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+    <mat-expansion-panel-header class="item">Notes</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="onSaisieNote(false)">
+      Saisie de notes (par matière)
+    </div>
+    <div mat-menu-item class="sub-item" (click)="toSaisieAllNotes()">
+      Saisie de notes (toutes les matière)
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div mat-menu-item class="sub-item" (click)="onSaisieNote(true)">
+      Saisie de notes (par évaluation)
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+    <mat-expansion-panel-header class="item">Résultats</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="onBulletinNotePdf(false)">
+      Bulletins de notes
+    </div>
+    <div mat-menu-item class="sub-item" (click)="onResultatGenPdf(false)">
+      Résultat général
+    </div>
+    <div mat-menu-item class="sub-item" (click)="onRapportSaisiePdf()">
+      Rapport de saisie
+    </div>
+    <div mat-menu-item class="sub-item" (click)="onResultatAnnuelPdf()">
+      Résultat annuel
+    </div>
+    <div mat-menu-item class="sub-item" (click)="onBulletinBilanPdf()">
+      Bulletins bilan
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div mat-menu-item class="sub-item" (click)="onResultatGenPdf(true)">
+      Résultat général (Évaluation)
+    </div>
+    <div mat-menu-item class="sub-item" (click)="onBulletinNotePdf(true)">
+      Relevé de notes (Évaluation)
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+    <mat-expansion-panel-header class="item">Statistiques mixte</mat-expansion-panel-header>
+
+    <div mat-menu-item class="sub-item" (click)="onStatMixteStandardPdf(false)">
+      Stat. des moy. générales (Par Niveau)
+    </div>
+
+    <div mat-menu-item class="sub-item" (click)="onStatMixteSchoolClassPdf(false)">
+      Stat. des moy. générales (Par classe)
+    </div>
+
+    <div mat-menu-item class="sub-item" (click)="onStatMixteMoyAnStandardPdf()">
+      Stat. des moy. annuelles (Par Niveau)
+    </div>
+
+    <div mat-menu-item class="sub-item" (click)="onStatMixteMoyAnSchoolClassPdf()">
+      Stat. des moy. annuelles (Par classe)
+    </div>
+
+    <mat-divider></mat-divider>
+
+    <div mat-menu-item class="sub-item" (click)="onStatMixteStandardPdf(true)">
+      Stat. des notes d'éval. (Par Niveau)
+    </div>
+
+    <div mat-menu-item class="sub-item" (click)="onStatMixteSchoolClassPdf(true)">
+      Stat. des notes d'éval. (Par classe)
+    </div>
+
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded" *ngIf="true">
+    <mat-expansion-panel-header class="item">Statistiques par genre</mat-expansion-panel-header>
+
+    <div mat-menu-item class="sub-item" (click)="onStatBySexStandardPdf(false)">
+      Stat. des moy. générales (Par niveau)
+    </div>
+
+    <div mat-menu-item class="sub-item" (click)="onStatBySexSchoolClassPdf(false)">
+      Stat. des moy. générales (Par classe)
+    </div>
+
+    <div mat-menu-item class="sub-item" (click)="onStatBySexMoyAnStandardPdf()">
+      Stat. des moy. annuelles (Par Niveau)
+    </div>
+
+    <div mat-menu-item class="sub-item" (click)="onStatBySexMoyAnSchoolClassPdf()">
+      Stat. des moy. annuelles (Par classe)
+    </div>
+
+    <mat-divider></mat-divider>
+    <div mat-menu-item class="sub-item" (click)="onStatBySexStandardPdf(true)">
+      Stat. des notes d'éval. (Par niveau)
+    </div>
+
+    <div mat-menu-item class="sub-item" (click)="onStatBySexSchoolClassPdf(true)">
+      Stat. des notes d'éval. (Par classe)
+    </div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+    <mat-expansion-panel-header class="item">Paramètres</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="onMatiereProg()">
+      Config. des matières au programme
+    </div>
+    <div mat-menu-item class="sub-item" (click)="onConfigCoef()">
+      Config. des coefficients
+    </div>
+    <div mat-menu-item class="sub-item" (click)="onConfigEvaluation()">
+      Config. des évaluations
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>

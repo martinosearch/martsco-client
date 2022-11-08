@@ -1,0 +1,11 @@
+docker build . -t martinosearch/martsco-client
+
+docker push martinosearch/martsco-client
+
+
+alias k=kubectl
+
+k delete -f deployment.yaml
+
+k apply -f deployment.yaml
+

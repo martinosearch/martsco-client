@@ -1,0 +1,57 @@
+<div class="container">
+    <h3 mat-dialog-title>{{ data.titre }}</h3>
+    <div class="parameters">
+        <section class="references">
+            <table>
+                <tr>
+                    <td>Examen:</td>
+                    <td>
+                        {{ currentExam !== undefined ? currentExam.designation : "" }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>Matière:</td>
+                    <td>
+                        {{ currentSubject !== undefined ? currentSubject.designation : "" }}
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </div>
+
+    <mat-progress-bar mode="indeterminate" *ngIf="!currentCandidate" color="primary"></mat-progress-bar>
+
+    <section class="student-name" *ngIf="currentCandidate">
+        <div class="num_table">
+            {{ currentCandidate.identity !== undefined ? currentCandidate.numTable : "" }}
+        </div>
+        <div>
+            {{ currentCandidate.identity !== undefined ? currentCandidate.identity.lastName + " " + currentCandidate.identity.firstName : "" }}
+        </div>
+        <div>{{ studentIndex + 1 }} / {{ total }}</div>
+    </section>
+
+    <div mat-dialog-content>
+        <div class="center" *ngIf="currentCandidate">
+            <form (ngSubmit)="onSubmit()" [formGroup]="markForm" class="example-form">
+                <div class="fields-container">
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Note 1" type="number" formControlName="note1" lang="fr" #firstNote />
+                    </mat-form-field>
+                </div>
+
+                <div class="action-container">
+                    <button mat-raised-button color="primary" [disabled]="markForm.invalid" type="submit"> Valider </button>
+                    <button mat-raised-button color="warn" type="button" (click)="onNoClick()"> Quitter </button>
+                </div>
+            </form>
+
+            <div class="movment-button-container">
+                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-right mdi-24px" [disabled]="isLast" (click)="toLast()"></button>
+                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-right mdi-24px" [disabled]="isLast" (click)="next()"></button>
+                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-left mdi-24px" [disabled]="isFirst" (click)="previous()"></button>
+                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-left mdi-24px" [disabled]="isFirst" (click)="toFirst()"></button>
+            </div>
+        </div>
+    </div>
+</div>

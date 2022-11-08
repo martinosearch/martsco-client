@@ -1,0 +1,33 @@
+<mat-accordion>
+    <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+        <mat-expansion-panel-header class="item">Données de base</mat-expansion-panel-header>
+        <div mat-menu-item class="sub-item" (click)="toListExam()">Liste des examens</div>
+        <div mat-menu-item class="sub-item" (click)="toListSubject()">Liste des matières</div>
+        <div mat-menu-item class="sub-item" (click)="toEstablishmentList()">Liste des établissements</div>
+        <div mat-menu-item class="sub-item" (click)="toCandidateList()">Liste des candidats</div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+        <mat-expansion-panel-header class="item">Gestion des notes</mat-expansion-panel-header>
+        <div mat-menu-item class="sub-item" (click)="toSaisieNotes()">Saisie de notes</div>
+        <div mat-menu-item class="sub-item" (click)="toRapportSaisie()">Rapport de saisie</div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+        <mat-expansion-panel-header class="item">Résultats</mat-expansion-panel-header>
+        <div mat-menu-item class="sub-item" (click)="toResultGen()">Résultat général</div>
+        <div mat-menu-item class="sub-item" (click)="toReleveNotes()">Relevés de notes</div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+        <mat-expansion-panel-header class="item">Statistiques</mat-expansion-panel-header>
+        <div mat-menu-item class="sub-item" (click)="toStatEstablishment()">Statistiques par Etablissement</div>
+        <div mat-menu-item class="sub-item" (click)="toStatAll()">Statistiques du Centre</div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+        <mat-expansion-panel-header class="item">Documents</mat-expansion-panel-header>
+        <div mat-menu-item class="sub-item" (click)="toResultGen()">Répartion par salles</div>
+        <div mat-menu-item class="sub-item" (click)="toReleveNotes()">Candidats par établissement</div>
+    </mat-expansion-panel>
+</mat-accordion>

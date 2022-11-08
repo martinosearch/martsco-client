@@ -1,0 +1,24 @@
+<h3 mat-dialog-title>{{data.titre}} <span class="identity" *ngIf="currentEmployee">({{currentEmployee!==undefined?
+        currentEmployee.identity.lastName
+        + " "+currentEmployee.identity.firstName:""}})</span></h3>
+
+<div mat-dialog-content>
+    <form class="example-form" (ngSubmit)="onSubmit()" autocomplete="off">
+        <mat-form-field class="element" *ngIf="employees.length>0" (ngModelChange)="userExists()">
+            <input textarea matInput placeholder="Identifiant" type="text" required [(ngModel)]="model.login" (ngModelChange)="userExists()" name="login">
+        </mat-form-field>
+
+        <mat-form-field class="element" *ngIf="loginExists">
+            <input matInput placeholder="mot de passe" [type]="hide?'password':'text'" required [(ngModel)]="model.password" name="password" #password>
+
+            <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide" type="button">
+        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+        </mat-form-field>
+
+        <div class="action-container">
+            <span><button mat-raised-button color="primary" (click)="onSubmit()" type="submit">Valider</button></span>
+            <span><button mat-raised-button color="warn" (click)="onNoClick()" type="button">Annuler</button></span>
+        </div>
+    </form>
+</div>

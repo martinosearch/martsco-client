@@ -1,0 +1,50 @@
+.column-container {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    width          : 100%
+}
+
+.example-form {
+    display       : flex;
+    flex-direction: column;
+    width         : 98%
+}
+
+.example-form>* {
+    width: 100%;
+}
+
+.action-container {
+    width: 100%;
+}
+
+.action-container button {
+    width : 49%;
+    margin: 2px;
+}
+
+.property-field {
+    display        : flex;
+    flex-direction : row;
+    align-items    : center;
+    flex-wrap      : wrap;
+    justify-content: space-around;
+}
+
+.text-field {
+    display        : flex;
+    flex-direction : row;
+    align-items    : center;
+    flex-wrap      : wrap;
+    justify-content: space-around;
+}
+
+.element {
+    width: 45%;
+}
+
+.text-field-element {
+    width     : 100%;
+    min-height: 100px;
+}

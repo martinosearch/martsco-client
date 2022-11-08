@@ -1,0 +1,125 @@
+<h3 mat-dialog-title>{{data.titre}}</h3>
+<div mat-dialog-content>
+    <form (ngSubmit)="onSubmit()" novalidate>
+        <mat-tab-group mat-align-tabs="end">
+            <mat-tab label="Désignation" *ngIf="!isSetting">
+                <div [ngStyle]="{'color': 'purple','height.px':viewHeight}">
+                    <div class="example-form">
+                        <mat-form-field class="element">
+                            <input matInput placeholder="Désignation" type="text" required
+                                [(ngModel)]="model.designation" name="designation">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Model des bulletins de notes" *ngIf="isSetting">
+                <div [ngStyle]="{'color': 'purple','height.px':viewHeight}">
+                    <mat-form-field class="element">
+                        <mat-select matInput placeholder="Model de bulletin" required [(ngModel)]="setting.bullModelId"
+                            name="bullModel">
+                            <mat-option *ngFor="let item of bullModels" [value]="item.id">
+                                {{item.designation}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="checkContainer">
+                        <mat-checkbox [(ngModel)]="setting.showDirectorName" name="chefName">Afficher le nom du Chef
+                            d'établissement.
+                        </mat-checkbox>
+                        <mat-checkbox [(ngModel)]="setting.showPrincipalName" name="principalName">Afficher le nom du
+                            Titulaire de classe.
+                        </mat-checkbox>
+                        <mat-checkbox [(ngModel)]="setting.showDateConseil" name="dateConseil">Afficher la date du
+                            conseil.
+                        </mat-checkbox>
+                        <mat-checkbox [(ngModel)]="setting.showDecisionConseil" name="decisionConseil">Afficher la
+                            décision du conseil.
+                        </mat-checkbox>
+                    </div>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Infos Générale" *ngIf="isSetting">
+                <div [ngStyle]="{'color': 'purple','height.px':viewHeight}">
+                    <mat-form-field class="element">
+                        <mat-select matInput placeholder="Type de découpage" required
+                            [(ngModel)]="currentDecoupageTypeId" name="decoupage_type" [disabled]="false"
+                            (ngModelChange)="refreshDecoupageList()">
+                            <mat-option *ngFor="let item of decoupageTypes" [value]="item.id">
+                                {{item.designation}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <div class="checkContainer">
+                        <mat-checkbox [(ngModel)]="setting.isClassExam" name="isClassExam">Est une classe d'examen
+                        </mat-checkbox>
+                    </div>
+                    <mat-form-field class="element">
+                        <mat-select matInput placeholder="Examen" required [(ngModel)]="currentDecoupageTypeId"
+                            name="decoupage_type" [disabled]="false" (ngModelChange)="refreshDecoupageList()">
+                            <mat-option *ngFor="let item of decoupageTypes" [value]="item.id">
+                                {{item.designation}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Calcul des moyennes" *ngIf="isSetting">
+                <div [ngStyle]="{'color': 'purple','height.px':viewHeight}">
+                    <mat-form-field class="element">
+                        <mat-select matInput placeholder="Calculer la moyenne annuelle à : " required
+                            [(ngModel)]="lastestDecoupageId" name="lastestDecoupage">
+                            <mat-option *ngFor="let item of decoupages" [value]="item.id">
+                                {{item.designation}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                    <div class="example-form">
+                        <mat-form-field>
+                            <input matInput placeholder="Moyenne de passage 1" type="text" required
+                                [(ngModel)]="setting.moyennePassage1" name="passage1">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Moyenne de passage 2" type="text" required
+                                [(ngModel)]="setting.moyennePassage2" name="passage2">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Moyenne de passage 3" type="text" required
+                                [(ngModel)]="setting.moyennePassage3" name="passage3">
+                        </mat-form-field>
+                        <mat-form-field>
+                            <input matInput placeholder="Moyenne de passage annuelle" type="text" required
+                                [(ngModel)]="setting.moyennePassageAn" name="passagAn">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Conseil de classe" *ngIf="isSetting">
+                <div [ngStyle]="{'color': 'purple','height.px':viewHeight}">
+                    <div class="example-form">
+                        <mat-form-field class="element">
+                            <input matInput type="date" placeholder="Date du conseil 1 (jj/mm/aaaa)"
+                                [(ngModel)]="setting.dateConseil1" name="dateConseil1" lang="fr-FR">
+                        </mat-form-field>
+                        <mat-form-field class="element">
+                            <input matInput type="date" placeholder="Date du conseil 2 (jj/mm/aaaa)"
+                                [(ngModel)]="setting.dateConseil2" name="dateConseil2" lang="fr-FR">
+                        </mat-form-field>
+                        <mat-form-field class="element">
+                            <input matInput type="date" placeholder="Date du conseil 3 (jj/mm/aaaa)"
+                                [(ngModel)]="setting.dateConseil3" name="dateConseil3" lang="fr-FR">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+        <div class="action-container">
+            <span><button mat-raised-button type="submit" color="primary">Valider</button></span>
+            <span><button mat-raised-button color="warn" (click)="onNoClick()">Quitter</button></span>
+        </div>
+    </form>
+</div>

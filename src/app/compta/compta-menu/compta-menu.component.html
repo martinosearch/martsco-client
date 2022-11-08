@@ -1,0 +1,24 @@
+<mat-accordion>
+    <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+        <mat-expansion-panel-header class="item">Frais</mat-expansion-panel-header>
+        <div mat-menu-item class="sub-item" (click)="toExpenseList()">Différents frais</div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+        <mat-expansion-panel-header class="item">Remises</mat-expansion-panel-header>
+        <div mat-menu-item class="sub-item" (click)="toReductionMotive()">Motifs de remise</div>
+        <div mat-menu-item class="sub-item" (click)="toReductionStudentList()">Élèves bénéfiaires</div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+        <mat-expansion-panel-header class="item">Caisse</mat-expansion-panel-header>
+        <div mat-menu-item class="sub-item" (click)="toCashRegisterForm(true)">Caisse - (Payement)</div>
+        <div mat-menu-item class="sub-item" (click)="toCashRegisterBalance()">État de la caisse</div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+        <mat-expansion-panel-header class="item">Bilan</mat-expansion-panel-header>
+        <div mat-menu-item class="sub-item" (click)="onPaymentStatementPerClass()">État par classe</div>
+        <div mat-menu-item class="sub-item" (click)="toCashRegisterForm(false)">État d'un élève</div>
+    </mat-expansion-panel>
+</mat-accordion>

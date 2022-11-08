@@ -1,0 +1,58 @@
+.card {
+    min-width: 80%;
+  }
+  
+  .example-container {
+    display: flex;
+    flex-direction: column;
+    max-height: 350px;
+    min-width: 100%;
+    overflow: auto;
+  }
+  
+  table {
+    width: 100%;
+  }
+  
+  a {
+    cursor: pointer;
+  }
+  
+  td.mat-column-pu {
+    min-width: 15%;
+    padding-right: 8px;
+  }
+  
+  th {
+    font-weight: bold;
+    font-size: 16px;
+  }
+  
+  .info-forfait{
+    padding: 2px;
+    width: 49%;
+  }
+
+  .graph-conso {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2px;
+    width: 49%;
+    height: 300px;
+    background-color: gray;
+  }
+
+  .columns {
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .title{
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 10px;
+  }

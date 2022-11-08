@@ -1,0 +1,32 @@
+.example-form {
+    display: flex;
+    flex-direction: column;
+    justify-items: center;
+    width: 100%;
+}
+
+.dialog-content {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.action-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.example-card {
+    width: 100%;
+}
+
+.action-container button {
+    margin: 2px;
+}
+
+.mdi {
+    color: red;
+}

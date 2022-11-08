@@ -1,0 +1,22 @@
+<h3 mat-dialog-title>{{data.titre}}</h3>
+<div mat-dialog-content>
+    <form (ngSubmit)="onSubmit()">
+        <div class="example-form">
+            <mat-form-field class="element">
+                <input matInput placeholder="Désignation" type="text" required [(ngModel)]="model.designation" name="designation">
+            </mat-form-field>
+            <mat-form-field class="element">
+                <input matInput placeholder="Ville" type="text" required [(ngModel)]="model.city" name="city">
+            </mat-form-field>
+            <mat-form-field class="element">
+                <input matInput placeholder="Téléphone" type="text" required [(ngModel)]="model.tel" name="tel">
+            </mat-form-field>
+        </div>
+
+
+        <div class="action-container">
+            <button mat-raised-button color="primary" type="submit">Valider</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" type="button">Annuler</button>
+        </div>
+    </form>
+</div>

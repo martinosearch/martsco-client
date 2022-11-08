@@ -1,0 +1,123 @@
+<h3 mat-dialog-title>{{ data.titre }}</h3>
+<div mat-dialog-content>
+    <mat-progress-bar mode="indeterminate" *ngIf="isRunning" color="primary"></mat-progress-bar>
+    <form class="example-form" (ngSubmit)="onSubmit()">
+        <mat-tab-group mat-align-tabs="end">
+            <mat-tab label="Identité">
+                <div class="property-field" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+                    <div class="element">
+                        <mat-checkbox [(ngModel)]="model.isThisAgency" name="isThisAgency">Est mon école</mat-checkbox>
+                    </div>
+                    <div class="element"></div>
+                    <div class="element"></div>
+
+                    <mat-form-field class="element">
+                        <mat-select matInput placeholder="Type d'école" required [(ngModel)]="typeId" name="type">
+                            <mat-option *ngFor="let item of types | async" [value]="item.id">
+                                {{ item.designation }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Nom" required [(ngModel)]="model.identity.name" name="name" />
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Devise de l'école" required [(ngModel)]="model.identity.devise" name="devise" />
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Quartier" [(ngModel)]="model.address.street" name="street" />
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Ville" [(ngModel)]="model.address.city" name="city" />
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Pays" [(ngModel)]="model.address.country" name="country" />
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Tél. 1" [(ngModel)]="model.address.tel1" name="tel1" />
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Tél. 2" [(ngModel)]="model.address.tel2" name="tel2" />
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="BP" [(ngModel)]="model.address.postalCode" name="postalCode" />
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Email" [(ngModel)]="model.address.email" name="email" />
+                    </mat-form-field>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Responsable" *ngIf="isSetting">
+                <div class="property-field" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+                    <mat-form-field class="element" *ngIf="isSetting">
+                        <mat-select matInput placeholder="Chef de l'école" [(ngModel)]="directorId" name="director">
+                            <mat-option *ngFor="let item of employees | async" [value]="item.id">
+                                {{ item.identity.lastName }} {{ item.identity.firstName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="element" *ngIf="isSetting">
+                        <mat-select matInput placeholder="Titre du Chef" [(ngModel)]="directorTitre" name="dirTitre">
+                            <mat-option *ngFor="let item of listDirectorTitre" [value]="item">
+                                {{ item }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Visibilité" *ngIf="isSetting">
+                <div class="image_container" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+                    <div class="image">
+                        <div class="image_title">Logo en-tête ( {{logoEnteteSize}} Ko)</div>
+                        <img [src]="imageURL | safeHtml" alt="image" class="image_entete" />
+                        <div class="image_name mdi mdi-pencil mdi-24px" (click)="onChooseLogoEntete()"></div>
+                    </div>
+
+                    <div class="image">
+                        <div class="image_title">Logo fond ( {{logoFondSize}} Ko)</div>
+                        <img [src]="imageFondURL | safeHtml" alt="image" class="image_fond" />
+                        <div class="image_name mdi mdi-pencil mdi-24px" (click)="onChooseLogoFond()"></div>
+                    </div>
+
+                    <div class="image">
+                        <div class="image_title">Cachet ( {{stampSize}} Ko)</div>
+                        <img [src]="stampURL | safeHtml" alt="image" class="image_entete" />
+                        <div class="image_name mdi mdi-pencil mdi-24px" (click)="onChooseStamp()"></div>
+                    </div>
+                </div>
+            </mat-tab>
+
+            <mat-tab label="Immatriculation" *ngIf="isSetting">
+                <div class="image_container" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Dernier num. matricule" [(ngModel)]="model.studentMatriculeIndex" type="number" name="student_matricule" />
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Dernier num. reçu" [(ngModel)]="model.receiptSerialIndex" type="number" name="receipt_serial" />
+                    </mat-form-field>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+    </form>
+    <div class=" action-container">
+        <span><button mat-raised-button color="primary" (click)="onSubmit()">
+        Valider
+      </button></span>
+        <span><button mat-raised-button color="warn" (click)="onNoClick()">
+        Quitter
+      </button></span>
+    </div>
+</div>

@@ -1,0 +1,169 @@
+<div class="blocks">
+  <h3 mat-dialog-title>{{data.titre}}</h3>
+  <div class="redoublement-container">
+    <div>
+      <mat-checkbox [(ngModel)]="isRedoublant" (ngModelChange)="onIsRedoublant()" name="redoublant">Redoublant
+      </mat-checkbox>
+    </div>
+    <div>
+      <mat-form-field class="schooling" *ngIf="isRedoublant">
+        <input textarea matInput class="shooling-value" placeholder="Scolarité" type="number" required
+          [(ngModel)]="schooling" name="schooling">
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div mat-dialog-content>
+  <form (ngSubmit)="onSubmit()" novalidate>
+    <mat-tab-group mat-align-tabs="end">
+      <mat-tab label="Élève">
+        <div class="example-form" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+          <mat-form-field class="element">
+            <input textarea matInput placeholder="Nom" type="text" required
+              [(ngModel)]="studentIdentityBean.identity.lastName" name="lastName">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Prenoms" required [(ngModel)]="studentIdentityBean.identity.firstName"
+              name="firstName">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Sexe" required [(ngModel)]="studentIdentityBean.identity.sex" name="sex">
+              <mat-option *ngFor="let item of constanceService.sexes" [value]="item.id">
+                {{item.intitule}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Age" [(ngModel)]="studentIdentityBean.identity.age"
+              (ngModelChange)="calculateBirthYear()" name="age">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput [matDatepicker]="picker1" placeholder="Date de naissance (jj/mm/aaaa)"
+              [(ngModel)]="studentIdentityBean.identity.birthday" (ngModelChange)="calculateAge()" name="birthday">
+            <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Lieu de naissance" [(ngModel)]="studentIdentityBean.identity.birthCity"
+              name="birthCity">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Préf. de naissance" [(ngModel)]="studentIdentityBean.identity.birthDepartment"
+              name="birthDepartment">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Pays de naissance" [(ngModel)]="studentIdentityBean.identity.birthCountry"
+              name="birthCountry">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Nationalité" [(ngModel)]="studentIdentityBean.identity.nationality"
+              name="nationality">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Classe actuelle" required [(ngModel)]="currentSchoolClassId"
+              name="school_class">
+              <mat-option *ngFor="let item of classes" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <mat-select matInput placeholder="Année-scolaire" required [(ngModel)]="currentYearId"
+              (ngModelChange)="onYearChange()" name="year">
+              <mat-option *ngFor="let item of years" [value]="item.id">
+                {{item.designation}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Tél. 1" [(ngModel)]="studentIdentityBean.address.tel1" name="tel1">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Tél. 2" [(ngModel)]="studentIdentityBean.address.tel2" name="tel2">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="email" [(ngModel)]="studentIdentityBean.address.email" name="email">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Quartier" [(ngModel)]="studentIdentityBean.address.street" name="street">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Ville" [(ngModel)]="studentIdentityBean.address.city" name="city">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Pays" [(ngModel)]="studentIdentityBean.address.country" name="country">
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput [matDatepicker]="picker2" placeholder="Date d'entrée (jj/mm/aaaa)"
+              [(ngModel)]="studentIdentityBean.inscriptionInfo.entryDate" name="entryDate">
+            <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput [matDatepicker]="picker3" placeholder="Date de sortie (jj/mm/aaaa)"
+              [(ngModel)]="studentIdentityBean.inscriptionInfo.leavingDate" name="leavingDate">
+            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+            <mat-datepicker #picker3></mat-datepicker>
+          </mat-form-field>
+
+          <mat-form-field class="element">
+            <input matInput placeholder="Numéro matricule" required
+              [(ngModel)]="studentIdentityBean.inscriptionInfo.numMatricule" name="numMatricule">
+          </mat-form-field>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Photos">
+        <div class="property-field" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+          <div class="image">
+            <div class="image_title">Passeport ( {{currentPassportSize}} Ko)
+            </div>
+            <img [src]="passportURL | safeHtml" alt="image" class="image_entete" />
+            <div class="image_name mdi mdi-pencil mdi-24px" (click)="onChoosePassport()"></div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Père">
+        <div class="property-field" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Mère">
+        <div class="property-field" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Tuteur">
+        <div class="property-field" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+
+    <div class="action-container">
+      <button mat-raised-button color="primary" type="submit">Valider</button>
+      <button mat-raised-button color="warn" (click)="onNoClick()" type="button">Annuler</button>
+    </div>
+  </form>
+</div>

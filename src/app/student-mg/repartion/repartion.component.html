@@ -1,0 +1,122 @@
+<div class="child-main">
+  <div class="title-section">Répartition des anciens élèves</div>
+
+  <div class="selector-container">
+    <div class="pan-depart">
+      <mat-form-field class="element">
+        <mat-select matInput placeholder="Année-scolaire écoulées" required [(ngModel)]="previousYearId"
+          name="previousYear" (ngModelChange)="previousYearChange()">
+          <mat-option *ngFor="let item of years" [value]="item.id">
+            {{ item.designation }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="element">
+        <mat-select matInput placeholder="La classe faite" (ngModelChange)="previousClassChange()"
+          [(ngModel)]="previousSchoolClassId" name="previousSchoolClass">
+          <mat-option *ngFor="let item of classes" [value]="item.id">
+            {{ item.designation }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-radio-group aria-labelledby="example-radio-group-label" class="example-radio-group" [(ngModel)]="listAdmis"
+        (ngModelChange)="typeListChange()">
+        <mat-radio-button class="example-radio-button" [value]="true">
+          Admis
+        </mat-radio-button>
+        <mat-radio-button class="example-radio-button" [value]="false">
+          Ajournés
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+
+    <div class="pan-actualiser">
+      <button mat-fab color="primary" (click)="refresh(listAdmis)"
+        [disabled]="notPreInitialised || actualized">Actualiser</button>
+
+      <mat-checkbox [(ngModel)]="sendAll" [disabled]="!actualized || !canChooseClass()" name="sendAll">Envoyer tout à un
+        instant
+      </mat-checkbox>
+      <pre>notPreInitialised: {{notPreInitialised}}</pre>
+      <pre>actualized: {{actualized}}</pre>
+
+    </div>
+
+    <div class="pan-arrivee">
+      <div class="label">Nouvelle année-scolaire: </div>
+      <div class="label">{{currentYear!==undefined?currentYear.designation:""}}</div>
+
+      <mat-form-field class="element">
+        <mat-select matInput placeholder="Niveau d'accueil" [(ngModel)]="currentStandardId"
+          (ngModelChange)="accueilChange()" name="nextStandard">
+          <mat-option *ngFor="let item of standards" [value]="item.id">
+            {{ item.designation }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class="pan-action" *ngIf="actualized">
+    <div class="non-repartis">
+      <div class="label">Élèves non repartis ({{filteredStudentList.length}})</div>
+      <div class="table-container">
+        <table mat-table [dataSource]="filteredStudentList">
+          <ng-container matColumnDef="num">
+            <th mat-header-cell *matHeaderCellDef> N° ord. </th>
+            <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="name">
+            <th mat-header-cell *matHeaderCellDef> Nom et Prénoms </th>
+            <td mat-cell *matCellDef="let element"> {{element.identity.lastName}} {{element.identity.firstName}}</td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+    </div>
+
+    <div class="infos-current-student">
+      <div class="label">
+        Élève courant
+      </div>
+
+      <div class="control-button-container">
+        <button mat-raised-button color="accent" (click)="previousStudent()"> &lt; Préc.</button>
+        <button mat-raised-button color="accent" (click)="nextStudent()">Suiv. &gt;</button>
+      </div>
+
+      <table width="100%" *ngIf="currentStudentIdBean!==undefined">
+        <tr>
+          <td>Nom:</td>
+          <td>{{currentStudentIdBean.identity.lastName}}</td>
+        </tr>
+        <tr>
+          <td>Prénoms:</td>
+          <td>{{currentStudentIdBean.identity.firstName}}</td>
+        </tr>
+        <tr>
+          <td>Sexe:</td>
+          <td>{{currentStudentIdBean.identity.sex|sex}}</td>
+        </tr>
+        <tr>
+          <td>Moyenne annuelle:</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>Rang annuelle:</td>
+          <td></td>
+        </tr>
+      </table>
+    </div>
+
+    <div class="action-button-container">
+      <button mat-fab color="primary" *ngFor="let item of filteredClasses" (click)="setClasse(item)"
+        [disabled]="!canChooseClass()" class="action-button">{{item.designation}}</button>
+    </div>
+  </div>
+</div>

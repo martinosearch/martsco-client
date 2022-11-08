@@ -1,0 +1,60 @@
+<br>
+<div class="container">
+    <div class="content">
+        <button mat-fab color="primary" class="mdi mdi-arrow-left-thick mdi-24px button-exit" (click)="onExit()"></button>
+        <div class="blocks">
+            <div class="title">{{data.titre}} - {{model!==undefined?model.designation:""}}</div>
+        </div>
+        <div class="title"></div>
+    </div>
+
+    <br>
+    <div class="progress">
+        <mat-progress-bar mode="indeterminate" *ngIf="isRunning" color=primary></mat-progress-bar>
+    </div>
+
+    <div class="second-column">
+        <div class="check-container">
+            <mat-checkbox [(ngModel)]="onlyGreatherThanOne" name="onlyAttributed" (ngModelChange)="refresh()">Uniquement les matières de coefs supérieur à 1.
+            </mat-checkbox>
+        </div>
+
+        <mat-card class="card">
+            <mat-card-content>
+                <div class="mat-elevation-z8 selected-list-container">
+                    <table mat-table [dataSource]="coefAttribsForThisYear">
+                        <ng-container matColumnDef="num">
+                            <th mat-header-cell *matHeaderCellDef> N° ord. </th>
+                            <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="designation">
+                            <th mat-header-cell *matHeaderCellDef> Désignation </th>
+                            <td mat-cell *matCellDef="let element"> {{element.subject.designation}} </td>
+                        </ng-container>
+
+                        <ng-container matColumnDef="coef">
+                            <th mat-header-cell *matHeaderCellDef> Coefficient </th>
+                            <td mat-cell *matCellDef="let element; let i = index;">
+                                <mat-select matInput placeholder="Coef." required [(ngModel)]="coefs[i]" name="coef_{{i}}">
+                                    <mat-option *ngFor="let item of defaultCoefs" [value]="item">
+                                        {{item}}
+                                    </mat-option>
+                                </mat-select>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
+                        <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="selected-element-row">
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="button-group">
+                    <button mat-raised-button color="warn" class="mdi mdi-check mdi-24px" (click)="onSubmit()">Valider
+          </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>

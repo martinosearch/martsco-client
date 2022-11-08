@@ -1,0 +1,48 @@
+.router-outlet {
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100vh;
+  max-height: 100vh;
+  background-color: #d7b5db;
+  overflow: hidden;
+}
+
+header {
+  width: 100%;
+}
+
+aside {
+  background-color: #3b38db;
+  width: 25%;
+  max-width: 25%;
+  height: 100%;
+  max-height: 100%;
+  overflow: auto;
+}
+
+.content {
+  width: 75%;
+  max-width: 75%;
+  height: 100%;
+  max-height: 100%;
+  overflow: hidden;
+}
+
+footer {
+  color: gold;
+  background: rgba(1, 0, 12, 0.473);
+  height: 20px;
+  opacity: 1;
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  flex: 1;
+}

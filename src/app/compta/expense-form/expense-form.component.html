@@ -1,0 +1,50 @@
+<h3 mat-dialog-title>{{data.titre}} ({{currentYear.designation}})</h3>
+<div mat-dialog-content>
+  <form>
+    <div class="column-container">
+      <div class="example-form">
+        <mat-form-field class="element">
+          <input matInput placeholder="Désignation" required [(ngModel)]="model.designation" name="designation"
+            [disabled]="disabled">
+        </mat-form-field>
+
+        <mat-form-field class="element" *ngIf="disabled">
+          <mat-select matInput placeholder="Niveau d'enseignement" required [(ngModel)]="currentStandardId"
+            name="standard" (ngModelChange)="refresh()">
+            <mat-option *ngFor="let item of standards" [value]="item.id">
+              {{item.designation}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="element" *ngIf="disabled">
+          <input matInput placeholder="Montant" required [(ngModel)]="currentAmount" name="name">
+        </mat-form-field>
+      </div>
+
+      <div class="example-form" *ngIf="disabled">
+        <h3>Modalités de payement</h3><span><button mat-raised-button color="primary"
+            (click)="addTranche()">Ajouter</button></span>
+        <div class="element">
+          <mat-checkbox [(ngModel)]="isPayableByTranche" name="payable_by_tranche">Est payable par tranche
+          </mat-checkbox>
+        </div>
+        <table>
+          <tr>
+            <th>N° ord.</th>
+            <th>Montant</th>
+            <th>Date du début</th>
+          </tr>
+          <tr *ngFor="let item of model.tranches;let i=index">
+            <td *ngIf="item.year.id===constanceService.currentYear.id">{{i+1}}</td>
+            <td *ngIf="item.year.id===constanceService.currentYear.id">{{item.amount}}</td>
+            <td *ngIf="item.year.id===constanceService.currentYear.id">{{item.date|date}}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </form>
+  <div class="action-container">
+    <span><button mat-raised-button color="primary" (click)="onSubmit()">Valider</button></span>
+    <span><button mat-raised-button color="warn" (click)="onNoClick()">Quitter</button></span>
+  </div>

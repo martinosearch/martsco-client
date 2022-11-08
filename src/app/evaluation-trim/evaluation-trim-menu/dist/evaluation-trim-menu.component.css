@@ -1,0 +1,42 @@
+.item {
+  height: 20px;
+}
+
+.item:hover {
+  background-color: #3b38db;
+  color: beige;
+}
+
+.item:active {
+  background-color: #f7a17a;
+  color: beige;
+}
+
+.sub-item {
+  background-color: #dfe2f1;
+  color: #3051e2;
+}
+
+.sub-item:hover {
+  background-color: #88f0b3;
+  color: #3051e2;
+}
+
+mat-expansion-panel {
+  margin: 0;
+  background-color: #3b38db;
+  color: beige;
+}
+
+mat-expansion-panel-header {
+  padding-left: 5px;
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: #3b38db;
+}
+
+mat-accordion {
+  display: flex;
+  flex-direction: column;
+  background-color: #3b38db;
+}

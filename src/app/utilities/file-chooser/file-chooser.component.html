@@ -1,0 +1,9 @@
+<div class="col-md-6 offset-md-3">
+    <h3>Choisir le fichier</h3>
+    <form (ngSubmit)="onSubmit()">
+        <input type="file" (change)="onFileChange($event)" name="file">
+    </form>
+    <div class="form-group">
+        <button (click)="onSubmit()">Valider</button>
+    </div>
+</div>

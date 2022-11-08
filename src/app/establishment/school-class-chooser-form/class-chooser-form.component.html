@@ -1,0 +1,98 @@
+<h3 mat-dialog-title>{{data.titre}}</h3>
+<div mat-dialog-content>
+  <form (ngSubmit)="onSubmit()" novalidate>
+    <div class="example-form">
+
+      <!--year choosing -->
+      <mat-form-field class="element" *ngIf="yearChooser">
+        <mat-select matInput placeholder="Année-scolaire" required [(ngModel)]="yearId" name="year"
+          [disabled]="disableYearSelection" (ngModelChange)="updateAll()">
+          <mat-option *ngFor="let item of years" [value]="item.id">
+            {{item.designation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!--Niveau choosing -->
+      <mat-form-field class="element" *ngIf="standardChooser">
+        <mat-select matInput placeholder="Niveau d'enseignement" required [(ngModel)]="standardId" name="standard"
+          (ngModelChange)="updateAll()">
+          <mat-option *ngFor="let item of standards" [value]="item.id">
+            {{item.designation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="element" *ngIf="schoolClassChooser">
+        <mat-select matInput placeholder="Classe" required [(ngModel)]="schoolClassId" name="schoolClass"
+          (ngModelChange)="updateAll()">
+          <mat-option *ngFor="let item of schoolClasses" [value]="item.id">
+            {{item.designation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!--Expense choosing -->
+      <mat-form-field class="element" *ngIf="decoupageChooser">
+        <mat-select matInput placeholder="Trimestre" required [(ngModel)]="decoupageId" name="decoupage"
+          (ngModelChange)="updateAll()">
+          <mat-option *ngFor="let item of decoupages" [value]="item.id">
+            {{item.designation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!--Expense ch o osing -->
+      <mat-form-field class="element" *ngIf="expenseChooser">
+        <mat-select matInput placeholder="Frais" required [(ngModel)]="expenseId" name="expense"
+          (ngModelChange)="updateAll()">
+          <mat-option *ngFor="let item of expenses" [value]="item.id">
+            {{item.designation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!--subject choosing -->
+      <mat-form-field class="element" *ngIf="subjectChooser">
+        <mat-select matInput placeholder="Matière" required [(ngModel)]="subjectId" name="subject"
+          (ngModelChange)="updateAll()">
+          <mat-option *ngFor="let item of subjectAttribs" [value]="item.subject.id">
+            {{item.subject.designation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!--subject choosing -->
+      <mat-form-field class="element" *ngIf="evaluationChooser">
+        <mat-select matInput placeholder="Evaluation" required [(ngModel)]="selectedEvaluationId" name="evaluation"
+          (ngModelChange)="updateAll()">
+          <mat-option *ngFor="let item of evaluations" [value]="item.id">
+            {{item.designation}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <!-- <div class="element" *ngIf="evaluationChooser">
+      <mat-checkbox [(ngModel)]="singleEval" name="signleEval">Résultat d'une seule évaluation</mat-checkbox>
+    </div>
+
+    <div *ngIf="singleEval">
+      <mat-radio-group [(ngModel)]="selectedEvaluation" class="eval-bouton-group" name="selectedEvaluation">
+        <mat-radio-button [value]="1" *ngIf="eval1">{{eval1!==undefined?eval1.designation:""}}
+        </mat-radio-button>
+        <mat-radio-button [value]="2" *ngIf="eval2">{{eval2!==undefined?eval2.designation:""}}
+        </mat-radio-button>
+        <mat-radio-button [value]="3" *ngIf="eval3">{{eval3!==undefined?eval3.designation:""}}
+        </mat-radio-button>
+        <mat-radio-button [value]="4" *ngIf="eval4">{{eval4!==undefined?eval4.designation:""}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div> -->
+
+    <div class="action-container">
+      <button mat-raised-button color="primary" type="submit">Valider</button>
+      <button mat-raised-button color="warn" (click)="onNoClick()" type="button">Annuler</button>
+    </div>
+  </form>
+</div>

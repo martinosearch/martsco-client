@@ -1,0 +1,57 @@
+<mat-toolbar color="primary" class="first-toolbar">
+
+
+  <div class="menu-app-name">
+    <img src="../../../favicon.ico" width="30" height="30">
+    {{constanceService.currentSection}}
+  </div>
+
+  <div class="navigation-items-container">
+    <mat-form-field *ngIf="authService.isAuthenticated">
+      <mat-select matInput [(ngModel)]="yearId" required name="year" (ngModelChange)="yearControl()">
+        <mat-option *ngFor="let year of years" [value]="year.id">
+          {{ year.designation}}
+        </mat-option>
+      </mat-select>
+      <mat-icon matPrefix class="mdi mdi-calendar-month mdi-18px"></mat-icon>
+    </mat-form-field>
+
+    <div (click)="login()" *ngIf="!authService.isAuthenticated" class="mdi mdi-logout-variant">SE CONNECTER
+    </div>
+
+    <div class="mdi mdi-home-circle mdi-36px" (click)="toAccueil()" *ngIf="authService.isAuthenticated">
+    </div>
+
+    <div mat-card-avatar class="mdi mdi-database mdi-36px" [matMenuTriggerFor]="soft"
+      *ngIf="authService.isAdmin && authService.isAuthenticated"></div>
+
+    <div mat-card-avatar class="mdi mdi-account-circle mdi-36px" [matMenuTriggerFor]="menu"
+      *ngIf="authService.isAuthenticated"></div>
+
+    <mat-menu #soft="matMenu" xPosition="before">
+      <a mat-menu-item class="mdi mdi-calendar-month mdi-24px" (click)="toYearList()">Années</a>
+      <a mat-menu-item class="mdi mdi-account-circle mdi-24px" (click)="toUserList()">Utilisateurs</a>
+      <a mat-menu-item class="mdi mdi-timer-sand mdi-24px" (click)="toForfaitState()">Etat du
+        forfait</a>
+      <a mat-menu-item class="mdi mdi-view-headline mdi-24px" (click)="toJournal()">Journal de
+        l'application</a>
+      <a mat-menu-item class="mdi mdi-settings mdi-24px" (click)=" toParamSoft()">Paramètres de l'application</a>
+    </mat-menu>
+
+    <mat-menu #menu="matMenu">
+      <mat-card class="user-menu-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{currentUserLogin}}</mat-card-title>
+        </mat-card-header>
+      </mat-card>
+
+      <a mat-menu-item class="mdi mdi-monitor mdi-24px" (click)=" toUserDashBoard()">Mon tableau de
+        bord</a>
+      <a mat-menu-item class="mdi mdi-settings mdi-24px" (click)=" toUserParams()">Mes paramètres</a>
+
+      <a mat-menu-item class="mdi mdi-logout-variant mdi-24px" (click)="logout()">DECONNEXION</a>
+    </mat-menu>
+  </div>
+
+</mat-toolbar>

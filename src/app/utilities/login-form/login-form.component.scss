@@ -1,0 +1,26 @@
+.example-form {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.action-container {
+    display: flex;
+    flex-direction: row;
+    align-items: right;
+    justify-content: flex-end;
+}
+
+.action-container button {
+    margin: 2px;
+}
+
+.example-form element {
+    width: 80%;
+}
+
+.identity {
+    color: rgb(89, 89, 240);
+}

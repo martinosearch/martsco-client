@@ -1,0 +1,69 @@
+.card {
+    min-width: 80%;
+    height   : 450px;
+}
+
+.example-container {
+    display       : flex;
+    flex-direction: column;
+    max-height    : 300px;
+    min-width     : 60%;
+    overflow      : auto;
+}
+
+.account {
+    width : 40%;
+    height: 300px;
+}
+
+table {
+    width: 100%;
+}
+
+a {
+    cursor: pointer;
+}
+
+td.mat-column-pu {
+    min-width    : 15%;
+    padding-right: 8px;
+}
+
+th {
+    font-weight: bold;
+    font-size  : 16px;
+}
+
+.example-card {
+    width     : 250px;
+    max-height: 40px;
+}
+
+.example-header-image {
+    background-image: mdi-microscope;
+    background-size : cover;
+}
+
+.mat-radio-button {
+    margin: 10px;
+}
+
+.example-radio-group-label {
+    background-color: rgb(93, 223, 158);
+}
+
+.date-pickers {
+    margin-top: 0px;
+}
+
+.columns {
+    display        : flex;
+    flex-direction : row;
+    justify-content: space-between;
+    height         : 300px;
+}
+
+.element {
+    width     : 39%;
+    text-align: center;
+}

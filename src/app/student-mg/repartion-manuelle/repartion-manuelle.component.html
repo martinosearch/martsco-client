@@ -1,0 +1,91 @@
+<div class="child-main">
+    <div class="top-button-content">
+        <div class="blocks1">
+
+        </div>
+        <div class="blocks2">
+            <div class="inscritNumber">Effectif de l'établissement : </div>
+            <div class="inscritNumber">{{effectif}}</div>
+        </div>
+        <div class="blocks3">
+            <button mat-raised-button color="primary" (click)="onModifierClassActuelle()" class="mdi mdi-pencil mdi-18px">
+        Modifier la classe d'accueil
+      </button>
+            <div class="card-title"> Classe: {{currentSchoolClass!==undefined?currentSchoolClass.designation:""}} </div>
+        </div>
+    </div>
+    <br>
+
+    <div class="content">
+        <div class="selector-container">
+            <mat-card class="card-student-identity">
+                <mat-card-title class="card-title">Ajouter un élève *</mat-card-title>
+                <mat-card-content class="mat-elevation-z8 example-container" *ngIf="studentIdentityList.length>0">
+                    <!--field choose patient-->
+                    <form class="example-form" (ngSubmit)="onStudentSubmit()" novalidate>
+                        <mat-form-field class="example-full-width">
+                            <input type="text" placeholder="Taper le nom de l'élève" aria-label="Number" matInput [(ngModel)]="filterText" (ngModelChange)="onFilterStudent()" [matAutocomplete]="autoStudent" name="search-student">
+                            <mat-icon matSuffix class="mdi mdi-magnify"></mat-icon>
+
+                            <mat-autocomplete #autoStudent="matAutocomplete" [displayWith]="displayStudent">
+                                <mat-option *ngFor="let st of studentFilteredList" [value]="st">
+                                    {{st.identity.lastName}} {{st.identity.firstName}}
+                                </mat-option>
+                            </mat-autocomplete>
+                        </mat-form-field>
+                    </form>
+
+                    <div *ngIf="currentStudentIdentityBean.id" class="mat-elevation-z8">
+                        <table>
+                            <tr>
+                                <td>Classe actuelle: </td>
+                                <td>
+                                    {{currentStudentSchoolClass!==undefined?currentStudentSchoolClass.designation:""}}
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="button-info-container">
+                            <button mat-raised-button color="primary" (click)="onModifierInfo()" class="mdi mdi-pencil mdi-18px">
+              </button>
+                        </div>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+
+            <mat-card class="card-payment">
+                <mat-card-title class="card-title-choosed-invoice">
+                    <div class="choosed-title">Liste actuelle ( {{listStudentThisClass.length}} élèves)</div>
+                </mat-card-title>
+
+                <mat-card-content>
+                    <div class="mat-elevation-z8 table-selected">
+                        <table mat-table [dataSource]="listStudentThisClass">
+                            <ng-container matColumnDef="num">
+                                <th mat-header-cell *matHeaderCellDef> N° ord. </th>
+                                <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="nom">
+                                <th mat-header-cell *matHeaderCellDef> Nom </th>
+                                <td mat-cell *matCellDef="let element"> {{element.identity.lastName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="prenom">
+                                <th mat-header-cell *matHeaderCellDef> Prenoms</th>
+                                <td mat-cell *matCellDef="let element"> {{element.identity.firstName}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="sex">
+                                <th mat-header-cell *matHeaderCellDef> Sexe</th>
+                                <td mat-cell *matCellDef="let element"> {{element.identity.sex|sex}} </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                        </table>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</div>

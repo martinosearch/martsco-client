@@ -1,0 +1,45 @@
+<div mat-dialog-content>
+    <form (ngSubmit)="onSubmit()" novalidate>
+        <mat-tab-group mat-align-tabs="end">
+            <mat-tab label="Élève">
+                <div class="property-field" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+
+                    <mat-form-field class="element">
+                        <input textarea matInput placeholder="Nom" type="text" required [(ngModel)]="candidateIdentityBean.identity.lastName" name="lastName">
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input matInput placeholder="Prenoms" required [(ngModel)]="candidateIdentityBean.identity.firstName" name="firstName">
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <mat-select matInput placeholder="Sexe" required [(ngModel)]="candidateIdentityBean.identity.sex" name="sex">
+                            <mat-option *ngFor="let item of constanceService.sexes" [value]="item.id">
+                                {{item.intitule}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+
+                    <!--year choosing -->
+                    <mat-form-field class="element">
+                        <mat-select matInput placeholder="Établissement" required [(ngModel)]="currentEstablishmentId" name="establishment">
+                            <mat-option *ngFor="let item of establishments" [value]="item.id">
+                                {{item.designation}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="element">
+                        <input textarea matInput placeholder="num_table" type="text" required [(ngModel)]="candidateIdentityBean.numTable" name="numTable">
+                    </mat-form-field>
+                </div>
+            </mat-tab>
+        </mat-tab-group>
+
+        <div class="action-container">
+            <button mat-raised-button color="primary" type="submit">Valider</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" type="button">Annuler</button>
+        </div>
+    </form>
+</div>

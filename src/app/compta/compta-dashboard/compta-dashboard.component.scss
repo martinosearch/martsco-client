@@ -1,0 +1,198 @@
+.main-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 98%;
+    height: 100%;
+    max-height: 100%;
+    padding: 10px;
+    flex-wrap: wrap;
+    overflow: auto;
+    // background-color: blue;
+}
+
+.size-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-height: 70%;
+    width: 65%;
+    overflow: hidden;
+    //background-color: brown;
+}
+
+.etat-main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-height: 70%;
+    width: 34%;
+    overflow: hidden;
+    background-color: brown;
+}
+
+.students-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    max-height: 24%;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 2px;
+    //background-color: brown;
+}
+
+.etat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.etat {
+    //height: 20%;
+    width: 85%;
+}
+
+.totalMyCash {
+    font-size: 18px;
+    font-weight: bold;
+    color: brown;
+}
+
+table {
+    width: 100%;
+}
+
+.table-container {
+    max-height: 100%;
+    width: 100%;
+    overflow: auto;
+    //padding: 2px;
+}
+
+th {
+    border: 1px solid;
+}
+
+.table-eff-header {
+    text-align: center;
+    font-size: 16px;
+}
+
+.table-eff-header:nth-child(1) {
+    text-align: left;
+}
+
+.table-eff-footer {
+    text-align: center;
+    font-size: 16px;
+}
+
+.table-eff-footer:nth-child(1) {
+    text-align: left;
+}
+
+td {
+    border: 1px solid;
+}
+
+td.mat-footer-cell {
+    color: beige;
+}
+
+tr.mat-footer-row {
+    font-weight: bold;
+    // background-color: rgb(94, 122, 94);
+    background-color: rgb(84, 84, 228);
+    height: 25px;
+}
+
+tr.mat-row {
+    height: 10px;
+}
+
+tr.mat-header-row {
+    height: 10px;
+}
+
+.mat-table-sticky {
+    border-top: 1px solid #e0e0e0;
+}
+
+.article-title {
+    padding-left: 5px;
+    background-color: rgb(84, 84, 228);
+    color: white;
+    font-weight: bold;
+}
+
+.designation {
+    color: brown;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.titulaire {
+    color: rgb(105, 105, 243);
+    font-weight: bold;
+    font-size: 11px;
+    font-style: italic;
+}
+
+.title {
+    color: gray;
+}
+
+.numberCell,
+.sex,
+.date {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+}
+
+.totalCell {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    color: brown;
+}
+
+.etat-title {
+    color: rgb(105, 105, 243);
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.etat-value {
+    color: rgb(13, 65, 13);
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.ma-cash {
+    color: rgb(13, 65, 13);
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.table-st-header {
+    text-align: center;
+    font-size: 16px;
+}
+
+.table-st-header:nth-child(3),
+.table-st-header:nth-child(4) {
+    text-align: left;
+    padding-left: 10px;
+}
+
+.identity {
+    font-weight: bold;
+    font-size: 16px;
+    text-align: left;
+    padding-left: 10px;
+}

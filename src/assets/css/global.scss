@@ -1,0 +1,23 @@
+html,
+body {
+    height: 100vh;
+    width: 100%;
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    // background-color: rgb(245, 117, 196);
+    overflow: auto;
+}
+
+mat-toolbar {
+    padding: 0;
+}
+
+.side-menu .mat-expansion-panel-body {
+    padding: 0;
+    margin: 0;
+    border-radius: 0;
+}
+
+.side-menu-item {
+    height: 50px;
+}

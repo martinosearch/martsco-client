@@ -1,0 +1,37 @@
+<h3 mat-dialog-title>{{data.titre}}</h3>
+<div mat-dialog-content>
+    <form (ngSubmit)="onSubmit()" novalidate>
+        <div class="example-form">
+            <mat-form-field class="element">
+                <input matInput placeholder="Identifiant" type="text" required [(ngModel)]="model.conxInfo.login"
+                    name="login">
+            </mat-form-field>
+
+            <mat-form-field class="element">
+                <input matInput placeholder="mot de passe" type="password" required
+                    [(ngModel)]="model.conxInfo.password" name="password">
+            </mat-form-field>
+
+
+            <mat-form-field class="element">
+                <mat-select matInput placeholder="Type d'utilisateur" required [(ngModel)]="userTypeId" name="userType">
+                    <mat-option *ngFor="let type of userTypes|async" [value]="type.id">
+                        {{type.designation}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="element">
+                <mat-select matInput placeholder="Nom de l'employés" required [(ngModel)]="userId" name="superUser">
+                    <mat-option *ngFor="let employee of employees|async" [value]="employee.id">
+                        {{employee.identity.lastName}} {{employee.identity.firstName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+    </form>
+    <div class="action-container">
+        <span><button mat-raised-button color="primary" (click)="onSubmit()">Valider</button></span>
+        <span><button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button></span>
+    </div>
+</div>
