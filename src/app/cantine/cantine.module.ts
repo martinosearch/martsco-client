@@ -5,7 +5,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 
 import { CantineMenuComponent } from './cantine-menu/cantine-menu.component';
-import { MaterialModule } from '../utilities/material.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +12,7 @@ import { MaterialModule } from '../utilities/material.module';
   ],
 
   imports: [
-    CommonModule, MaterialModule,
+    CommonModule,
     FlexLayoutModule, FormsModule, ReactiveFormsModule, PdfJsViewerModule,
   ],
 

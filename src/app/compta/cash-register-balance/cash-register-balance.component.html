@@ -1,80 +1,81 @@
 <div class="child-main">
-    <div class="title-section">État de la caisse </div>
-    <mat-card class="card">
-        <mat-card-content>
-            <mat-tab-group mat-align-tabs="end">
-                <!-- ************************* Liste de demande d'analyse *********************-->
-                <mat-tab label="Opérations de caisse">
-                    <div class="columns">
-                        <div class="account">
-                            <div class="example-radio-group-label">Type d'affichage</div>
-                            <mat-radio-group name="opInvoice" fxLayout="column" [(ngModel)]="invoicesDisplayType">
-                                <mat-radio-button [value]=0 name="opInvoice" (click)="refreshOption(0)">Par jour</mat-radio-button>
-                                <mat-radio-button [value]=1 name="opInvoice" (click)="refreshOption(1)">Sur une période
-                                </mat-radio-button>
-                            </mat-radio-group>
+  <div class="title-section">État de la caisse </div>
+  <mat-card class="card">
+    <mat-card-content>
+      <mat-tab-group mat-align-tabs="end">
+        <!-- ************************* Liste de demande d'analyse *********************-->
+        <mat-tab label="Opérations de caisse">
+          <div class="columns">
+            <div class="account">
+              <div class="example-radio-group-label">Type d'affichage</div>
+              <mat-radio-group name="opInvoice" fxLayout="column" [(ngModel)]="invoicesDisplayType">
+                <mat-radio-button [value]=0 name="opInvoice" (click)="refreshOption(0)">Par jour</mat-radio-button>
+                <mat-radio-button [value]=1 name="opInvoice" (click)="refreshOption(1)">Sur une période
+                </mat-radio-button>
+              </mat-radio-group>
 
-                            <div class="example-radio-group-label">Date</div>
+              <div class="example-radio-group-label">Date</div>
 
-                            <div class="date-pickers">
-                                <div>
-                                    <span *ngIf="invoicesDisplayType==1">DU => </span>
-                                    <mat-form-field class="element">
-                                        <input matInput [matDatepicker]="picker1" [formControl]="startDate">
-                                        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker1></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
+              <div class="date-pickers">
+                <div>
+                  <span *ngIf="invoicesDisplayType==1">DU => </span>
+                  <mat-form-field class="element">
+                    <input matInput [matDatepicker]="picker1" [formControl]="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                    <mat-datepicker #picker1></mat-datepicker>
+                  </mat-form-field>
+                </div>
 
-                                <div>
-                                    <span *ngIf="invoicesDisplayType==1"> AU => </span>
-                                    <mat-form-field class="element" *ngIf="invoicesDisplayType==1">
-                                        <input matInput [matDatepicker]="picker2" [formControl]="endDate">
-                                        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
-                                        <mat-datepicker #picker2></mat-datepicker>
-                                    </mat-form-field>
-                                </div>
-                            </div>
-                            <div class="example-radio-group-label">Nombre de caissiers:</div>
-                            <div>{{cashFlows.length}}</div>
-                            <div class="example-radio-group-label">Montant total reçu:</div>
-                            <div>{{cashsAmount|number|devise}}</div>
-                        </div>
+                <div>
+                  <span *ngIf="invoicesDisplayType==1"> AU => </span>
+                  <mat-form-field class="element" *ngIf="invoicesDisplayType==1">
+                    <input matInput [matDatepicker]="picker2" [formControl]="endDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="example-radio-group-label">Nombre de caissiers:</div>
+              <div>{{cashFlows.length}}</div>
+              <div class="example-radio-group-label">Montant total reçu:</div>
+              <div>{{cashsAmount|number|devise}}</div>
+            </div>
 
-                        <div class="mat-elevation-z8 example-container">
-                            <table mat-table [dataSource]="cashFlows">
-                                <ng-container matColumnDef="num">
-                                    <th mat-header-cell *matHeaderCellDef> N° ord. </th>
-                                    <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
-                                </ng-container>
+            <div class="mat-elevation-z8 example-container">
+              <table mat-table [dataSource]="cashFlows">
+                <ng-container matColumnDef="num">
+                  <th mat-header-cell *matHeaderCellDef> N° ord. </th>
+                  <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+                </ng-container>
 
-                                <ng-container matColumnDef="num_fact">
-                                    <th mat-header-cell *matHeaderCellDef> Détails </th>
-                                    <td mat-cell *matCellDef="let element">
-                                        <div class="div-register">{{element.employeeIdentityBean.identity.lastName}} {{element.employeeIdentityBean.identity.firstName}}
-                                        </div>
-                                        <div>
-                                            <table>
-                                                <tr *ngFor="let item of element.cashRegistrations">
-                                                    <td *ngIf="item.amount>0">{{item.expenseDesignation}}</td>
-                                                    <td *ngIf="item.amount>0" align="right">{{item.amount|number|devise}}</td>
-                                                </tr>
-                                                <tr class="tr-amount">
-                                                    <td>TOTAL: </td>
-                                                    <td align="right">{{element.amount|number|devise}}</td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </td>
-                                </ng-container>
-
-                                <tr mat-header-row *matHeaderRowDef="invoiceDisplayedColumns sticky:true"></tr>
-                                <tr mat-row *matRowDef="let row; columns: invoiceDisplayedColumns;"></tr>
-                            </table>
-                        </div>
+                <ng-container matColumnDef="num_fact">
+                  <th mat-header-cell *matHeaderCellDef> Détails </th>
+                  <td mat-cell *matCellDef="let element">
+                    <div class="div-register">{{element.employeeIdentityBean.identity.lastName}}
+                      {{element.employeeIdentityBean.identity.firstName}}
                     </div>
-                </mat-tab>
-            </mat-tab-group>
-        </mat-card-content>
-    </mat-card>
+                    <div>
+                      <table>
+                        <tr *ngFor="let item of element.cashRegistrations">
+                          <td *ngIf="item.amount>0">{{item.expenseDesignation}}</td>
+                          <td *ngIf="item.amount>0" align="right">{{item.amount|number|devise}}</td>
+                        </tr>
+                        <tr class="tr-amount">
+                          <td>TOTAL: </td>
+                          <td align="right">{{element.amount|number|devise}}</td>
+                        </tr>
+                      </table>
+                    </div>
+                  </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="invoiceDisplayedColumns sticky:true"></tr>
+                <tr mat-row *matRowDef="let row; columns: invoiceDisplayedColumns;"></tr>
+              </table>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
 </div>

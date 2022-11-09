@@ -5,10 +5,9 @@ import { RepartionManuelleComponent } from './repartion-manuelle/repartion-manue
 import { RepartionComponent } from './repartion/repartion.component';
 import { StudentFormComponent } from './student-form/student-form.component';
 import { StudentListComponent } from './student-list/student-list.component';
-import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MaterialModule } from '../utilities/material.module';
 import { UtilitiesModule } from '../utilities/utilities.module';
+import { MaterialModule } from '../utilities/material.module';
 
 @NgModule({
   declarations: [
@@ -19,7 +18,7 @@ import { UtilitiesModule } from '../utilities/utilities.module';
     ParentsListComponent,
   ],
   imports: [
-    CommonModule, UtilitiesModule, FormsModule, ReactiveFormsModule,
+    CommonModule, UtilitiesModule, FormsModule, ReactiveFormsModule, MaterialModule
   ],
 
   exports: []

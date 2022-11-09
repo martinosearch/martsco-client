@@ -17,6 +17,7 @@ import {
 } from 'src/app/evaluation-trim/evaluation-type-list/evaluation-type-list.component';
 import { SaisieNoteFormComponent } from 'src/app/evaluation-trim/saisie-note-form/saisie-note-form.component';
 import { SubjectAttributionComponent } from 'src/app/evaluation-trim/subject-attribution/subject-attribution.component';
+import { MaterialModule } from '../utilities/material.module';
 
 
 @NgModule({
@@ -33,7 +34,7 @@ import { SubjectAttributionComponent } from 'src/app/evaluation-trim/subject-att
   ],
   imports: [
     CommonModule,
-    FlexLayoutModule, FormsModule, ReactiveFormsModule,
+    FlexLayoutModule, FormsModule, ReactiveFormsModule, MaterialModule
   ],
 
   exports: [

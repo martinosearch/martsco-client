@@ -1,9 +1,8 @@
-import { registerLocaleData, LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HostListener, LOCALE_ID, NgModule } from '@angular/core';
-import { FlexLayoutModule } from '@angular/flex-layout/module';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AssuranceModule } from './assurance/assurance.module';
@@ -23,9 +22,10 @@ import { StudentMgRoutingModule } from './student-mg/student-mg-routing.module';
 import { StudentMgModule } from './student-mg/student-mg.module';
 import { FileChooserComponent } from './utilities/file-chooser/file-chooser.component';
 import { LoginFormComponent } from './utilities/login-form/login-form.component';
+import { cacheInterceptorProviders } from './utilities/services/cache-interceptor.service';
 import { UtilitiesModule } from './utilities/utilities.module';
 
-// registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
+//registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
 
 @NgModule({
   declarations: [
@@ -44,6 +44,7 @@ import { UtilitiesModule } from './utilities/utilities.module';
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
+    cacheInterceptorProviders
   ],
 
   bootstrap: [AppComponent],

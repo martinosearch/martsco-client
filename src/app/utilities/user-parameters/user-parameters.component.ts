@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 
 import { AuthService } from '../services/auth.service';
 import { EmployeeIdentityService } from '../../employees-mg/services/employee-identity.service';
-import { EmployeeIdentityBean } from 'src/app/employees-mg/models/employee-identity-bean';
-import { AppUser } from '../models/app-user';
 import { EmployeeAuth } from '../models/employee-auth';
 
 @Component({

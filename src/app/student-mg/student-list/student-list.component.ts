@@ -8,7 +8,7 @@ import {
 import { SelectionModel } from "@angular/cdk/collections";
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { FormControl } from "@angular/forms";
-import { MatDialog } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { Observable } from "rxjs";
 import { ClassChooserModel } from "src/app/establishment/models/class-chooser-model";
 import { SchoolClassIdentityBean } from "src/app/establishment/models/school-class-identity-bean";

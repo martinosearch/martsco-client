@@ -2,9 +2,9 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({ name: 'devise' })
 export class DevisePipe implements PipeTransform {
-  transform(mnt: number): string {
+  transform(mnt: string): string {
     return mnt + ' F CFA';
-  }
+  };
 }
 
 @Pipe({ name: 'assurance' })

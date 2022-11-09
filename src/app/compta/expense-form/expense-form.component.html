@@ -35,10 +35,10 @@
             <th>Montant</th>
             <th>Date du début</th>
           </tr>
-          <tr *ngFor="let item of model.tranches;let i=index">
-            <td *ngIf="item.year.id===constanceService.currentYear.id">{{i+1}}</td>
-            <td *ngIf="item.year.id===constanceService.currentYear.id">{{item.amount}}</td>
-            <td *ngIf="item.year.id===constanceService.currentYear.id">{{item.date|date}}</td>
+          <tr *ngFor="let item of model.trancheSettings;let i=index">
+            <td *ngIf="item.year.id===currentYear.id">{{i+1}}</td>
+            <td *ngIf="item.year.id===currentYear.id">{{item.amount}}</td>
+            <td *ngIf="item.year.id===currentYear.id">{{item.date|date}}</td>
           </tr>
         </table>
       </div>

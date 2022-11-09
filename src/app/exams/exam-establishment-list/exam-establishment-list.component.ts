@@ -1,6 +1,6 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from 'src/app/utilities/confirm-delete/confirm-delete.component';
 import { AuthService } from 'src/app/utilities/services/auth.service';
 import { MessageService } from 'src/app/utilities/services/message.service';

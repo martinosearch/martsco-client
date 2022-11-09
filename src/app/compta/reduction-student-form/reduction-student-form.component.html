@@ -1,222 +1,238 @@
 <br>
 <div class="container">
-    <div class="content">
-        <div class="blocks">
-            <div class="title">{{data.titre}}</div>
-        </div>
+  <div class="content">
+    <div class="blocks">
+      <div class="title">{{data.titre}}</div>
+    </div>
+  </div>
+
+  <br>
+  <div class="progress">
+    <mat-progress-bar mode="indeterminate" *ngIf="isRunning" color=primary></mat-progress-bar>
+  </div>
+  <div class="two-columns">
+    <div class="first-column">
+      <mat-card class="card">
+        <mat-card-title>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
+              <mat-card-title>Garçons</mat-card-title>
+              <mat-card-subtitle>{{filteredList|male}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
+              <mat-card-title>Filles</mat-card-title>
+              <mat-card-subtitle>{{filteredList|female}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
+              <mat-card-title>Elèves</mat-card-title>
+              <mat-card-subtitle>{{filteredList.length}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </mat-card-title>
+        <mat-card-content>
+
+          <div class="search-field-container">
+            <mat-form-field class="element">
+              <mat-select matInput placeholder="Classe actuelle" required [(ngModel)]="currentSchoolClassId"
+                name="school_class" (ngModelChange)="refresh()">
+                <mat-option [value]=0>Toutes les classes</mat-option>
+                <mat-option *ngFor="let item of classes" [value]="item.id">
+                  {{item.designation}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="search-field">
+              <input matInput [(ngModel)]="filterText" (ngModelChange)="filter()" class="search-input" type="text"
+                placeholder="Filtrer" aria-label="Number">
+              <mat-icon matPrefix class="mdi mdi-filter"></mat-icon>
+            </mat-form-field>
+          </div>
+
+          <div class="mat-elevation-z8 example-container">
+            <table mat-table [dataSource]="filteredList" multiTemplateDataRows>
+              <ng-container matColumnDef="num">
+                <th mat-header-cell *matHeaderCellDef> N° ord. </th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex;"> {{i+1}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="nom">
+                <th mat-header-cell *matHeaderCellDef> Nom </th>
+                <td mat-cell *matCellDef="let element"> {{element.identity.lastName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="prenom">
+                <th mat-header-cell *matHeaderCellDef> Prenoms</th>
+                <td mat-cell *matCellDef="let element"> {{element.identity.firstName}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="sex">
+                <th mat-header-cell *matHeaderCellDef> Sexe</th>
+                <td mat-cell *matCellDef="let element"> {{element.identity.sex|sex}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="age">
+                <th mat-header-cell *matHeaderCellDef> Age</th>
+                <td mat-cell *matCellDef="let element"> {{element.identity.age|age}} </td>
+              </ng-container>
+
+              <ng-container matColumnDef="tel">
+                <th mat-header-cell *matHeaderCellDef> Tel</th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.address!==null?element.address.tel1:""}}
+                  {{element.address!==null?(element.address.tel2!==undefined? " / ":""):""}}
+                  {{element.address!==null?element.address.tel2:""}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email</th>
+                <td mat-cell *matCellDef="let element">
+                  {{element.address!==null?element.address.email:""}}
+                </td>
+              </ng-container>
+
+              <ng-container matColumnDef="select">
+                <th mat-header-cell *matHeaderCellDef>
+                  <mat-checkbox (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="masterCheckboxLabel()">
+                  </mat-checkbox>
+                </th>
+
+                <td mat-cell *matCellDef="let element;  let index = dataIndex;">
+                  <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(element) : null"
+                    [checked]="selection.isSelected(element)" [aria-label]="checkboxLabel(element,index)">
+                  </mat-checkbox>
+                </td>
+              </ng-container>
+
+              <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+              <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                  <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                  </div>
+                </td>
+              </ng-container>
+
+              <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
+              <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
+              </tr>
+            </table>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
 
-    <br>
-    <div class="progress">
-        <mat-progress-bar mode="indeterminate" *ngIf="isRunning" color=primary></mat-progress-bar>
-    </div>
-    <div class="two-columns">
-        <div class="first-column">
-            <mat-card class="card">
-                <mat-card-title>
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                            <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
-                            <mat-card-title>Garçons</mat-card-title>
-                            <mat-card-subtitle>{{filteredList|male}}</mat-card-subtitle>
-                        </mat-card-header>
-                    </mat-card>
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                            <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
-                            <mat-card-title>Filles</mat-card-title>
-                            <mat-card-subtitle>{{filteredList|female}}</mat-card-subtitle>
-                        </mat-card-header>
-                    </mat-card>
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                            <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
-                            <mat-card-title>Elèves</mat-card-title>
-                            <mat-card-subtitle>{{filteredList.length}}</mat-card-subtitle>
-                        </mat-card-header>
-                    </mat-card>
-                </mat-card-title>
-                <mat-card-content>
 
-                    <div class="search-field-container">
-                        <mat-form-field class="element">
-                            <mat-select matInput placeholder="Classe actuelle" required [(ngModel)]="currentSchoolClassId" name="school_class" (ngModelChange)="refresh()">
-                                <mat-option [value]=0>Toutes les classes</mat-option>
-                                <mat-option *ngFor="let item of classes" [value]="item.id">
-                                    {{item.designation}}
-                                </mat-option>
-                            </mat-select>
-                        </mat-form-field>
-                        <mat-form-field class="search-field">
-                            <input matInput [(ngModel)]="filterText" (ngModelChange)="filter()" class="search-input" type="text" placeholder="Filtrer" aria-label="Number">
-                            <mat-icon matPrefix class="mdi mdi-filter"></mat-icon>
-                        </mat-form-field>
-                    </div>
+    <div class="second-column">
+      <mat-card class="card">
+        <mat-card-title>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
+              <mat-card-title>Garçons</mat-card-title>
+              <mat-card-subtitle>{{selection.selected|male}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
+              <mat-card-title>Filles</mat-card-title>
+              <mat-card-subtitle>{{selection.selected|female}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+          <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
+              <mat-card-title>Elèves</mat-card-title>
+              <mat-card-subtitle>{{selection.selected.length}}</mat-card-subtitle>
+            </mat-card-header>
+          </mat-card>
+        </mat-card-title>
+        <mat-card-content>
+          <div class="mat-elevation-z8 selected-list-container">
+            <table mat-table [dataSource]="selection.selected" multiTemplateDataRows>
+              <ng-container matColumnDef="num">
+                <th mat-header-cell *matHeaderCellDef> Email</th>
+                <td mat-cell *matCellDef="let element; let i = dataIndex;"> {{i+1}} </td>
+              </ng-container>
 
-                    <div class="mat-elevation-z8 example-container">
-                        <table mat-table [dataSource]="filteredList" multiTemplateDataRows>
-                            <ng-container matColumnDef="num">
-                                <th mat-header-cell *matHeaderCellDef> N° ord. </th>
-                                <td mat-cell *matCellDef="let element; let i = dataIndex;"> {{i+1}} </td>
-                            </ng-container>
+              <ng-container matColumnDef="nom">
+                <td mat-cell *matCellDef="let element"> {{element.identity.lastName}} </td>
+              </ng-container>
 
-                            <ng-container matColumnDef="nom">
-                                <th mat-header-cell *matHeaderCellDef> Nom </th>
-                                <td mat-cell *matCellDef="let element"> {{element.identity.lastName}} </td>
-                            </ng-container>
+              <ng-container matColumnDef="prenom">
+                <td mat-cell *matCellDef="let element"> {{element.identity.firstName}} </td>
+              </ng-container>
 
-                            <ng-container matColumnDef="prenom">
-                                <th mat-header-cell *matHeaderCellDef> Prenoms</th>
-                                <td mat-cell *matCellDef="let element"> {{element.identity.firstName}} </td>
-                            </ng-container>
+              <ng-container matColumnDef="sex">
+                <td mat-cell *matCellDef="let element"> {{element.identity.sex|sex}} </td>
+              </ng-container>
 
-                            <ng-container matColumnDef="sex">
-                                <th mat-header-cell *matHeaderCellDef> Sexe</th>
-                                <td mat-cell *matCellDef="let element"> {{element.identity.sex|sex}} </td>
-                            </ng-container>
+              <ng-container matColumnDef="schoolClass">
+                <td mat-cell *matCellDef="let element"> {{element.id|currentClass|async}} </td>
+              </ng-container>
 
-                            <ng-container matColumnDef="age">
-                                <th mat-header-cell *matHeaderCellDef> Age</th>
-                                <td mat-cell *matCellDef="let element"> {{element.identity.age|age}} </td>
-                            </ng-container>
+              <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+              <ng-container matColumnDef="expandedDetail">
+                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                  <div class="example-element-detail"
+                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                  </div>
+                </td>
+              </ng-container>
 
-                            <ng-container matColumnDef="tel">
-                                <th mat-header-cell *matHeaderCellDef> Tel</th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.address!==null?element.address.tel1:""}} {{element.address!==null?(element.address.tel2!==undefined? " / ":""):""}} {{element.address!==null?element.address.tel2:""}}
-                                </td>
-                            </ng-container>
+              <tr mat-row *matRowDef="let element; columns: selectionDisplayedColumns;" class="example-element-row"
+                [class.example-expanded-row]="expandedElement === element"
+                (click)="expandedElement = expandedElement === element ? null : element">
+              </tr>
+              <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
+              </tr>
+            </table>
+          </div>
+          <form>
+            <div class="example-form">
+              <mat-form-field class="element">
+                <mat-select matInput placeholder="Motif de la réduction" required [(ngModel)]="motiveId" name="motive">
+                  <mat-option *ngFor="let item of reductionMotives" [value]="item.id">
+                    {{item.designation}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
 
-                            <ng-container matColumnDef="email">
-                                <th mat-header-cell *matHeaderCellDef> Email</th>
-                                <td mat-cell *matCellDef="let element">
-                                    {{element.address!==null?element.address.email:""}}
-                                </td>
-                            </ng-container>
+              <mat-form-field class="element">
+                <mat-select matInput placeholder="Frais" required [(ngModel)]="expenseId" name="frais">
+                  <mat-option *ngFor="let item of expenses" [value]="item.id">
+                    {{item.designation}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
 
-                            <ng-container matColumnDef="select">
-                                <th mat-header-cell *matHeaderCellDef>
-                                    <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()" [aria-label]="checkboxLabel()">
-                                    </mat-checkbox>
-                                </th>
-                                <td mat-cell *matCellDef="let element">
-                                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(element) : null" [checked]="selection.isSelected(element,i)" [aria-label]="checkboxLabel(row)">
-                                    </mat-checkbox>
-                                </td>
-                            </ng-container>
-
-                            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-                            <ng-container matColumnDef="expandedDetail">
-                                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-                                    <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                                    </div>
-                                </td>
-                            </ng-container>
-
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
-                            <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
-                            </tr>
-                            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
-                            </tr>
-                        </table>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-        </div>
-
-
-        <div class="second-column">
-            <mat-card class="card">
-                <mat-card-title>
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                            <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
-                            <mat-card-title>Garçons</mat-card-title>
-                            <mat-card-subtitle>{{selection.selected|male}}</mat-card-subtitle>
-                        </mat-card-header>
-                    </mat-card>
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                            <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
-                            <mat-card-title>Filles</mat-card-title>
-                            <mat-card-subtitle>{{selection.selected|female}}</mat-card-subtitle>
-                        </mat-card-header>
-                    </mat-card>
-                    <mat-card class="example-card">
-                        <mat-card-header>
-                            <div mat-card-avatar class="mdi mdi-account mdi-24px"></div>
-                            <mat-card-title>Elèves</mat-card-title>
-                            <mat-card-subtitle>{{selection.selected.length}}</mat-card-subtitle>
-                        </mat-card-header>
-                    </mat-card>
-                </mat-card-title>
-                <mat-card-content>
-                    <div class="mat-elevation-z8 selected-list-container">
-                        <table mat-table [dataSource]="selection.selected" multiTemplateDataRows>
-                            <ng-container matColumnDef="num">
-                                <th mat-header-cell *matHeaderCellDef> Email</th>
-                                <td mat-cell *matCellDef="let element; let i = dataIndex;"> {{i+1}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="nom">
-                                <td mat-cell *matCellDef="let element"> {{element.identity.lastName}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="prenom">
-                                <td mat-cell *matCellDef="let element"> {{element.identity.firstName}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="sex">
-                                <td mat-cell *matCellDef="let element"> {{element.identity.sex|sex}} </td>
-                            </ng-container>
-
-                            <ng-container matColumnDef="schoolClass">
-                                <td mat-cell *matCellDef="let element"> {{element.id|currentClass|async}} </td>
-                            </ng-container>
-
-                            <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
-                            <ng-container matColumnDef="expandedDetail">
-                                <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-                                    <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                                    </div>
-                                </td>
-                            </ng-container>
-
-                            <tr mat-row *matRowDef="let element; columns: selectionDisplayedColumns;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element">
-                            </tr>
-                            <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
-                            </tr>
-                        </table>
-                    </div>
-                    <form>
-                        <div class="example-form">
-                            <mat-form-field class="element">
-                                <mat-select matInput placeholder="Motif de la réduction" required [(ngModel)]="motiveId" name="motive">
-                                    <mat-option *ngFor="let item of reductionMotives" [value]="item.id">
-                                        {{item.designation}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
-                            <mat-form-field class="element">
-                                <mat-select matInput placeholder="Frais" required [(ngModel)]="expenseId" name="frais" >
-                                    <mat-option *ngFor="let item of expenses" [value]="item.id">
-                                        {{item.designation}}
-                                    </mat-option>
-                                </mat-select>
-                            </mat-form-field>
-
-                            <mat-form-field class="element">
-                                <input matInput placeholder="Montant" required [(ngModel)]="currentAmount" name="name" [disabled]="!showActions">
-                            </mat-form-field>
-                        </div>
-                    </form>
-                    <div class="button-group">
-                        <button mat-raised-button color="warn" [disabled]="!showActions" class="mdi mdi-check mdi-24px" (click)="onSubmit()">Valider
+              <mat-form-field class="element">
+                <input matInput placeholder="Montant" required [(ngModel)]="currentAmount" name="name"
+                  [disabled]="!showActions">
+              </mat-form-field>
+            </div>
+          </form>
+          <div class="button-group">
+            <button mat-raised-button color="warn" [disabled]="!showActions" class="mdi mdi-check mdi-24px"
+              (click)="onSubmit()">Valider
             </button>
-                    </div>
-                </mat-card-content>
-            </mat-card>
-        </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
     </div>
+  </div>
 </div>

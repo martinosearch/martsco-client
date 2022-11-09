@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, OnInit, HostListener } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Passport } from 'src/app/id-card-mg/models/passport';
 import { StudentIdentityBean } from 'src/app/student-mg/models/studentIdentityBean';
 import { StudentCursus } from 'src/app/student-mg/models/student-cursus';

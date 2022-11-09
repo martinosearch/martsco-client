@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { EmployeeIdentityBean } from 'src/app/employees-mg/models/employee-identity-bean';
-import { MatDialog } from '@angular/material';
-import { EmployeeIdentityService } from 'src/app/employees-mg/services/employee-identity.service';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from '../../utilities/confirm-delete/confirm-delete.component';
 import { EmployeeFormComponent } from '../../employees-mg/employee-form/employee-form.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';

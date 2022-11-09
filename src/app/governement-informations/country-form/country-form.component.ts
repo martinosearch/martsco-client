@@ -1,6 +1,6 @@
 import { EventEmitter, Inject } from '@angular/core';
 import { Component, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatDialog } from '@angular/material/dialog';
 import { Armoirie } from 'src/app/establishment/models/armoirie';
 import { CountryIdentityBean } from 'src/app/governement-informations/models/country-identity-bean';
 import { Flag } from 'src/app/establishment/models/flag';

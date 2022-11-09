@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { SchoolClassChooserFormComponent } from 'src/app/establishment/school-class-chooser-form/class-chooser-form.component';
 import { ClassChooserModel } from 'src/app/establishment/models/class-chooser-model';

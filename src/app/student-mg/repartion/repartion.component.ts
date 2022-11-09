@@ -9,7 +9,7 @@ import { ResultAnnuelDataService } from 'src/app/establishment/services/result-a
 import { ResultAnnuelData } from 'src/app/establishment/models/result-annuel-data';
 import { StudentIdentityBean } from 'src/app/student-mg/models/studentIdentityBean';
 import { ActionService } from 'src/app/utilities/services/action.service';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { ConfirmDeleteComponent } from '../../utilities/confirm-delete/confirm-delete.component';
 import { HttpErrorResponse } from '@angular/common/http';
 import { MessageService } from 'src/app/utilities/services/message.service';

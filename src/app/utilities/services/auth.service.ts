@@ -3,13 +3,14 @@ import { Observable, of, ReplaySubject, Subject } from "rxjs";
 import { UserTypeService } from "./user-type.service";
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { MatDialog, MatSnackBar } from "@angular/material";
+import { MatDialog } from "@angular/material/dialog";
 import { Router } from "@angular/router";
 import { AppConfigsService } from "../../utilities/services/app-configs.service";
 import { Authority, TokenStorageService } from "./token-storage.service";
 import { MessageService } from "src/app/utilities/services/message.service";
 import { AppUser } from "../models/app-user";
 import { UserType } from "../models/user-type";
+import { MatSnackBar } from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: "root",

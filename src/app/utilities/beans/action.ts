@@ -1,4 +1,4 @@
-import { ProgressSpinnerMode } from "@angular/material";
+import { ProgressSpinnerMode } from "@angular/material/progress-spinner";
 
 export class Action {
   progressId: number;

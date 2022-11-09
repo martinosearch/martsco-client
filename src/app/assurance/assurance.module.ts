@@ -5,15 +5,12 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PdfJsViewerModule } from 'ng2-pdfjs-viewer';
 import { AssuranceMenuComponent } from 'src/app/assurance/assurance-menu/assurance-menu.component';
 
-import { MaterialModule } from '../utilities/material.module';
-
-
 @NgModule({
   declarations: [
     AssuranceMenuComponent,
   ],
   imports: [
-    CommonModule, MaterialModule,
+    CommonModule,
     FlexLayoutModule, FormsModule, ReactiveFormsModule, PdfJsViewerModule,
   ],
   exports: [

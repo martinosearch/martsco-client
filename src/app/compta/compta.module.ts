@@ -14,10 +14,13 @@ import { ComptaDashboardComponent } from './compta-dashboard/compta-dashboard.co
 import { UtilitiesModule } from '../utilities/utilities.module';
 import { ReductionStudentFormComponent } from './reduction-student-form/reduction-student-form.component';
 import { ReductionStudentListComponent } from './reduction-student-list/reduction-student-list.component';
+import { MaterialModule } from '../utilities/material.module';
+import { CashRegisterBalanceComponent } from './cash-register-balance/cash-register-balance.component';
 
 @NgModule({
   declarations: [
     CashRegisterFormComponent,
+    CashRegisterBalanceComponent,
     ComptaMenuComponent,
     ReductionMotifListComponent,
     ReductionMotifFormComponent,
@@ -31,7 +34,7 @@ import { ReductionStudentListComponent } from './reduction-student-list/reductio
 
   imports: [
     CommonModule, UtilitiesModule, NoopAnimationsModule, BrowserAnimationsModule,
-    FlexLayoutModule, FormsModule, ReactiveFormsModule,
+    FlexLayoutModule, FormsModule, ReactiveFormsModule, MaterialModule
   ],
 
   exports: [

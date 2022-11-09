@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { AppConfigsService } from 'src/app/utilities/services/app-configs.service';
 import { AuthService } from 'src/app/utilities/services/auth.service';

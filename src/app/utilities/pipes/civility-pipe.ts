@@ -11,5 +11,6 @@ export class CivilityPipe implements PipeTransform {
         return item.intitule;
       }
     }
+    return undefined;
   }
 }

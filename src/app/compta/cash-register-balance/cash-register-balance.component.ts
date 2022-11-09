@@ -32,7 +32,7 @@ export class CashRegisterBalanceComponent implements OnInit {
   public cashFlows: CashFlow[] = [];
   public currentUserId: number;
   public numOfCash = 0;
-  public cashsAmount = 0;
+  public cashsAmount: number = 0;
   currentYear: Year;
 
   constructor(

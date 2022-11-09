@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
 import { ClassChooserModel } from 'src/app/establishment/models/class-chooser-model';
 import { SchoolClassChooserFormComponent } from 'src/app/establishment/school-class-chooser-form/class-chooser-form.component';
@@ -24,7 +24,7 @@ export class EffectifReportService {
   private API_END_POINT: string;
   currentUserId: number;
 
-  constructor(public dialog: MatDialog, public studentService: StudentCursusService,
+  constructor(public dialog: MatDialog,
     public routeService: RouteService, public httpClient: HttpClient, public fileService: FileService,
     public pdfViewerService: PdfViewerService, public authService: AuthService,
     public appConfigsService: AppConfigsService, public constanceService: ConstanceService,
@@ -75,7 +75,7 @@ export class EffectifReportService {
             observer.next(progressId);
             observer.next(this.progressService.getProgress(progressId));
 
-            this.fileService.downloadAndShowPdf(url, fileName,progressId);
+            this.fileService.downloadAndShowPdf(url, fileName, progressId);
 
             return observer.next();
           });

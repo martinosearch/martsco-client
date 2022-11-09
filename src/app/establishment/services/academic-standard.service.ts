@@ -20,7 +20,7 @@ export class AcademicStandardService {
   constructor(
     public httpClient: HttpClient,
     public routeService: RouteService,
-    public typeService: AcademicStandardService, public appConfigsService: AppConfigsService
+    public appConfigsService: AppConfigsService
   ) { }
 
   getAll(): Observable<any[]> {

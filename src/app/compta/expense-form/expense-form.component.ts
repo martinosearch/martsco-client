@@ -28,7 +28,7 @@ export class ExpenseFormComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public form: MatDialogRef<ExpenseFormComponent>,
     public academicStandardService: AcademicStandardService, public messageService: MessageService,
-    private constanceService: ConstanceService, private expenseService: ExpenseService
+    public constanceService: ConstanceService, private expenseService: ExpenseService
   ) { }
 
   ngOnInit() {

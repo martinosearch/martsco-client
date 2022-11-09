@@ -28,6 +28,7 @@ import { UserFormComponent } from './../user-form/user-form.component';
   ],
 })
 export class UserListComponent implements OnInit, OnDestroy {
+  expandedElement: AppUser | null;
   displayedColumns = [
     'num',
     'login',

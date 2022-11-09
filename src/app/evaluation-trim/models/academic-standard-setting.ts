@@ -22,4 +22,6 @@ export class AcademicStandardSetting {
 
   decoupageType: DecoupageType;
   lastestDecoupage: Decoupage;
+
+  isClassExam = false;
 }

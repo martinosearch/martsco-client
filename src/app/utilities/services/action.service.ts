@@ -1,7 +1,6 @@
 import { ObserversModule } from '@angular/cdk/observers';
 import { Injectable } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { isNumber } from 'highcharts';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable, ReplaySubject } from 'rxjs';
 import { ConfirmDeleteComponent } from '../confirm-delete/confirm-delete.component';
 import { MessageService } from './message.service';
@@ -69,7 +68,7 @@ export class ActionService {
         (resp) => {
           console.log("response >>>>> " + resp);
 
-          if (isNumber(resp) && action.progressId === undefined) {
+          if (!isNaN(resp) && action.progressId === undefined) {
             action.progressId = parseInt(resp.toString());
           } else if (resp instanceof EventSource) {
             resp.addEventListener('message', message => {

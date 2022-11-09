@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CountryIdentityBean } from 'src/app/governement-informations/models/country-identity-bean';
 import { Ministary } from 'src/app/governement-informations/models/ministary';
 import { CountryService } from 'src/app/governement-informations/services/country.service';

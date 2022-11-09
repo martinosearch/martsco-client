@@ -33,6 +33,7 @@ import { CurrentClass } from './pipes/cursus-pipe';
 import { DevisePipe, AssurancePipe } from './pipes/devise-pipe';
 import { SafeHtml } from './pipes/security';
 import { SexPipe, CountMalePipe, CountFemalePipe } from './pipes/sexe-pipe';
+import { MaterialModule } from './material.module';
 
 @NgModule({
   declarations: [
@@ -48,12 +49,12 @@ import { SexPipe, CountMalePipe, CountFemalePipe } from './pipes/sexe-pipe';
   imports: [
     BrowserModule, CommonModule, NoopAnimationsModule,
     FlexLayoutModule, FormsModule, ReactiveFormsModule, PdfJsViewerModule,
-    ChartModule
+    ChartModule, MaterialModule
   ],
   exports: [
     PrincipalMenuComponent, MenuComponent, ProgressComponent, DevisePipe,
     SexPipe, CountMalePipe, CountFemalePipe, AgePipe, SafeHtml,
-    AssurancePipe, CivilityPipe, CurrentClass
+    AssurancePipe, CivilityPipe, CurrentClass, MaterialModule
   ],
   entryComponents: [ConfirmDeleteComponent, ShowMessageComponent, SuccessMessageComponent, RejectedMessageComponent],
   providers: [appInitializerProvider, cacheInterceptorProviders, authInterceptorProviders]

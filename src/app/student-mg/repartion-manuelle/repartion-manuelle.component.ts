@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog, MatSnackBar } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { SchoolClassIdentityBean } from 'src/app/establishment/models/school-class-identity-bean';
 import { StudentIdentityBean } from 'src/app/student-mg/models/studentIdentityBean';
 
@@ -21,6 +21,7 @@ import { StudentIdentityService } from '../services/student-identity.service';
 import { MessageService } from 'src/app/utilities/services/message.service';
 import { YearService } from 'src/app/establishment/services/year.service';
 import { AuthService } from 'src/app/utilities/services/auth.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-repartion-manuelle',

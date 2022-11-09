@@ -1,6 +1,6 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { Observable, of } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 import { MySubject } from 'src/app/subject-mg/models/subject';

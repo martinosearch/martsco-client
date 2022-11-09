@@ -216,25 +216,29 @@ export class ReductionStudentFormComponent implements OnInit, OnDestroy {
   /** Whether the number of selected elements matches the total number of rows. */
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.numberOfResult;
+    const numRows = this.filteredList.length;
     return numSelected === numRows;
   }
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-      this.selection.clear() : this.filteredList.forEach(row => this.selection.select(row));
-  }
-
-  /** The label for the checkbox on the passed row */
-  checkboxLabel(row?: StudentIdentityBean, index?: number): string {
-    if (!row) {
-      const option = this.isAllSelected() ? 'select' : 'deselect';
-      return option + ' all';
+    if (this.isAllSelected()) {
+      this.selection.clear();
+      return;
     } else {
-      const option = this.selection.isSelected(row) ? 'deselect' : 'select';
-      return option + ' row ' + (index + 1);
+      this.selection.select(...this.filteredList);
     }
   }
 
+  /** The label for the checkbox on the passed row */
+  masterCheckboxLabel(): string {
+    const option = this.isAllSelected() ? "select" : "deselect";
+    return option + " all";
+  }
+
+  /** The label for the checkbox  */
+  checkboxLabel(row: StudentIdentityBean, index: number): string {
+    const option = this.selection.isSelected(row) ? "deselect" : "select";
+    return option + " row " + (index + 1);
+  }
 }

@@ -4,6 +4,7 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { UtilitiesModule } from '../utilities/utilities.module';
+import { MaterialModule } from '../utilities/material.module';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { UtilitiesModule } from '../utilities/utilities.module';
   ],
 
   imports: [
-    CommonModule, UtilitiesModule, FormsModule, ReactiveFormsModule,
+    CommonModule, UtilitiesModule, FormsModule, ReactiveFormsModule, MaterialModule
   ],
 
   entryComponents: [
