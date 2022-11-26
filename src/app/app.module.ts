@@ -1,4 +1,4 @@
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HostListener, LOCALE_ID, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -24,8 +24,8 @@ import { FileChooserComponent } from './utilities/file-chooser/file-chooser.comp
 import { LoginFormComponent } from './utilities/login-form/login-form.component';
 import { cacheInterceptorProviders } from './utilities/services/cache-interceptor.service';
 import { UtilitiesModule } from './utilities/utilities.module';
-
-//registerLocaleData(localeFr, 'fr-FR', localeFrExtra);
+import localeFr from '@angular/common/locales/fr';
+registerLocaleData(localeFr);
 
 @NgModule({
   declarations: [

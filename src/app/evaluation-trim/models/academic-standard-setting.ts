@@ -5,6 +5,7 @@ import { Year } from '../../establishment/models/year';
 export class AcademicStandardSetting {
   year: Year;
   bullModelId = 1;
+  idCardModelId = 2;
 
   showDirectorName = true;
   showPrincipalName = true;

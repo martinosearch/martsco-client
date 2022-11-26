@@ -36,7 +36,7 @@ export class EffectifReportService {
     });
   }
 
-  // generation of list_class
+  // generation of list_class pdf
   generateListClassNominativeOf(type: number): Observable<any> {
     return new Observable((observer) => {
       const chooserData = { titre: 'Choisir la classe' };
@@ -51,6 +51,7 @@ export class EffectifReportService {
           this.progressService.getNewProgressId().subscribe((progressId) => {
             const classDesignation = chooserModel.schoolClass.designation;
             let fileName = "liste_nominative_" + classDesignation;
+
             let url = this.API_END_POINT + "/list-class-nominative-pdf/" + chooserModel.schoolClass.id
               + "/" + chooserModel.year.id + "/" + this.currentUserId + "/" + progressId;
 
@@ -72,10 +73,21 @@ export class EffectifReportService {
                 "/" + chooserModel.year.id + "/" + this.currentUserId + "/" + progressId;
             }
 
+            // liste nominative excel
+            if (type === 10) {
+              fileName = "liste_nominative_excel" + classDesignation;
+              url = this.API_END_POINT + "/list-class-nominative-excel/" + chooserModel.schoolClass.id +
+                "/" + chooserModel.year.id + "/" + this.currentUserId + "/" + progressId;
+            }
+
             observer.next(progressId);
             observer.next(this.progressService.getProgress(progressId));
 
-            this.fileService.downloadAndShowPdf(url, fileName, progressId);
+            if (type < 10) {
+              this.fileService.downloadAndShowPdf(url, fileName, progressId);
+            } else {
+              this.fileService.downloadExcel(url, fileName, progressId);
+            }
 
             return observer.next();
           });
@@ -87,12 +99,13 @@ export class EffectifReportService {
   generateFormulaireImportList(): Observable<any> {
     return new Observable((observer) => {
       this.progressService.getNewProgressId().subscribe((progressId) => {
-        observer.next(this.progressService.getProgress(progressId));
+
+        observer.next(progressId);
 
         console.log("ask for download formule import list");
 
         let url = `${this.API_END_POINT}/formulaire-import-list`;
-        this.fileService.downloadExcel(url, "liste_import");
+        this.fileService.downloadExcel(url, "liste_import", progressId);
         return observer.next();
       });
     });

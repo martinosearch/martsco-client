@@ -1,78 +1,79 @@
 <div class="child-main">
-    <div class="title-section">Liste des classes</div>
+  <div class="title-section">Liste des classes</div>
 
-    <div class="blocks">
-        <button mat-raised-button color="primary" (click)="onCreate()">
+  <div class="blocks">
+    <button mat-raised-button color="primary" (click)="onCreate()">
       <mat-icon>add</mat-icon><span>Ajouter une classe</span>
     </button>
-    </div>
+  </div>
 
-    <mat-card class="card">
-        <mat-card-title>
-            <div class="sta-container">
-                <mat-card class="sta-card">
-                    <mat-card-header>
-                        <div mat-card-avatar class="mdi mdi-microscope mdi-36px"></div>
-                        <mat-card-title>Classes</mat-card-title>
-                        <mat-card-subtitle>{{filteredList.length}}</mat-card-subtitle>
-                    </mat-card-header>
-                </mat-card>
-            </div>
+  <mat-card class="card">
+    <mat-card-title>
+      <div class="sta-container">
+        <mat-card class="sta-card">
+          <mat-card-header>
+            <div mat-card-avatar class="mdi mdi-microscope mdi-36px"></div>
+            <mat-card-title>Classes</mat-card-title>
+            <mat-card-subtitle>{{filteredList.length}}</mat-card-subtitle>
+          </mat-card-header>
+        </mat-card>
+      </div>
 
-            <div class="search-field-container">
-                <mat-form-field class="search-field">
-                    <input matInput [(ngModel)]="filterText" (ngModelChange)="filter()" class="search-input" type="text" placeholder="Filtrer" aria-label="Number">
-                    <mat-icon matPrefix class="mdi mdi-filter"></mat-icon>
-                </mat-form-field>
-            </div>
-        </mat-card-title>
+      <div class="search-field-container">
+        <mat-form-field class="search-field">
+          <input matInput [(ngModel)]="filterText" (ngModelChange)="filter()" class="search-input" type="text"
+            placeholder="Filtrer" aria-label="Number">
+          <mat-icon matPrefix class="mdi mdi-filter"></mat-icon>
+        </mat-form-field>
+      </div>
+    </mat-card-title>
 
-        <mat-card-content class="mat-elevation-z8 table-container">
-            <table mat-table [dataSource]="filteredList">
-                <ng-container matColumnDef="num">
-                    <th mat-header-cell *matHeaderCellDef> N° ord. </th>
-                    <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
-                </ng-container>
+    <mat-card-content class="mat-elevation-z8 table-container">
+      <table mat-table [dataSource]="filteredList">
+        <ng-container matColumnDef="num">
+          <th mat-header-cell *matHeaderCellDef> N° ord. </th>
+          <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
+        </ng-container>
 
-                <ng-container matColumnDef="designation">
-                    <th mat-header-cell *matHeaderCellDef> Désignation </th>
-                    <td mat-cell *matCellDef="let element"> {{element.designation}} </td>
-                </ng-container>
+        <ng-container matColumnDef="designation">
+          <th mat-header-cell *matHeaderCellDef> Désignation </th>
+          <td mat-cell *matCellDef="let element"> {{element.designation}} </td>
+        </ng-container>
 
-                <ng-container matColumnDef="niveau">
-                    <th mat-header-cell *matHeaderCellDef> Niveau </th>
-                    <td mat-cell *matCellDef="let element"> {{element.standard.designation}} </td>
-                </ng-container>
+        <ng-container matColumnDef="niveau">
+          <th mat-header-cell *matHeaderCellDef> Niveau </th>
+          <td mat-cell *matCellDef="let element"> {{element.standard.designation}} </td>
+        </ng-container>
 
-                <ng-container matColumnDef="modify">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element">
-                        <a class="mdi mdi-pencil mdi-24px" (click)="onModify(element)">
-                        </a>
-                    </td>
-                </ng-container>
+        <ng-container matColumnDef="modify">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <a class="mdi mdi-pencil mdi-24px" (click)="onModify(element)">
+            </a>
+          </td>
+        </ng-container>
 
-                <ng-container matColumnDef="suppr">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element">
-                        <a (click)="onDelete(element)" type="button">
-                            <mat-icon class="icon">delete</mat-icon>
-                        </a>
-                    </td>
-                </ng-container>
+        <ng-container matColumnDef="suppr">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <a (click)="onDelete(element)" type="button">
+              <mat-icon class="icon">delete</mat-icon>
+            </a>
+          </td>
+        </ng-container>
 
-                <ng-container matColumnDef="setting">
-                    <th mat-header-cell *matHeaderCellDef></th>
-                    <td mat-cell *matCellDef="let element">
-                        <a class="mdi mdi-settings mdi-24px" (click)="onSetting(element)">
-                        </a>
-                    </td>
-                </ng-container>
+        <ng-container matColumnDef="setting">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <a class="mdi mdi-cog mdi-24px" (click)="onSetting(element)">
+            </a>
+          </td>
+        </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
-                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-            </table>
-        </mat-card-content>
-    </mat-card>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </mat-card-content>
+  </mat-card>
 
 </div>

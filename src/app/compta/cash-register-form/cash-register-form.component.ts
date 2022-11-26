@@ -221,7 +221,7 @@ export class CashRegisterFormComponent implements OnInit, OnDestroy {
   }
 
   onModifierInfo() {
-    const data = Object.assign({}, this.currentComptaStudent);
+    const data = Object.assign({}, this.currentIdentityStudent);
     const dialogRef = this.dialog.open(StudentFormComponent, {
       width: '1000px',
       data: { titre: 'Modifier', obj: data }

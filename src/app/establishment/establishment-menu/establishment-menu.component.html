@@ -33,14 +33,21 @@
   </mat-expansion-panel>
 
   <mat-expansion-panel class="side-menu">
-    <mat-expansion-panel-header class="item">Inscriptions</mat-expansion-panel-header>
-    <div mat-menu-item class="sub-item" (click)="toStudentList() ">Élèves</div>
-    <div mat-menu-item class="sub-item" (click)="toEmployeeList()">Agents</div>
-    <div mat-menu-item class="sub-item" (click)="toParentsList()">Parents d'élèves</div>
+    <mat-expansion-panel-header class="item">Staff</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toEmployeeList()">Liste des agents</div>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="side-menu">
+    <mat-expansion-panel-header class="item">Elèves</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toStudentList() ">Liste des élèves</div>
     <div mat-menu-item class="sub-item" (click)="toStudentRepartition()">Répartion des anciens (Moy. de passage)</div>
     <div mat-menu-item class="sub-item" (click)="toStudentRepartitionManuelle()">Redistribution des élèves en classes
     </div>
+  </mat-expansion-panel>
 
+  <mat-expansion-panel class="side-menu">
+    <mat-expansion-panel-header class="item">Parents</mat-expansion-panel-header>
+    <div mat-menu-item class="sub-item" (click)="toParentsList()">Parents d'élèves</div>
   </mat-expansion-panel>
 
   <mat-expansion-panel class="side-menu">
@@ -53,10 +60,14 @@
     <mat-expansion-panel-header class="item">
       Liste de classe (Imprimable)
     </mat-expansion-panel-header>
-    <div mat-menu-item class="sub-item" (click)="onListClassPdf(1)">Liste nominative</div>
+    <div mat-menu-item class="sub-item" (click)="onListClassPdf(1)">Liste nominative (pdf)</div>
     <div mat-menu-item class="sub-item" (click)="onListClassPdf(2)">Liste de présence</div>
     <div mat-menu-item class="sub-item" (click)="onListClassPdf(3)">Fiche de notes (4 notes)</div>
     <div mat-menu-item class="sub-item" (click)="onListClassPdf(4)">Fiche de notes (10 notes)</div>
+
+    <mat-divider></mat-divider>
+    <div mat-menu-item class="sub-item" (click)="onListClassPdf(10)">Liste nominative (Excel)</div>
+
   </mat-expansion-panel>
 
   <mat-expansion-panel class="side-menu">

@@ -43,9 +43,7 @@ export class ReductionStudentListComponent implements OnInit, OnDestroy {
   displayedColumns = [
     'num',
     'nom',
-    'prenom', 'sex',
-    'modify',
-    'suppr'
+    'prenom', 'sex'
   ];
 
   filterText: string;

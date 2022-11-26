@@ -21,6 +21,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatNativeDateModule } from '@angular/material/core';
 
 const materials = [
   MatMenuModule,
@@ -44,7 +45,8 @@ const materials = [
   MatFormFieldModule,
   MatExpansionModule,
   MatTabsModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatNativeDateModule
 ];
 
 @NgModule({

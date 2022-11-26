@@ -50,6 +50,11 @@ export class AcademicStandartFormComponent implements OnInit {
     { id: 14, designation: "Model 14 (Model 4 avec 3 notes avec num matricule)" }
   ];
 
+  cardModels: BullModel[] = [
+    { id: 1, designation: "Thème Vert" },
+    { id: 2, designation: "Thème Bleu" }
+  ];
+
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,

@@ -91,6 +91,7 @@ export class FileService {
           this.pdfViewerService.show(file);
         }
         console.log('file downloaded !');
+        this.actionService.stopWaiting(progressId);
       }
     );
   }
@@ -104,7 +105,7 @@ export class FileService {
   }
 
   // download ressources from url
-  downloadExcel(url: string, fileNewName: string) {
+  downloadExcel(url: string, fileNewName: string, progressId: number) {
     const httpOptions = { responseType: 'blob' as 'json' };
     let file: Blob;
 
@@ -113,6 +114,7 @@ export class FileService {
         file = new Blob([response], { type: MyFile.XLS_TYPE });
       },
       (error) => {
+        this.actionService.stopWaiting(progressId);
         console.log('Error downloading ' + error);
       },
       () => {
@@ -129,6 +131,7 @@ export class FileService {
         URL.revokeObjectURL(url);
 
         console.log('file downloaded !');
+        this.actionService.stopWaiting(progressId);
       }
     );
   }
