@@ -13,6 +13,9 @@ import { AcademicStandardIdentityBean } from '../models/academic-standard-identi
 import { MessageService } from 'src/app/utilities/services/message.service';
 import { DecoupageTypeService } from '../services/decoupage-type.service';
 import { DecoupageService } from '../services/decoupage.service';
+import { ExamSettingService } from 'src/app/exams/services/exam-setting.service';
+import { ExamNational } from '../models/exam-national';
+import { ExamNationalService } from '../services/exam-national.service';
 
 
 @Component({
@@ -32,8 +35,11 @@ export class AcademicStandartFormComponent implements OnInit {
   currentYearId: number;
   decoupages: Decoupage[] = [];
   decoupageTypes: DecoupageType[] = [];
+  examNationals: ExamNational[] = [];
+
   currentDecoupageTypeId: number;
   lastestDecoupageId: number;
+  currentExamenId: number;
 
   bullModels: BullModel[] = [
     { id: 2, designation: "Model 2 (moy. class + compo)" },
@@ -60,7 +66,7 @@ export class AcademicStandartFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public form: MatDialogRef<AcademicStandartFormComponent>, private messageService: MessageService,
     public yearService: YearService, public constanceService: ConstanceService,
-    public standardService: AcademicStandardService,
+    public standardService: AcademicStandardService, private examNationalService: ExamNationalService,
     public decoupageService: DecoupageService, public decoupageTypeService: DecoupageTypeService
   ) { }
 
@@ -74,18 +80,22 @@ export class AcademicStandartFormComponent implements OnInit {
     this.model = this.data.obj !== undefined ? this.data.obj : new AcademicStandardIdentityBean();
     this.isSetting = this.data.isSetting != undefined ? this.data.isSetting : false;
 
+
     this.constanceService.currentYearSubject.subscribe((resp) => {
       this.currentYear = resp;
       this.currentYearId = this.currentYear.id;
 
       this.decoupageTypeService.getAll().subscribe((respType) => {
         this.decoupageTypes = respType;
-        this.refreshDecoupageList();
+
+        this.examNationalService.getAll().subscribe({
+          next: (respExam) => {
+            this.examNationals = respExam;
+            this.refreshSetting();
+          }
+        });
       });
-
     });
-
-    this.refreshSetting();
   }
 
   refreshSetting(): void {
@@ -122,6 +132,15 @@ export class AcademicStandartFormComponent implements OnInit {
                 }
               }
             });
+          }
+
+          //exam national
+          if (this.setting.isClassExam) {
+            if (this.setting.examNational !== undefined) {
+              this.currentExamenId = this.setting.examNational.id;
+            } else {
+              this.currentExamenId = this.examNationals[0].id;
+            }
           }
         });
       });
@@ -163,30 +182,44 @@ export class AcademicStandartFormComponent implements OnInit {
       })
     });
 
+    const setExamNational = new Observable((observer) => {
+      this.examNationalService.getOne(this.currentExamenId).subscribe(
+        {
+          next: resp => {
+            this.setting.examNational = resp;
+            observer.next();
+          }, error: () => {
+            observer.next();
+          }
+        })
+    });
+
     if (this.isSetting) {
       setDecoupageType.subscribe(() => {
-        setLastestDecoupage.subscribe(() => {
-          this.setting.year = this.currentYear;
+        setExamNational.subscribe(() => {
+          setLastestDecoupage.subscribe(() => {
+            this.setting.year = this.currentYear;
 
-          const listTemp = [];
-          for (const config of this.modelSetting.settings) {
-            if (config.year.id !== this.currentYear.id) {
-              listTemp.push(config);
+            const listTemp = [];
+            for (const config of this.modelSetting.settings) {
+              if (config.year.id !== this.currentYear.id) {
+                listTemp.push(config);
+              }
             }
-          }
 
-          listTemp.push(this.setting);
-          this.modelSetting.settings = listTemp;
+            listTemp.push(this.setting);
+            this.modelSetting.settings = listTemp;
 
-          //save models
-          this.standardService.saveIdentity(this.model).subscribe((resp) => {
-            console.log("standard identity saved");
-            this.standardService.saveSettings(this.modelSetting).subscribe((respSet) => {
-              console.log("standard settings saved");
-              this.messageService.showSucces();
-              this.event.emit(true);
-              this.form.close();
-            })
+            //save models
+            this.standardService.saveIdentity(this.model).subscribe((resp) => {
+              console.log("standard identity saved");
+              this.standardService.saveSettings(this.modelSetting).subscribe((respSet) => {
+                console.log("standard settings saved");
+                this.messageService.showSucces();
+                this.event.emit(true);
+                this.form.close();
+              });
+            });
           });
         });
       });

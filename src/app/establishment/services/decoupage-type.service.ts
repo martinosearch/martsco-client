@@ -9,7 +9,6 @@ import { RouteService } from 'src/app/utilities/services/route.service';
   providedIn: 'root'
 })
 export class DecoupageTypeService {
-  public currentObj: any;
 
   constructor(
     public httpClient: HttpClient,
@@ -39,18 +38,6 @@ export class DecoupageTypeService {
         resolve(date);
       }, ms);
     });
-  }
-
-  refresh() {
-    this.getAll();
-  }
-
-  setCurrentObject(obj: any) {
-    this.currentObj = obj;
-  }
-
-  getCurrentObject(): Observable<any> {
-    return of(this.currentObj);
   }
 }
 

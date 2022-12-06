@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ExamNational } from '../models/exam-national';
+import { ExamNationalService } from '../services/exam-national.service';
 import { YearService } from '../services/year.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class ExamNationalFormComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public form: MatDialogRef<ExamNationalFormComponent>,
-    public dataService: YearService
+    public dataService: ExamNationalService
   ) { }
 
   ngOnInit() {
@@ -28,7 +29,11 @@ export class ExamNationalFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.event.emit(this.model);
-    this.form.close();
+    this.dataService.save(this.model).subscribe({
+      next: (resp) => {
+        this.event.emit(resp);
+        this.form.close();
+      }
+    });
   }
 }

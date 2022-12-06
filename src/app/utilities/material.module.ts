@@ -24,29 +24,12 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatNativeDateModule } from '@angular/material/core';
 
 const materials = [
-  MatMenuModule,
-  MatSidenavModule,
-  MatToolbarModule,
-  MatIconModule,
-  MatListModule,
-  MatCardModule,
-  MatButtonModule,
-  MatTableModule,
-  MatDialogModule,
-  MatInputModule,
-  MatSelectModule,
-  MatCheckboxModule,
-  MatAutocompleteModule,
-  MatProgressBarModule,
-  MatSnackBarModule,
-  MatDatepickerModule,
-  MatGridListModule,
-  MatRadioModule,
-  MatFormFieldModule,
-  MatExpansionModule,
-  MatTabsModule,
-  MatProgressSpinnerModule,
-  MatNativeDateModule
+  MatMenuModule, MatSidenavModule, MatToolbarModule, MatIconModule,
+  MatListModule, MatCardModule, MatButtonModule, MatTableModule,
+  MatDialogModule, MatInputModule, MatSelectModule, MatCheckboxModule,
+  MatAutocompleteModule, MatProgressBarModule, MatSnackBarModule, MatDatepickerModule,
+  MatGridListModule, MatRadioModule, MatFormFieldModule, MatExpansionModule, MatTabsModule,
+  MatProgressSpinnerModule, MatNativeDateModule
 ];
 
 @NgModule({

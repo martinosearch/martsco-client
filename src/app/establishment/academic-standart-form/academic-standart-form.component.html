@@ -13,7 +13,7 @@
         </div>
       </mat-tab>
 
-      <mat-tab label="Model des bulletins de notes" *ngIf="isSetting">
+      <mat-tab label="Model de documents" *ngIf="isSetting">
         <div [ngStyle]="{'color': 'purple','height.px':viewHeight}">
           <mat-form-field class="element">
             <mat-select matInput placeholder="Model de bulletin" required [(ngModel)]="setting.bullModelId"
@@ -56,22 +56,24 @@
       <mat-tab label="Infos Générale" *ngIf="isSetting">
         <div [ngStyle]="{'color': 'purple','height.px':viewHeight}">
           <mat-form-field class="element">
-            <mat-select matInput placeholder="Type de découpage" required [(ngModel)]="currentDecoupageTypeId"
-              name="decoupage_type" [disabled]="false" (ngModelChange)="refreshDecoupageList()">
+            <mat-select matInput placeholder="Type de découpage" required 
+            [(ngModel)]="currentDecoupageTypeId" name="decoupage_type" [disabled]="false">
               <mat-option *ngFor="let item of decoupageTypes" [value]="item.id">
                 {{item.designation}}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
+          <mat-divider></mat-divider>
+
           <div class="checkContainer">
             <mat-checkbox [(ngModel)]="setting.isClassExam" name="isClassExam">Est une classe d'examen
             </mat-checkbox>
           </div>
-          <mat-form-field class="element">
-            <mat-select matInput placeholder="Examen" required [(ngModel)]="currentDecoupageTypeId"
-              name="decoupage_type" [disabled]="false" (ngModelChange)="refreshDecoupageList()">
-              <mat-option *ngFor="let item of decoupageTypes" [value]="item.id">
+          <mat-form-field class="element" *ngIf="setting.isClassExam">
+            <mat-select matInput placeholder="Examen national" required [(ngModel)]="currentExamenId"
+              name="exam_national" [disabled]="false">
+              <mat-option *ngFor="let item of examNationals" [value]="item.id">
                 {{item.designation}}
               </mat-option>
             </mat-select>

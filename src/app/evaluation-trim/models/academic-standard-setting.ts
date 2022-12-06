@@ -1,3 +1,4 @@
+import { ExamNational } from 'src/app/establishment/models/exam-national';
 import { Decoupage } from '../../establishment/models/decoupage';
 import { DecoupageType } from '../../establishment/models/decoupage-type';
 import { Year } from '../../establishment/models/year';
@@ -25,4 +26,5 @@ export class AcademicStandardSetting {
   lastestDecoupage: Decoupage;
 
   isClassExam = false;
+  examNational: ExamNational;
 }

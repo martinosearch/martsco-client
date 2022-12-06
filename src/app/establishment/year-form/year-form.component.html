@@ -1,16 +1,16 @@
 <h3 mat-dialog-title>{{data.titre}}</h3>
 <div mat-dialog-content>
-    <form (ngSubmit)="onSubmit()">
-        <div class="example-form">
-            <mat-form-field class="element">
-                <input matInput placeholder="Désignation" type="text" required [(ngModel)]="model.designation"
-                    name="designation">
-            </mat-form-field>
-        </div>
-    </form>
+  <form (ngSubmit)="onSubmit()">
+    <div class="example-form">
+      <mat-form-field class="element">
+        <input matInput placeholder="Désignation" type="text" required [(ngModel)]="model.designation"
+          name="designation">
+      </mat-form-field>
+    </div>
 
     <div class="action-container">
-        <span><button mat-raised-button color="primary" (click)="onSubmit()">Valider</button></span>
-        <span><button mat-raised-button color="warn" (click)="onNoClick()">Annuler</button></span>
+      <span><button mat-raised-button color="primary" (click)="onSubmit()">Valider</button></span>
+      <span><button mat-raised-button color="warn" (click)="onNoClick()" type="button">Annuler</button></span>
     </div>
+  </form>
 </div>

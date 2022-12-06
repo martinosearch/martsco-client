@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Year as ExamNational } from 'src/app/establishment/models/year';
-import { YearFormComponent } from 'src/app/establishment/year-form/year-form.component';
 import { ConfirmDeleteComponent } from 'src/app/utilities/confirm-delete/confirm-delete.component';
 import { AuthService } from 'src/app/utilities/services/auth.service';
 import { ExamNationalFormComponent } from '../exam-national-form/exam-national-form.component';
+import { ExamNational } from '../models/exam-national';
 import { ExamNationalService } from '../services/exam-national.service';
 
 @Component({
@@ -81,17 +80,14 @@ export class ExamNationalListComponent implements OnInit {
   }
 
   onCreate(): void {
-    const dialogRef = this.dialog.open(YearFormComponent, {
+    const dialogRef = this.dialog.open(ExamNationalFormComponent, {
       width: '600px',
       data: { titre: 'Ajouter un examen', obj: new ExamNational() }
     });
 
     const validationSub = dialogRef.componentInstance.event.subscribe(
       response => {
-        this.dataService.save(response).subscribe(response2 => {
-          console.log('saved: ' + response2.designation);
-          this.refresh();
-        });
+        this.refresh();
       }
     );
   }

@@ -1,4 +1,4 @@
-import { LocationStrategy, HashLocationStrategy, registerLocaleData } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, registerLocaleData, APP_BASE_HREF } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { HostListener, LOCALE_ID, NgModule } from '@angular/core';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -42,6 +42,7 @@ registerLocaleData(localeFr);
 
   //some addition here for externalization of configs
   providers: [
+    //{ provide: APP_BASE_HREF, useValue: '/martsco-client' },
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     cacheInterceptorProviders

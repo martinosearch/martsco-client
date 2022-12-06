@@ -9,3 +9,5 @@ k delete -f deployment.yaml
 
 k apply -f deployment.yaml
 
+lite-server --baseDir="dist/martino-client"
+
