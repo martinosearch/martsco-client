@@ -42,7 +42,7 @@ registerLocaleData(localeFr);
 
   //some addition here for externalization of configs
   providers: [
-    //{ provide: APP_BASE_HREF, useValue: '/martsco-client' },
+    // { provide: APP_BASE_HREF, useValue: '/martsco-client' },
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     cacheInterceptorProviders

@@ -16,6 +16,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
   providedIn: "root",
 })
 export class AuthService {
+
   public accessToken: string;
   public expiresAt: number;
   public listUser: AppUser[] = [];
@@ -60,7 +61,7 @@ export class AuthService {
         this.tokenStorageService.saveToken(response);
 
         this.isAuthenticated = true;
-        this.messageService.showSucces("Authentifié", true);
+        this.messageService.showSucces("Bienvenue " + this.tokenStorageService.getUserLogin().toUpperCase(), true);
         this.setRoles();
 
         this.updateCurrentUser();
@@ -74,9 +75,38 @@ export class AuthService {
 
   updateCurrentUser() {
     //set App user id
-    this.findUserIdByLogin(this.tokenStorageService.getUserLogin()).subscribe((resp) => {
+    this.findUserIdByLogin(this.getUserLogin()).subscribe((resp) => {
       if (resp !== undefined) {
         this.currentUserSubj.next(resp);
+      }
+    });
+  }
+
+  getUserLogin(): string {
+    return this.tokenStorageService.getUserLogin();
+  }
+
+  getUserTypeByLogin(login: string): Observable<UserType> {
+    return new Observable((observer) => {
+      if (login !== null && login !== undefined) {
+        this.httpClient.get<string>(this.API +
+          "/employee-auth/find-user-type-by-login/" + login).subscribe({
+            next: (userTypeId) => {
+              // console.log("login: " + JSON.stringify(login));
+
+              // console.log("userTypeId: " + JSON.stringify(userTypeId));
+
+              this.userTypeService.getOne(userTypeId).subscribe({
+                next: (resp) => {
+                  // console.log("user type: " + JSON.stringify(resp));
+                  observer.next(resp);
+                }
+              });
+            }
+          });
+
+      } else {
+        return observer.next(undefined);
       }
     });
   }

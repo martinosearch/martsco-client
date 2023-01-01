@@ -90,8 +90,8 @@
                     <tr>
                       <td>Nom de l'utilisateur</td>
                       <td>
-                        {{ element.identity.lastName }}
-                        {{ element.identity.firstName }}
+                        {{ element.identity!==null? element.identity.lastName:"" }}
+                        {{ element.identity!==null? element.identity.firstName :""}}
                       </td>
                     </tr>
                   </table>

@@ -2,16 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AppConfigsService } from 'src/app/utilities/services/app-configs.service';
-import { EmployeeAuth } from '../models/employee-auth';
+import { AppUser } from '../models/app-user';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EmployeeAuthService {
-  save(employeeAuth: EmployeeAuth) {
-    return this.httpClient.post<any>(this.API_MARTSCO
-      + '/employee-auth/save', employeeAuth);
-  }
+export class UserService {
 
   // api url
   private API_MARTSCO = this.appConfigsService.apiUrl;
@@ -19,10 +15,14 @@ export class EmployeeAuthService {
   constructor(private appConfigsService: AppConfigsService, public httpClient: HttpClient) { }
 
   getAll(): Observable<any[]> {
-    return this.httpClient.get<EmployeeAuth[]>(`${this.API_MARTSCO}/employee-auth/list`);
+    return this.httpClient.get<AppUser[]>(`${this.API_MARTSCO}/user/list`);
   }
 
   getOne(id: number) {
-    return this.httpClient.get<EmployeeAuth>(`${this.API_MARTSCO}/employee-auth/info/${id}`);
+    return this.httpClient.get<AppUser>(`${this.API_MARTSCO}/user/info/${id}`);
+  }
+
+  save(data: any): Observable<any> {
+    return this.httpClient.post<any>(this.API_MARTSCO + '/user/save', data);
   }
 }

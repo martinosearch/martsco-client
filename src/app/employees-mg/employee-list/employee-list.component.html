@@ -51,22 +51,22 @@
 
         <ng-container matColumnDef="nom">
           <th mat-header-cell *matHeaderCellDef> Nom </th>
-          <td mat-cell *matCellDef="let element"> {{element.identity.lastName}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.identity!==null?element.identity.lastName:""}} </td>
         </ng-container>
 
         <ng-container matColumnDef="prenom">
           <th mat-header-cell *matHeaderCellDef> Prenoms</th>
-          <td mat-cell *matCellDef="let element"> {{element.identity.firstName}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.identity!==null?element.identity.firstName:""}} </td>
         </ng-container>
 
         <ng-container matColumnDef="civility">
           <th mat-header-cell *matHeaderCellDef> Civilité</th>
-          <td mat-cell *matCellDef="let element"> {{element.identity.civility|civility}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.identity!==null?(element.identity.civility|civility) :""}} </td>
         </ng-container>
 
         <ng-container matColumnDef="age">
           <th mat-header-cell *matHeaderCellDef> Age</th>
-          <td mat-cell *matCellDef="let element"> {{element.identity.age|age}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.identity!==null?(element.identity.age|age):""}} </td>
         </ng-container>
 
         <ng-container matColumnDef="tel">

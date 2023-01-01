@@ -19,8 +19,10 @@ export class CountMalePipe implements PipeTransform {
     const temp = [];
 
     for (const item of list) {
-      if (item.identity.sex === 0) {
-        temp.push(item);
+      if (item.identity !== null) {
+        if (item.identity.sex === 0) {
+          temp.push(item);
+        }
       }
     }
 
@@ -34,8 +36,10 @@ export class CountFemalePipe implements PipeTransform {
     const temp = [];
 
     for (const item of list) {
-      if (item.identity.sex === 1) {
-        temp.push(item);
+      if (item.identity !== null) {
+        if (item.identity.sex === 1) {
+          temp.push(item);
+        }
       }
     }
 

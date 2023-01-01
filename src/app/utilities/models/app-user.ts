@@ -6,7 +6,7 @@ export class AppUser {
   password: string;
   isAuth: boolean;
   id: number;
-  userType: UserType;
+  userTypeId = 1;
   wasPersonnalized = false;
   identity: Identity;
 }

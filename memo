@@ -9,5 +9,7 @@ k delete -f deployment.yaml
 
 k apply -f deployment.yaml
 
-lite-server --baseDir="dist/martino-client"
+ng build --base-href /martsco-client/
+
+lite-server --baseDir="dist/martsco-client"
 

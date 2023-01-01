@@ -14,8 +14,8 @@ import { UtilRouteService } from '../services/util-route.service';
   styleUrls: ['./menu.component.scss']
 })
 export class MenuComponent implements OnInit {
-  currentUserId: number;
   currentUserLogin: string;
+  currentUserType: string;
   years = [];
   yearId: number;
 
@@ -32,8 +32,12 @@ export class MenuComponent implements OnInit {
         this.years = resp;
       });
 
-      this.authService.currentUserSubj.subscribe((resp) => {
-        this.currentUserId = resp;
+      this.authService.currentUserSubj.subscribe({
+        next: (resp) => {
+          this.currentUserLogin = this.authService.getUserLogin();
+          this.authService.getUserTypeByLogin(this.currentUserLogin)
+            .subscribe({ next: resp => this.currentUserType = resp.designation });
+        }
       });
     });
   }

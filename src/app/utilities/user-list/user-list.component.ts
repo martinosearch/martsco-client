@@ -1,4 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { JsonPipe } from '@angular/common';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
@@ -12,6 +13,7 @@ import { AppUser } from '../models/app-user';
 import { EmployeeAuth } from '../models/employee-auth';
 import { AuthService } from '../services/auth.service';
 import { EmployeeAuthService } from '../services/employee-auth.service';
+import { UserService } from '../services/user.service';
 import { UserFormComponent } from './../user-form/user-form.component';
 
 @Component({
@@ -42,8 +44,7 @@ export class UserListComponent implements OnInit, OnDestroy {
 
   constructor(
     public authService: AuthService,
-    public dialog: MatDialog,
-    private employeeService: EmployeeIdentityService, private employeeAuthService: EmployeeAuthService,
+    public dialog: MatDialog, private userService: UserService,
     private router: Router,
     private routeService: RouteService
   ) { }
@@ -55,32 +56,10 @@ export class UserListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void { }
 
   refresh() {
-    this.employeeService.getAll().subscribe({
-      next: (respId: EmployeeIdentityBean[]) => {
-        this.employeeAuthService.getAll().subscribe({
-          next: (respAuth: EmployeeAuth[]) => {
-            for (const user of respAuth) {
-              this.employeeAuths = respAuth;
-              const appUser = new AppUser();
-              appUser.id = user.id;
-              appUser.login = user.conxInfo.login;
-              appUser.password = user.conxInfo.password;
-              appUser.wasPersonnalized = user.conxInfo.wasPersonnalized;
-              appUser.isAuth = user.conxInfo.isAuth;
-
-              const userId = respId.filter((item) => item.id === user.id)[0];
-
-              if (userId !== undefined) {
-                appUser.identity = userId.identity;
-              } else {
-                appUser.identity = new Identity();
-              }
-              this.users.push(appUser);
-            }
-
-            this.users = this.users.slice();
-          }
-        });
+    this.userService.getAll().subscribe({
+      next: (resp) => {
+        this.users = resp;
+        console.log(JSON.stringify(resp));
       }
     });
   }
@@ -92,10 +71,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.componentInstance.event.subscribe(response => {
-      this.employeeService.delete(obj.id).subscribe(resp => {
-        this.refresh();
-      });
-      this.refresh();
+
     });
   }
 
@@ -116,26 +92,20 @@ export class UserListComponent implements OnInit, OnDestroy {
 
     const validationSub = dialogRef.componentInstance.event.subscribe(
       response => {
-        this.employeeService.save(response.obj).subscribe(response2 => {
-          this.refresh();
-        });
+        this.refresh();
       }
     );
   }
 
   onModify(user: AppUser): void {
-    const data = this.employeeAuths.filter((item) => item.id === user.id)[0];
-
     const dialogRef = this.dialog.open(UserFormComponent, {
       width: '1000px',
-      data: { titre: 'Modifier les infos.', obj: data }
+      data: { titre: 'Modifier les infos.', obj: user }
     });
 
     const validationSub = dialogRef.componentInstance.event.subscribe(
       (response) => {
-        this.employeeService.save(response).subscribe(response2 => {
-          this.refresh();
-        });
+        this.refresh();
       }
     );
   }

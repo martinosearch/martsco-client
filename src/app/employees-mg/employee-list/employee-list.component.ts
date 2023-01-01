@@ -59,9 +59,16 @@ export class EmployeeListComponent implements OnInit, OnDestroy {
   }
 
   onDelete(obj: EmployeeIdentityBean) {
+
+    let designation = "";
+
+    if (obj.identity !== null) {
+      obj.identity.lastName + ' ' + obj.identity.firstName;
+    }
+
     const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
       width: '600px',
-      data: { titre: 'Voulez- vous vraiment supprimer: ' + obj.identity.lastName + ' ' + obj.identity.firstName }
+      data: { titre: 'Voulez- vous vraiment supprimer: ' + designation }
     });
 
     dialogRef.componentInstance.event.subscribe(response => {

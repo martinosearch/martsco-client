@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Observable } from 'rxjs';
-import { EmployeeIdentityService } from '../../employees-mg/services/employee-identity.service';
 import { AppUser } from '../models/app-user';
-import { EmployeeAuth } from '../models/employee-auth';
 import { UserType } from '../models/user-type';
 import { UserTypeService } from '../services/user-type.service';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'app-user-form',
@@ -13,26 +11,27 @@ import { UserTypeService } from '../services/user-type.service';
   styleUrls: ['./user-form.component.scss']
 })
 export class UserFormComponent implements OnInit {
-  model = new EmployeeAuth();
+  model = new AppUser();
   public event: EventEmitter<any> = new EventEmitter();
-  employees = new Observable<AppUser[]>();
-  userTypes = new Observable<UserType[]>();
-  userId: number;
+  users: AppUser[] = [];
+  userTypes: UserType[] = [];
   userTypeId: number;
+  userName: string;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public form: MatDialogRef<UserFormComponent>, public employeeService: EmployeeIdentityService,
+    public form: MatDialogRef<UserFormComponent>, public userService: UserService,
     public userTypeService: UserTypeService
   ) { }
 
   ngOnInit() {
     this.model = this.data.obj;
-    this.userId = this.model.id;
-    this.userTypeId = this.model.userType ? this.model.userType.id : undefined;
+    this.userTypeId = this.model.userTypeId !== null ? this.model.userTypeId : 1;
+    this.userName = this.model.identity !== null ? this.model.identity.lastName
+      + " " + this.model.identity.firstName : "";
 
-    this.employees = this.employeeService.getAll();
-    this.userTypes = this.userTypeService.getAll();
+    this.userService.getAll().subscribe({ next: (resp) => { this.users = resp } });
+    this.userTypeService.getAll().subscribe({ next: (resp) => { this.userTypes = resp } });
   }
 
   onNoClick(): void {
@@ -40,16 +39,12 @@ export class UserFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    this.employeeService.getOne(this.userId).subscribe((response: EmployeeAuth) => {
-      response.conxInfo.login = this.model.conxInfo.login;
-      response.conxInfo.password = this.model.conxInfo.password;
-
-      this.userTypeService.getOne(this.userTypeId).subscribe((resp) => {
-        response.conxInfo.userType = resp;
-        response.conxInfo.isAuth = false;
-        this.event.emit(response);
+    this.model.userTypeId = this.userTypeId;
+    this.userService.save(this.model).subscribe({
+      next: (resp) => {
+        this.event.emit(resp);
         this.form.close();
-      });
+      }
     });
   }
 }

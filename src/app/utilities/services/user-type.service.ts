@@ -8,6 +8,7 @@ import { AppConfigsService } from 'src/app/utilities/services/app-configs.servic
 })
 
 export class UserTypeService {
+
   // api url
   private API_MARTSCO = this.appConfigsService.apiUrl;
 
