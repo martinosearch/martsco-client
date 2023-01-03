@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Menu } from '../models/menu';
+import { AuthService } from '../services/auth.service';
 
 import { ConstanceService } from '../services/constance.service';
 
@@ -10,13 +11,13 @@ import { ConstanceService } from '../services/constance.service';
 })
 export class PrincipalMenuComponent implements OnInit {
 
-  constructor(public constanceService: ConstanceService) { }
+  constructor(public constanceService: ConstanceService, public authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  isActive(menu: Menu) {
-    return menu.id === this.constanceService.currentMenu.id;
+  isActive(menu: Menu): boolean {
+    return this.constanceService.currentMenu !== null ? menu.id === this.constanceService.currentMenu.id : false;
   }
 
 }

@@ -20,6 +20,9 @@ import { AcademicStandardIdentityBean } from '../models/academic-standard-identi
 import { ClassChooserModel } from '../models/class-chooser-model';
 import { SchoolClassIdentityBean } from '../models/school-class-identity-bean';
 import { DecoupageService } from '../services/decoupage.service';
+import { AuthService } from 'src/app/utilities/services/auth.service';
+import { UserService } from 'src/app/utilities/services/user.service';
+import { AppUser } from 'src/app/utilities/models/app-user';
 
 @Component({
   selector: 'app-class-chooser-form',
@@ -63,8 +66,8 @@ export class SchoolClassChooserFormComponent implements OnInit, OnDestroy {
   eval4: Evaluation;
 
   selectedEvaluationId: number;
-
   niveau: string;
+  currentUserId: number;
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
@@ -73,7 +76,7 @@ export class SchoolClassChooserFormComponent implements OnInit, OnDestroy {
     public schoolClassService: SchoolClassIdentityService, private yearService: YearService,
     public constanceService: ConstanceService, public expenseService: ExpenseService,
     private decoupageService: DecoupageService, public standardService: AcademicStandardService,
-    public evaluationService: EvaluationService) { }
+    public evaluationService: EvaluationService, public authService: AuthService) { }
 
   ngOnInit() {
     this.disableYearSelection = this.data.disableYearSelection !== null ? this.data.disableYearSelection : false;
@@ -94,6 +97,10 @@ export class SchoolClassChooserFormComponent implements OnInit, OnDestroy {
 
     this.constanceService.currentYearSubject.subscribe((resp) => {
       this.model.year = resp;
+    });
+
+    this.authService.currentUserSubj.subscribe((resp) => {
+      this.currentUserId = resp;
     });
 
     //year get all
@@ -370,7 +377,20 @@ export class SchoolClassChooserFormComponent implements OnInit, OnDestroy {
       if (this.subjectChooser) {
         this.schoolClassSettingService.findSubjectBean(this.schoolClassId).subscribe((resp) => {
           this.schoolClassSettingService.findSubjAttributions(resp, this.yearId).subscribe((respAttrib) => {
-            this.subjectAttribs = respAttrib;
+
+            // if user is a teacher he can not see other subject
+            if (this.authService.isTeacher) {
+              this.subjectAttribs = respAttrib.
+                filter((item) => {
+                  if (item.employee !== null) {
+                    return item.employee.id === this.currentUserId
+                  } else {
+                    return false;
+                  }
+                });
+            } else {
+              this.subjectAttribs = respAttrib;
+            }
 
             // change current subject or not
             let changeIndex = true;
@@ -400,25 +420,27 @@ export class SchoolClassChooserFormComponent implements OnInit, OnDestroy {
   refreshSelectedSubjectAttribInfo(): Observable<any> {
     return new Observable((observer) => {
       if (this.subjectChooser) {
-        this.subjectService.getOne(this.subjectId).subscribe((subject) => {
-          // subj
-          this.model.subject = subject;
+        this.subjectService.getOne(this.subjectId).subscribe({
+          next: (subject) => {
+            // subj
+            this.model.subject = subject;
 
-          // set charge
-          const currentAttrib = this.subjectAttribs.filter(
-            attrib => (
-              attrib.year.id === this.yearId && attrib.subject.id === this.subjectId
-            )
-          )[0];
+            // set charge
+            const currentAttrib = this.subjectAttribs.filter(
+              attrib => (
+                attrib.year.id === this.yearId && attrib.subject.id === this.subjectId
+              )
+            )[0];
 
-          this.model.charge = currentAttrib !== undefined ? currentAttrib.employee : undefined;
+            this.model.charge = currentAttrib !== undefined ? currentAttrib.employee : undefined;
 
-          observer.next();
-          console.log("prof charge: " + this.model.charge);
-        },
-          (error) => {
             observer.next();
-          });
+            console.log("prof charge: " + this.model.charge);
+          },
+          error: (error) => {
+            observer.next();
+          }
+        });
       } else {
         observer.next();
       }

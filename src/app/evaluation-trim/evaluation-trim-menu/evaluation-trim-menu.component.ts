@@ -13,6 +13,8 @@ import { Router } from '@angular/router';
 import { StudentResultStatService } from '../services/student-result-stat.service';
 import { RouteService } from 'src/app/utilities/services/route.service';
 import { StudentResultStatBySexService } from '../services/student-result-stat-by-sex.service';
+import { AuthService } from 'src/app/utilities/services/auth.service';
+import { ConstanceService } from 'src/app/utilities/services/constance.service';
 
 
 
@@ -28,7 +30,7 @@ export class EvaluationTrimMenuComponent implements OnInit {
   constructor(public dialog: MatDialog, public studentResultReportService: StudentResultReportService,
     private studentResultStatBySexService: StudentResultStatBySexService,
     public studentResultStatMixteReportService: StudentResultStatService,
-    public actionService: ActionService,
+    public actionService: ActionService, public authService: AuthService, public constanceService: ConstanceService,
     public router: Router, public routeService: RouteService) { }
 
   ngOnInit() {

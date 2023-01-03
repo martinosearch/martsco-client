@@ -1,10 +1,30 @@
 <mat-toolbar class="main">
-    <div class="app-page">{{constanceService.currentMenu.title}}</div>
-    <a [class]="isActive(constanceService.etablissement)? 'menu active':'menu'" (click)="constanceService.setMenu(constanceService.etablissement)">Établissements</a>
-    <a [class]="isActive(constanceService.evaluations)? 'menu active':'menu'" (click)="constanceService.setMenu(constanceService.evaluations)">Évaluations</a>
-    <a [class]="isActive(constanceService.exams)? 'menu active':'menu'" (click)="constanceService.setMenu(constanceService.exams)">Examens</a>
-    <a [class]="isActive(constanceService.comptabilite)? 'menu active':'menu'" (click)="constanceService.setMenu(constanceService.comptabilite)">Comptabilité</a>
-    <a [class]="isActive(constanceService.bibliotheque)? 'menu active':'menu'" (click)="constanceService.setMenu(constanceService.bibliotheque)">Bibliothèque</a>
-    <a [class]="isActive(constanceService.planning)? 'menu active':'menu'" (click)="constanceService.setMenu(constanceService.planning)">Planning</a>
-    <a [class]="isActive(constanceService.cantine)? 'menu active':'menu'" (click)="constanceService.setMenu(constanceService.cantine)">Cantine</a>
+    <div class="app-page">{{constanceService.currentMenu!==null?constanceService.currentMenu.title:""}}</div>
+    <a [class]="isActive(constanceService.etablissement)? 'menu active':'menu'"
+        *ngIf="authService.isEnabledMenu(constanceService.etablissement)"
+     (click)="constanceService.setMenu(constanceService.etablissement)">Établissements</a>
+
+    <a [class]="isActive(constanceService.evaluations)? 'menu active':'menu'"
+    *ngIf="authService.isEnabledMenu(constanceService.evaluations)"
+     (click)="constanceService.setMenu(constanceService.evaluations)">Évaluations</a>
+
+    <a [class]="isActive(constanceService.exams)? 'menu active':'menu'"
+    *ngIf="authService.isEnabledMenu(constanceService.exams)"
+     (click)="constanceService.setMenu(constanceService.exams)">Examens</a>
+
+    <a [class]="isActive(constanceService.comptabilite)? 'menu active':'menu'"
+    *ngIf="authService.isEnabledMenu(constanceService.comptabilite)"
+    (click)="constanceService.setMenu(constanceService.comptabilite)">Comptabilité</a>
+
+    <a [class]="isActive(constanceService.bibliotheque)? 'menu active':'menu'"
+    *ngIf="authService.isEnabledMenu(constanceService.bibliotheque)"
+     (click)="constanceService.setMenu(constanceService.bibliotheque)">Bibliothèque</a>
+
+    <a [class]="isActive(constanceService.planning)? 'menu active':'menu'"
+    *ngIf="authService.isEnabledMenu(constanceService.planning)"
+     (click)="constanceService.setMenu(constanceService.planning)">Planning</a>
+
+    <a [class]="isActive(constanceService.cantine)? 'menu active':'menu'"
+    *ngIf="authService.isEnabledMenu(constanceService.cantine)"
+     (click)="constanceService.setMenu(constanceService.cantine)">Cantine</a>
 </mat-toolbar>

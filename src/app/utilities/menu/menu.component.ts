@@ -6,6 +6,7 @@ import { YearService } from '../../establishment/services/year.service';
 import { LoginFormComponent } from '../login-form/login-form.component';
 import { AuthService } from '../services/auth.service';
 import { RouteService } from '../services/route.service';
+import { UserService } from '../services/user.service';
 import { UtilRouteService } from '../services/util-route.service';
 
 @Component({
@@ -22,7 +23,7 @@ export class MenuComponent implements OnInit {
 
   constructor(public constanceService: ConstanceService, private dialog: MatDialog, public authService: AuthService,
     public yearService: YearService, public router: Router, public routeService: RouteService,
-    public utilRouteService: UtilRouteService) { }
+    public utilRouteService: UtilRouteService, private userService: UserService) { }
 
   ngOnInit() {
     this.constanceService.currentYearSubject.subscribe(resp => {
@@ -35,7 +36,7 @@ export class MenuComponent implements OnInit {
       this.authService.currentUserSubj.subscribe({
         next: (resp) => {
           this.currentUserLogin = this.authService.getUserLogin();
-          this.authService.getUserTypeByLogin(this.currentUserLogin)
+          this.userService.getUserTypeByLogin(this.currentUserLogin)
             .subscribe({ next: resp => this.currentUserType = resp.designation });
         }
       });

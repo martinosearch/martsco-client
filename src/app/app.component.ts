@@ -42,6 +42,8 @@ export class AppComponent {
     this.establishmentService.getThisEstablishment().subscribe((resp) => {
       this.thisEstablishmentName = resp.type.dim + " | " + resp.identity.name;
     });
+
+    // console.log("current menu: " + JSON.stringify(this.constanceService.currentMenu));
   }
 
   @HostListener('window:resize', ['$event'])

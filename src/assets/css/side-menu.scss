@@ -1,5 +1,6 @@
 .item {
   height: 50px;
+  // text-transform: uppercase;
 }
 
 .item:hover {
@@ -15,6 +16,7 @@
 .sub-item {
   background-color: rgb(223, 226, 241);
   color: rgb(48, 81, 226);
+  // text-transform: uppercase;
 }
 
 .sub-item:hover {

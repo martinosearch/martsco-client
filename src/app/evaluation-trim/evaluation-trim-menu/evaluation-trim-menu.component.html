@@ -1,10 +1,11 @@
 <mat-accordion>
-  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded" 
+  *ngIf="authService.isEnabledMenu(constanceService.baseDataEval)">
     <mat-expansion-panel-header class="item">Données de base</mat-expansion-panel-header>
-    <div mat-menu-item class="sub-item" (click)="toEvaluationTypeList()">
+    <div mat-menu-item class="sub-item" (click)="toEvaluationTypeList()" *ngIf="authService.isEnabledMenu(constanceService.evalType)">
       Types d'évaluations
     </div>
-    <div mat-menu-item class="sub-item" (click)="toEvaluationList()">
+    <div mat-menu-item class="sub-item" (click)="toEvaluationList()" *ngIf="authService.isEnabledMenu(constanceService.evaluation_sub)">
       Évaluations
     </div>
   </mat-expansion-panel>
@@ -27,28 +28,38 @@
 
   <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
     <mat-expansion-panel-header class="item">Résultats</mat-expansion-panel-header>
-    <div mat-menu-item class="sub-item" (click)="onBulletinNotePdf(false)">
+    <div mat-menu-item class="sub-item" (click)="onBulletinNotePdf(false)"
+    *ngIf="authService.isEnabledMenu(constanceService.bullNotes)">
       Bulletins de notes
     </div>
-    <div mat-menu-item class="sub-item" (click)="onResultatGenPdf(false)">
+    <div mat-menu-item class="sub-item" (click)="onResultatGenPdf(false)"
+    *ngIf="authService.isEnabledMenu(constanceService.resultGen)">
       Résultat général
     </div>
-    <div mat-menu-item class="sub-item" (click)="onRapportSaisiePdf()">
+    <div mat-menu-item class="sub-item" (click)="onRapportSaisiePdf()"
+    *ngIf="authService.isEnabledMenu(constanceService.rapportSaisie)">
       Rapport de saisie
     </div>
-    <div mat-menu-item class="sub-item" (click)="onResultatAnnuelPdf()">
+    <div mat-menu-item class="sub-item" (click)="onResultatAnnuelPdf()"
+    *ngIf="authService.isEnabledMenu(constanceService.resultAn)"
+    >
       Résultat annuel
     </div>
-    <div mat-menu-item class="sub-item" (click)="onBulletinBilanPdf()">
+    <div mat-menu-item class="sub-item" (click)="onBulletinBilanPdf()"
+    *ngIf="authService.isEnabledMenu(constanceService.bullBilan)"
+    >
       Bulletins bilan
     </div>
 
     <mat-divider></mat-divider>
 
-    <div mat-menu-item class="sub-item" (click)="onResultatGenPdf(true)">
+    <div mat-menu-item class="sub-item" (click)="onResultatGenPdf(true)"
+    *ngIf="authService.isEnabledMenu(constanceService.resultGenEval)"
+    >
       Résultat général (Évaluation)
     </div>
-    <div mat-menu-item class="sub-item" (click)="onBulletinNotePdf(true)">
+    <div mat-menu-item class="sub-item" (click)="onBulletinNotePdf(true)"
+    *ngIf="authService.isEnabledMenu(constanceService.relNotesEval)">
       Relevé de notes (Évaluation)
     </div>
   </mat-expansion-panel>
@@ -77,7 +88,7 @@
     <div mat-menu-item class="sub-item" (click)="onStatMixteStandardPdf(true)">
       Stat. des notes d'éval. (Par Niveau)
     </div>
-
+ 
     <div mat-menu-item class="sub-item" (click)="onStatMixteSchoolClassPdf(true)">
       Stat. des notes d'éval. (Par classe)
     </div>
@@ -113,7 +124,8 @@
     </div>
   </mat-expansion-panel>
 
-  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded">
+  <mat-expansion-panel class="side-menu" [class.side-menu-expanded]="expanded"
+  *ngIf="authService.isEnabledMenu(constanceService.paramsEval)">
     <mat-expansion-panel-header class="item">Paramètres</mat-expansion-panel-header>
     <div mat-menu-item class="sub-item" (click)="onMatiereProg()">
       Config. des matières au programme

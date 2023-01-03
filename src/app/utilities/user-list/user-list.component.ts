@@ -59,7 +59,7 @@ export class UserListComponent implements OnInit, OnDestroy {
     this.userService.getAll().subscribe({
       next: (resp) => {
         this.users = resp;
-        console.log(JSON.stringify(resp));
+        //console.log(JSON.stringify(resp));
       }
     });
   }
