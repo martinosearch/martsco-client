@@ -1,7 +1,7 @@
 .example-form {
-    display       : flex;
+    display: flex;
     flex-direction: column;
-    width         : 100%;
+    width: 100%;
 }
 
 .example-form>* {
@@ -13,23 +13,23 @@
 }
 
 .action-container button {
-    width : 49%;
+    width: 49%;
     margin: 2px;
 }
 
 .property-field {
-    display        : flex;
-    flex-direction : row;
-    align-items    : center;
-    flex-wrap      : wrap;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
 }
 
 .text-field {
-    display        : flex;
-    flex-direction : row;
-    align-items    : center;
-    flex-wrap      : wrap;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    flex-wrap: wrap;
     justify-content: space-around;
 }
 
@@ -37,45 +37,59 @@
     width: 32%;
 }
 
+.responsable .element {
+    width: 40%;
+}
+
+.responsable {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    width: 100%;
+    flex-wrap: wrap;
+    //background-color: #472183;
+}
+
 .year-field {
     width: 100px;
 }
 
 .text-field-element {
-    width     : 100%;
+    width: 100%;
     min-height: 100px;
 }
 
 .image_container {
-    display        : flex;
-    flex-direction : row;
+    display: flex;
+    flex-direction: row;
     justify-content: space-around;
 }
 
 .image {
-    display        : flex;
-    flex-direction : column;
+    display: flex;
+    flex-direction: column;
     justify-content: space-between;
-    border         : 1px rgb(235, 231, 226) solid;
-    width          : 20%;
-    height         : 80%;
-    max-width      : 20%;
-    max-height     : 80%;
+    border: 1px rgb(235, 231, 226) solid;
+    width: 20%;
+    height: 80%;
+    max-width: 20%;
+    max-height: 80%;
 }
 
 .image_entete {
-    display            : flex;
-    justify-content    : center;
-    width              : 100%;
-    max-height         : 75%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-height: 75%;
     //border           : 1px burlywood solid;
 }
 
 .image_fond {
-    display            : flex;
-    justify-content    : center;
-    width              : 100%;
-    max-height         : 75%;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-height: 75%;
     //border           : 1px burlywood solid;
 }
 

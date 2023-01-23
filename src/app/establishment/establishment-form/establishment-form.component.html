@@ -24,7 +24,8 @@
                     </mat-form-field>
 
                     <mat-form-field class="element">
-                        <input matInput placeholder="Devise de l'école" required [(ngModel)]="model.identity.devise" name="devise" />
+                        <input matInput placeholder="Devise de l'école" required [(ngModel)]="model.identity.devise"
+                            name="devise" />
                     </mat-form-field>
 
                     <mat-form-field class="element">
@@ -58,7 +59,7 @@
             </mat-tab>
 
             <mat-tab label="Responsable" *ngIf="isSetting">
-                <div class="property-field" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
+                <div class="responsable" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
                     <mat-form-field class="element" *ngIf="isSetting">
                         <mat-select matInput placeholder="Chef de l'école" [(ngModel)]="directorId" name="director">
                             <mat-option *ngFor="let item of employees | async" [value]="item.id">
@@ -70,6 +71,23 @@
                     <mat-form-field class="element" *ngIf="isSetting">
                         <mat-select matInput placeholder="Titre du Chef" [(ngModel)]="directorTitre" name="dirTitre">
                             <mat-option *ngFor="let item of listDirectorTitre" [value]="item">
+                                {{ item }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="element" *ngIf="isSetting">
+                        <mat-select matInput placeholder="Le Fondateur" [(ngModel)]="fondatorId" name="fondateur">
+                            <mat-option *ngFor="let item of employees | async" [value]="item.id">
+                                {{ item.identity.lastName }} {{ item.identity.firstName }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="element" *ngIf="isSetting">
+                        <mat-select matInput placeholder="Titre du Fondateur" [(ngModel)]="fondatorTitre"
+                            name="dirFondateur">
+                            <mat-option *ngFor="let item of listFondatorTitre" [value]="item">
                                 {{ item }}
                             </mat-option>
                         </mat-select>
@@ -102,11 +120,13 @@
             <mat-tab label="Immatriculation" *ngIf="isSetting">
                 <div class="image_container" [ngStyle]="{ color: 'purple', 'height.px': viewHeight }">
                     <mat-form-field class="element">
-                        <input matInput placeholder="Dernier num. matricule" [(ngModel)]="model.studentMatriculeIndex" type="number" name="student_matricule" />
+                        <input matInput placeholder="Dernier num. matricule" [(ngModel)]="model.studentMatriculeIndex"
+                            type="number" name="student_matricule" />
                     </mat-form-field>
 
                     <mat-form-field class="element">
-                        <input matInput placeholder="Dernier num. reçu" [(ngModel)]="model.receiptSerialIndex" type="number" name="receipt_serial" />
+                        <input matInput placeholder="Dernier num. reçu" [(ngModel)]="model.receiptSerialIndex"
+                            type="number" name="receipt_serial" />
                     </mat-form-field>
                 </div>
             </mat-tab>
@@ -114,10 +134,10 @@
     </form>
     <div class=" action-container">
         <span><button mat-raised-button color="primary" (click)="onSubmit()">
-        Valider
-      </button></span>
+                Valider
+            </button></span>
         <span><button mat-raised-button color="warn" (click)="onNoClick()">
-        Quitter
-      </button></span>
+                Quitter
+            </button></span>
     </div>
 </div>

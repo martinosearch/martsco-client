@@ -34,7 +34,6 @@ export class EstablishmentFormComponent implements OnInit, OnDestroy {
   public modelSettingBean = new EstablishmentSettingBean();
   public modelImageBean = new EstablishmentImageBean();
 
-  public directorId: number;
   public typeId: number;
   public employees = new Observable<EmployeeIdentityBean[]>();
   public event: EventEmitter<any> = new EventEmitter();
@@ -53,8 +52,20 @@ export class EstablishmentFormComponent implements OnInit, OnDestroy {
   public isSetting = false;
   currentYear: Year;
   currentYearId: number;
+
+  directorId: number;
   directorTitre = "Le Chef d'Etablissement";
-  listDirectorTitre = ["Le Chef d'Etablissement", "La Cheffe d'Etablissement", "Le Proviseur", "La Proviseur", "Le censeur", "La Censeure", "Le Directeur", "La Directrice", "Le Directeur des Etudes", "La Directrice des Etudes"];
+  listDirectorTitre = ["Le Chef d'Etablissement", "La Cheffe d'Etablissement",
+    "Le Proviseur", "La Proviseur", "Le censeur", "La Censeure", "Le Directeur",
+    "La Directrice", "Le Directeur des Etudes", "La Directrice des Etudes",
+    "Le Directeur Collège", "La Directrice Collège"];
+
+
+  fondatorId: number;
+  fondatorTitre = "Le Fondateur";
+  listFondatorTitre = ["Le Fondateur", "La Fondatrice", "Le Promoteur", "La Promotrice",
+    "Le Directeur Général", "La Directrice Général"];
+
   isRunning = false;
   viewHeight = 250;
 
@@ -113,10 +124,17 @@ export class EstablishmentFormComponent implements OnInit, OnDestroy {
       this.currentYear = resp;
     });
 
-    this.currentYearId = this.currentYear.id;
     for (const dir of this.modelSettingBean.directors) {
       if (dir.year.id === this.currentYear.id) {
         this.directorId = dir.employee.id;
+        this.directorTitre = dir.titre;
+      }
+    }
+
+    for (const fonde of this.modelSettingBean.fondators) {
+      if (fonde.year.id === this.currentYear.id) {
+        this.fondatorId = fonde.employee.id;
+        this.fondatorTitre = fonde.titre;
       }
     }
   }
@@ -135,37 +153,19 @@ export class EstablishmentFormComponent implements OnInit, OnDestroy {
         // set type
         this.model.type = response;
 
-        //set director
+
         if (this.isSetting) {
-          let exists = false;
-          for (const dir of this.modelSettingBean.directors) {
-            if (dir.year.id === this.currentYear.id) {
-              exists = true;
-              dir.titre = this.directorTitre;
-              this.isRunning = true;
-              this.employeeService.getOne(this.directorId).subscribe((resp) => {
-                this.isRunning = false;
-
-                dir.titre = this.directorTitre;
-                dir.year = this.currentYear;
-                dir.employee = resp;
-
-                this.emit();
+          //set director
+          this.submitDirector().subscribe({
+            next: (resp) => {
+              // set fondator
+              this.submitFondator().subscribe({
+                next: (resp) => {
+                  this.emit();
+                }
               });
             }
-          }
-
-          if (!exists) {
-            this.employeeService.getOne(this.directorId).subscribe((resp) => {
-              const director = new Responsable();
-              director.titre = this.directorTitre;
-              director.year = this.currentYear;
-              director.employee = resp;
-              this.modelSettingBean.directors.push(director);
-
-              this.emit();
-            });
-          }
+          });
         } else {
           this.emit();
           this.form.close();
@@ -178,13 +178,79 @@ export class EstablishmentFormComponent implements OnInit, OnDestroy {
     );
   }
 
+  submitDirector(): Observable<Responsable> {
+    return new Observable((observer) => {
+      let exists = false;
+      for (const dir of this.modelSettingBean.directors) {
+        if (dir.year.id === this.currentYear.id) {
+          exists = true;
+          dir.titre = this.directorTitre;
+          dir.year = this.currentYear;
+
+          this.isRunning = true;
+          this.employeeService.getOne(this.directorId).subscribe((resp) => {
+            this.isRunning = false;
+            dir.employee = resp;
+
+            observer.next(dir);
+          });
+        }
+      }
+
+      if (!exists) {
+        this.employeeService.getOne(this.directorId).subscribe((resp) => {
+          const dir = new Responsable();
+          dir.titre = this.directorTitre;
+          dir.year = this.currentYear;
+          dir.employee = resp;
+          this.modelSettingBean.directors.push(dir);
+
+          observer.next(dir);
+        });
+      }
+    });
+  }
+
+  submitFondator(): Observable<Responsable> {
+    return new Observable((observer) => {
+      let exists = false;
+      for (const fonde of this.modelSettingBean.fondators) {
+        if (fonde.year.id === this.currentYear.id) {
+          exists = true;
+          fonde.titre = this.fondatorTitre;
+          fonde.year = this.currentYear;
+
+          this.isRunning = true;
+          this.employeeService.getOne(this.fondatorId).subscribe((resp) => {
+            this.isRunning = false;
+            fonde.employee = resp;
+
+            observer.next(fonde);
+          });
+        }
+      }
+
+      if (!exists) {
+        this.employeeService.getOne(this.fondatorId).subscribe((resp) => {
+          const fonde = new Responsable();
+          fonde.titre = this.fondatorTitre;
+          fonde.year = this.currentYear;
+          fonde.employee = resp;
+          this.modelSettingBean.fondators.push(fonde);
+
+          observer.next(fonde);
+        });
+      }
+    });
+  }
+
   emit() {
     this.establishmentService.save(this.model).subscribe((resp) => {
       this.model = resp;
       this.establishmentService.saveSettingBean(this.modelSettingBean).subscribe((respSet) => {
         this.establishmentService.saveImageBean(this.modelImageBean).subscribe((respImg) => {
           this.event.emit(resp);
-          this.messageService.showSucces();
+          this.messageService.showSucces(null, true);
         });
       });
     });

@@ -53,7 +53,8 @@ export class AcademicStandartFormComponent implements OnInit {
     { id: 10, designation: "Model 10 (Model 4 avec 3 notes sans num matricule)" },
     { id: 11, designation: "Model 11 (Uniquement le nom de l'élève)" },
     { id: 13, designation: "Model 13 (Model 4 Note de classe - compo)" },
-    { id: 14, designation: "Model 14 (Model 4 avec 3 notes avec num matricule)" }
+    { id: 14, designation: "Model 14 (Model 4 avec 3 notes avec num matricule)" },
+    { id: 15, designation: "Model 15 (Model 4 avec 3 signatures)" }
   ];
 
   cardModels: BullModel[] = [
@@ -72,11 +73,11 @@ export class AcademicStandartFormComponent implements OnInit {
 
   @HostListener('window:resize', ['$event'])
   onResize(event) {
-    this.viewHeight = window.innerHeight * 0.3;
+    this.viewHeight = window.innerHeight * 0.4
   }
 
   ngOnInit() {
-    this.viewHeight = window.innerHeight * 0.3;
+    this.viewHeight = window.innerHeight * 0.4;
     this.model = this.data.obj !== undefined ? this.data.obj : new AcademicStandardIdentityBean();
     this.isSetting = this.data.isSetting != undefined ? this.data.isSetting : false;
 

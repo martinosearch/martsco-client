@@ -1,17 +1,18 @@
 .example-form {
-    display        : flex;
-    flex-direction : row;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    flex-wrap      : wrap;
-    width          : 100%;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
+
 .checkContainer {
-    display        : flex;
-    flex-direction : row;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
-    flex-wrap      : wrap;
-    width          : 100%;
+    flex-wrap: wrap;
+    width: 100%;
 }
 
 .checkContainer>* {
@@ -19,16 +20,73 @@
 }
 
 .action-container {
-    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 25px;
+    justify-content: flex-end;
 }
 
-.action-container button {
-    width : 49%;
-    margin: 2px;
+.container-moyenne {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+    // background-color: green;
+    //gap: 10px;
 }
+
+.moy-passage {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    // background-color: red;
+}
+
+.moy-first {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    // background-color: blue;
+}
+
+.rubrique {
+    background-color: blue;
+}
+
+.facultative {
+    display: flex;
+    flex-direction: column;
+}
+
 
 .element {
     width: 30%;
+}
+
+.moy-passage .element {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    // background-color: red;
+    padding: 0;
+}
+
+.moy-first .element {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    // background-color: red;
+    padding: 0;
+}
+
+// .moy-passage .mat-form-field {
+//     padding: 0;
+//     height: 50px;
+//     background-color: blue;
+// }
+
+.container-moyenne element {
+    width: 80%;
 }
 
 .year-field {

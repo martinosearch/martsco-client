@@ -52,6 +52,7 @@ export class EstablishmentListComponent implements OnInit, OnDestroy {
     this.dataService.getAll().subscribe((resp) => {
       this.holeList = resp;
       this.filteredList = resp;
+      this.filter();
     })
   }
 

@@ -56,8 +56,8 @@
       <mat-tab label="Infos Générale" *ngIf="isSetting">
         <div [ngStyle]="{'color': 'purple','height.px':viewHeight}">
           <mat-form-field class="element">
-            <mat-select matInput placeholder="Type de découpage" required 
-            [(ngModel)]="currentDecoupageTypeId" name="decoupage_type" [disabled]="false">
+            <mat-select matInput placeholder="Type de découpage" required [(ngModel)]="currentDecoupageTypeId"
+              name="decoupage_type" [disabled]="false">
               <mat-option *ngFor="let item of decoupageTypes" [value]="item.id">
                 {{item.designation}}
               </mat-option>
@@ -82,33 +82,50 @@
       </mat-tab>
 
       <mat-tab label="Calcul des moyennes" *ngIf="isSetting">
-        <div [ngStyle]="{'color': 'purple','height.px':viewHeight}">
-          <mat-form-field class="element">
-            <mat-select matInput placeholder="Calculer la moyenne annuelle à : " required
-              [(ngModel)]="lastestDecoupageId" name="lastestDecoupage">
-              <mat-option *ngFor="let item of decoupages" [value]="item.id">
-                {{item.designation}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-          <div class="example-form">
-            <mat-form-field>
-              <input matInput placeholder="Moyenne de passage 1" type="text" required
-                [(ngModel)]="setting.moyennePassage1" name="passage1">
+        <div [ngStyle]="{'height.px':viewHeight}" class="container-moyenne">
+          <div class="moy-first">
+            <mat-form-field class="element">
+              <mat-select matInput placeholder="Calculer la moyenne annuelle à : " required
+                [(ngModel)]="lastestDecoupageId" name="lastestDecoupage">
+                <mat-option *ngFor="let item of decoupages" [value]="item.id">
+                  {{item.designation}}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Moyenne de passage 2" type="text" required
-                [(ngModel)]="setting.moyennePassage2" name="passage2">
+
+            <div class="facultative">
+              <div class="rubrique">Matières facultatives</div>
+              <mat-form-field class="element">
+                <mat-select matInput placeholder="Type de matière concerné" required [(ngModel)]="lastestDecoupageId"
+                  name="lastestDecoupage">
+                  <mat-option *ngFor="let item of decoupages" [value]="item.id">
+                    {{item.designation}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="moy-passage">
+            <div class="rubrique">Moyennes de passage</div>
+            <mat-form-field class="element">
+              <input matInput placeholder="Période 1" type="number" required [(ngModel)]="setting.moyennePassage1"
+                name="passage1">
             </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Moyenne de passage 3" type="text" required
-                [(ngModel)]="setting.moyennePassage3" name="passage3">
+            <mat-form-field class="element">
+              <input matInput placeholder="Période2" type="number" required [(ngModel)]="setting.moyennePassage2"
+                name="passage2">
             </mat-form-field>
-            <mat-form-field>
-              <input matInput placeholder="Moyenne de passage annuelle" type="text" required
-                [(ngModel)]="setting.moyennePassageAn" name="passagAn">
+            <mat-form-field class="element">
+              <input matInput placeholder="Période 3" type="number" required [(ngModel)]="setting.moyennePassage3"
+                name="passage3">
+            </mat-form-field>
+            <mat-form-field class="element">
+              <input matInput placeholder="Annuelle" type="number" required [(ngModel)]="setting.moyennePassageAn"
+                name="passagAn">
             </mat-form-field>
           </div>
+
         </div>
       </mat-tab>
 

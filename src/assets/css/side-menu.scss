@@ -1,51 +1,53 @@
-.item {
-  height: 50px;
-  // text-transform: uppercase;
+@import "my-theme.scss";
+
+.mat-menu-item {
+  background-color: rgb(223, 226, 241) !important;
+  color: rgb(48, 81, 226) !important;
+  border-radius: 0 !important;
 }
 
-.item:hover {
-  background-color: rgb(59, 56, 219);
-  color: beige;
+.mat-menu-item:hover {
+  background-color: rgb(136, 240, 179) !important;
+  color: rgb(48, 81, 226);
 }
 
-.item:active {
+.mat-menu-item:active {
   background-color: rgb(247, 161, 122);
   color: beige;
-}
-
-.sub-item {
-  background-color: rgb(223, 226, 241);
-  color: rgb(48, 81, 226);
-  // text-transform: uppercase;
-}
-
-.sub-item:hover {
-  background-color: rgb(136, 240, 179);
-  color: rgb(48, 81, 226);
 }
 
 
 mat-expansion-panel {
   margin: 0;
-  background-color: rgb(59, 56, 219);
+  // background-color: rgb(59, 56, 219);
   color: beige;
+  border-radius: 0;
 }
+
+
 
 mat-expansion-panel-header {
   padding-left: 5px;
   padding-top: 0;
   padding-bottom: 0;
-  background-color: rgb(59, 56, 219);
+  border-radius: 0 !important;
+  background-color: mat-color($my-primary) !important;
+  height: 50px !important;
+  color: beige;
+}
+
+mat-expansion-panel-header:hover {
+  background-color: rgb(59, 56, 219) !important;
+  color: beige;
+}
+
+mat-expansion-panel-header:active {
+  background-color: rgb(247, 161, 122) !important;
+  color: beige;
 }
 
 mat-accordion {
   display: flex;
   flex-direction: column;
   background-color: rgb(59, 56, 219);
-}
-
-
-
-.side-menu-item {
-  height: 50px;
 }

@@ -76,10 +76,10 @@
 
         <div class="movement-column">
             <div class="movement-button-container">
-                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-right mdi-24px" [disabled]="currentDefaultSubject===undefined" (click)="moveAllDefault()"></button>
-                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-right mdi-24px" [disabled]="currentDefaultSubject===undefined" (click)="moveDefault()"></button>
-                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-left mdi-24px" [disabled]="currentSelectedSubject===undefined" (click)="moveSelected()"></button>
-                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-left mdi-24px" [disabled]="currentSelectedSubject===undefined" (click)="moveAllSelected()"></button>
+                <button mat-raised-button color="primary"  [disabled]="currentDefaultSubject===undefined" (click)="moveAllDefault()"><span class="movement-button mdi mdi-chevron-double-right mdi-24px"></span></button>
+                <button mat-raised-button color="primary"  [disabled]="currentDefaultSubject===undefined" (click)="moveDefault()"><span class="movement-button mdi mdi-chevron-right mdi-24px"></span></button>
+                <button mat-raised-button color="primary"  [disabled]="currentSelectedSubject===undefined" (click)="moveSelected()"><span class="movement-button mdi mdi-chevron-left mdi-24px"></span></button>
+                <button mat-raised-button color="primary"  [disabled]="currentSelectedSubject===undefined" (click)="moveAllSelected()"><span class="movement-button mdi mdi-chevron-double-left mdi-24px"></span></button>
             </div>
         </div>
 
