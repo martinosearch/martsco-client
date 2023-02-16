@@ -5,8 +5,10 @@ import { Year } from '../../establishment/models/year';
 
 export class AcademicStandardSetting {
   year: Year;
-  bullModelId = 1;
+  bullModelId = 4;
   idCardModelId = 2;
+  facultativeComputeId = 1;
+
 
   showDirectorName = true;
   showPrincipalName = true;
@@ -27,4 +29,5 @@ export class AcademicStandardSetting {
 
   isClassExam = false;
   examNational: ExamNational;
+  typeFacultativeId: number;
 }

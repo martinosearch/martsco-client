@@ -84,6 +84,7 @@
       <mat-tab label="Calcul des moyennes" *ngIf="isSetting">
         <div [ngStyle]="{'height.px':viewHeight}" class="container-moyenne">
           <div class="moy-first">
+            <div class="rubrique">Calcul de la moyenne annuelle</div>
             <mat-form-field class="element">
               <mat-select matInput placeholder="Calculer la moyenne annuelle à : " required
                 [(ngModel)]="lastestDecoupageId" name="lastestDecoupage">
@@ -96,9 +97,17 @@
             <div class="facultative">
               <div class="rubrique">Matières facultatives</div>
               <mat-form-field class="element">
-                <mat-select matInput placeholder="Type de matière concerné" required [(ngModel)]="lastestDecoupageId"
-                  name="lastestDecoupage">
-                  <mat-option *ngFor="let item of decoupages" [value]="item.id">
+                <mat-select matInput placeholder="Type de matière concerné" required
+                  [(ngModel)]="setting.typeFacultativeId" name="facultative-type">
+                  <mat-option *ngFor="let item of subjectTypeList" [value]="item.id">
+                    {{item.designation}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field class="element">
+                <mat-select matInput placeholder="Formule de calcul" required [(ngModel)]="setting.facultativeComputeId"
+                  name="facultative">
+                  <mat-option *ngFor="let item of facultativeComputeList" [value]="item.id">
                     {{item.designation}}
                   </mat-option>
                 </mat-select>

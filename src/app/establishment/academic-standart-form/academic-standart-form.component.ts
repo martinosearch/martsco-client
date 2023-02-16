@@ -16,6 +16,8 @@ import { DecoupageService } from '../services/decoupage.service';
 import { ExamSettingService } from 'src/app/exams/services/exam-setting.service';
 import { ExamNational } from '../models/exam-national';
 import { ExamNationalService } from '../services/exam-national.service';
+import { SubjectType } from 'src/app/subject-mg/models/subject-type';
+import { SubjectTypeService } from 'src/app/subject-mg/subject-type.service';
 
 
 @Component({
@@ -62,13 +64,21 @@ export class AcademicStandartFormComponent implements OnInit {
     { id: 2, designation: "Thème Bleu" }
   ];
 
+  facultativeComputeList: FacultativeCompute[] = [
+    { id: 1, designation: "Traditionnelle" },
+    { id: 2, designation: "Type examen" }
+  ];
+
+  subjectTypeList: SubjectType[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public form: MatDialogRef<AcademicStandartFormComponent>, private messageService: MessageService,
     public yearService: YearService, public constanceService: ConstanceService,
     public standardService: AcademicStandardService, private examNationalService: ExamNationalService,
-    public decoupageService: DecoupageService, public decoupageTypeService: DecoupageTypeService
+    public decoupageService: DecoupageService,
+    public decoupageTypeService: DecoupageTypeService,
+    private subjectTypeService: SubjectTypeService
   ) { }
 
   @HostListener('window:resize', ['$event'])
@@ -89,11 +99,16 @@ export class AcademicStandartFormComponent implements OnInit {
       this.decoupageTypeService.getAll().subscribe((respType) => {
         this.decoupageTypes = respType;
 
-        this.examNationalService.getAll().subscribe({
-          next: (respExam) => {
-            this.examNationals = respExam;
-            this.refreshSetting();
-          }
+        this.subjectTypeService.getAll().subscribe((subjType) => {
+          this.subjectTypeList = subjType;
+
+          this.examNationalService.getAll().subscribe({
+            next: (respExam) => {
+              this.examNationals = respExam;
+
+              this.refreshSetting();
+            }
+          });
         });
       });
     });
@@ -106,7 +121,7 @@ export class AcademicStandartFormComponent implements OnInit {
       this.standardService.getAcademicStandardBullResultModel(this.model.id).subscribe((resp) => {
         this.modelSetting = resp;
         this.standardService.getCurrentSetting(resp, this.currentYear.id).subscribe((set) => {
-          console.log("setting ::: " + set);
+          //console.log("setting ::: " + set);
           if (set !== undefined) {
             this.setting = set;
           } else {
@@ -234,6 +249,11 @@ export class AcademicStandartFormComponent implements OnInit {
 }
 
 export interface BullModel {
+  id: number;
+  designation: string;
+}
+
+export interface FacultativeCompute {
   id: number;
   designation: string;
 }

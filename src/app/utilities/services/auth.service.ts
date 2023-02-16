@@ -53,9 +53,9 @@ export class AuthService {
   ) {
     this.updateCurrentUser();
 
-    //for development
-    this.isAuthenticated = true;
-    this.isAdmin = true;
+    // for development
+    // this.isAuthenticated = true;
+    // this.isAdmin = true;
   }
 
   public login(login: string, password: string): void {
