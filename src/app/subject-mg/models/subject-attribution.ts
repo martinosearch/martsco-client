@@ -6,4 +6,5 @@ export class SubjectAttribution {
   public year: Year;
   public employee: EmployeeIdentityBean;
   public subject: MySubject;
+  public isOptional: boolean;
 }

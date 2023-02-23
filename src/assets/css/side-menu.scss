@@ -1,7 +1,9 @@
 @import "my-theme.scss";
 
 .mat-menu-item {
-  background-color: rgb(223, 226, 241) !important;
+  // background-color: rgb(223, 226, 241) !important;
+  // color: rgb(48, 81, 226) !important;
+  background-color: #ffffff !important;
   color: rgb(48, 81, 226) !important;
   border-radius: 0 !important;
 }
@@ -18,9 +20,12 @@
 
 mat-expansion-panel {
   margin: 0;
-  // background-color: rgb(59, 56, 219);
+  //background-color: rgb(59, 56, 219);
   color: beige;
   border-radius: 0;
+  border-bottom-style: solid !important;
+  border-width: 0.5px;
+  border-color: #e4e3e3;
 }
 
 mat-expansion-panel-header {
@@ -28,23 +33,29 @@ mat-expansion-panel-header {
   padding-top: 0;
   padding-bottom: 0;
   border-radius: 0 !important;
-  background-color: mat-color($my-primary) !important;
+
+  // background-color: mat-color($my-primary) !important;
+
+  background-color: #ffffff;
   height: 50px !important;
-  color: beige;
+  //color: beige;
+  color: mat-color($my-primary);
+  font-weight: 400 !important;
+  font-size: medium !important;
 }
 
 mat-expansion-panel-header:hover {
-  background-color: rgb(59, 56, 219) !important;
-  color: beige;
+  // background-color: rgb(59, 56, 219) !important;
+  background-color: rgb(224, 220, 220) !important;
 }
 
 mat-expansion-panel-header:active {
-  background-color: rgb(247, 161, 122) !important;
-  color: beige;
+  background-color: rgb(248, 204, 183) !important;
 }
 
 mat-accordion {
   display: flex;
   flex-direction: column;
-  background-color: rgb(59, 56, 219);
+  // background-color: rgb(59, 56, 219);
+  background-color: #ffffff;
 }

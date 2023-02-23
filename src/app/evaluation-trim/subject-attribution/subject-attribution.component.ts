@@ -20,6 +20,8 @@ import { SchoolClassSubjectBean } from 'src/app/establishment/models/school-clas
 import { SchoolClassSettingService } from 'src/app/establishment/services/school-class-setting.service';
 import { MessageService } from 'src/app/utilities/services/message.service';
 import { AuthService } from 'src/app/utilities/services/auth.service';
+import { SelectionModel } from '@angular/cdk/collections';
+import { StudentListModel } from 'src/app/student-mg/models/student-list-model';
 
 @Component({
   selector: 'app-subject-attribution',
@@ -44,8 +46,11 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
   ];
 
   displayedColumnsSelected = [
-    'num', 'designation', 'charge'
+    'num', 'designation', 'charge', 'select'
   ];
+
+  // for checkbox in the table
+  selection = new SelectionModel<SubjectAttribution>(true, []);
 
   expandedElement: MySubject | null;
   currentSchoolClass: SchoolClassIdentityBean;
@@ -62,8 +67,7 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
   classes: SchoolClassIdentityBean[] = [];
 
   chargeIds: number[] = [];
-  selected: SubjectAttribution[] = [];
-  selectedAdd = new Subject<SubjectAttribution[]>();
+  selectedAdd: SubjectAttribution[] = [];
 
   currentDefaultSubject: MySubject;
   currentSelectedSubject: SubjectAttribution;
@@ -85,7 +89,7 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
   constructor(
     public auth: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: ClassChooserModel, private messageService: MessageService,
-    public dialog: MatDialog, public form: MatDialogRef<ReductionStudentFormComponent>,
+    public dialog: MatDialog, public form: MatDialogRef<SubjectAttributionComponent>,
     private subjectService: SubjectService, private schoolClassSettingService: SchoolClassSettingService,
     public schoolClassService: SchoolClassIdentityService,
     public constanceService: ConstanceService, public employeeService: EmployeeIdentityService,
@@ -115,13 +119,6 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
       this.refreshAttribs();
     });
 
-    this.selectedAdd.subscribe((resp) => {
-      this.selected = resp;
-      this.numSubjectSelected = this.selected.length;
-      this.refreshAttribs();
-      console.log('susbcription ok !!!: ' + this.selected.length);
-    });
-
 
     this.employeeService.getAll().subscribe((respEmpl) => {
       this.employees = respEmpl;
@@ -138,8 +135,9 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
   refreshAttribs() {
     // attribution of class
     this.chargeIds = [];
-    for (const item of this.selected) {
+    for (const item of this.selectedAdd) {
       let exists = false;
+
       for (const subj of this.currentSchoolClassSubjectBean.subjectAttributions) {
         if (item.subject.id === subj.subject.id && subj.year.id === this.currentYear.id) {
           exists = true;
@@ -149,7 +147,15 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
             this.chargeIds.push(undefined);
           }
         }
+
+        // all selected
+        if (subj.isOptional) {
+          this.selection.selected.push(subj);
+        }
       }
+
+      // set master checks
+      //this.masterToggle();
 
       if (!exists) {
         this.chargeIds.push(undefined);
@@ -163,8 +169,11 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
     //for progress
     this.isRunning = true;
 
-    this.selected = this.currentSchoolClassSubjectBean.subjectAttributions.filter(subj => (subj.year.id === this.currentYear.id));
-    this.selectedAdd.next(this.selected.slice());
+    this.selectedAdd = this.currentSchoolClassSubjectBean.subjectAttributions.filter(subj => (subj.year.id === this.currentYear.id));
+    this.selectedAdd.slice();
+
+    //count
+    this.numSubjectSelected = this.selectedAdd.length;
 
     this.notSelected = [];
     this.subjectService.getAll().subscribe(
@@ -173,7 +182,7 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
         //we move subject that are alreday selected
         for (const subj of resp) {
           let exists = false;
-          for (const attrib of this.selected) {
+          for (const attrib of this.selectedAdd) {
             if (attrib.subject.id === subj.id) {
               exists = true;
             }
@@ -224,13 +233,16 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
     console.log('before submit Attribution::::::: ' + JSON.stringify(this.chargeIds));
     this.count = 0;
 
-    const orderSubjAttribs = this.currentSchoolClassSubjectBean.subjectAttributions.filter(subj => (subj.year.id !== this.currentYear.id));
+    const otherSubjAttribs = this.currentSchoolClassSubjectBean.subjectAttributions.filter(subj => (subj.year.id !== this.currentYear.id));
 
-    for (const attrib of this.selected) {
-      orderSubjAttribs.push(attrib);
+    for (const attrib of this.selectedAdd) {
+      // set Optionnal
+      attrib.isOptional = this.selection.isSelected(attrib);
+
+      otherSubjAttribs.push(attrib);
     }
 
-    this.currentSchoolClassSubjectBean.subjectAttributions = orderSubjAttribs;
+    this.currentSchoolClassSubjectBean.subjectAttributions = otherSubjAttribs;
 
     this.schoolClassSettingService.saveSubjectBean(this.currentSchoolClassSubjectBean).subscribe((resp) => {
       this.isRunning = false;
@@ -247,7 +259,7 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
   setCharger(index: number) {
     this.enableAction = false;
     this.employeeService.getOne(this.chargeIds[index]).subscribe((resp) => {
-      this.selected[index].employee = resp;
+      this.selectedAdd[index].employee = resp;
       this.enableAction = true;
     });
   }
@@ -281,8 +293,8 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
         attrib.year = this.currentYear;
         attrib.subject = item;
 
-        this.selected.push(attrib);
-        this.selectedAdd.next(this.selected.slice());
+        this.selectedAdd.push(attrib);
+        this.selectedAdd.slice();
       }
     }
 
@@ -305,7 +317,7 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
     const temp: SubjectAttribution[] = [];
 
     // we put default either selected to have typeSubject
-    for (const item of this.selected) {
+    for (const item of this.selectedAdd) {
       if (item.subject.id !== this.currentSelectedSubject.subject.id) {
         temp.push(item);
       } else {
@@ -313,15 +325,60 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
       }
     }
 
-    this.selectedAdd.next(temp);
+    this.selectedAdd = temp;
+    this.selectedAdd.slice();
     this.filteredListAdd.next(this.filteredList.slice());
     this.currentSelectedSubject = undefined;
     //on rafraichi les attribution
   }
 
   moveAllSelected() {
-    for (const item of this.selected) {
+    for (const item of this.selectedAdd) {
       this.moveSelected(item);
     }
   }
-}
+
+  // for selecte ***************************************************
+  // ***************************************************************
+  /** Whether the number of selected elements matches the total number of rows. */
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.selectedAdd.length;
+    return numSelected === numRows;
+
+    //return this.allSelected;
+  }
+
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    if (this.isAllSelected()) {
+      this.selection.clear();
+
+      // // set all not optional
+      // for (const subj of this.selectedAdd) {
+      //   subj.isOptional = false;
+      // }
+
+      // return;
+    } else {
+      this.selection.select(...this.selectedAdd);
+
+      // // set all optional
+      // for (const subj of this.selectedAdd) {
+      //   subj.isOptional = true;
+      // }
+    }
+  }
+
+  /** The label for the checkbox on the passed row */
+  masterCheckboxLabel(): string {
+    const option = this.isAllSelected() ? "select" : "deselect";
+    return option + " all";
+  }
+
+  /** The label for the checkbox  */
+  checkboxLabel(row: SubjectAttribution, index: number): string {
+    const option = this.selection.isSelected(row) ? "deselect" : "select";
+    return option + " row " + (index + 1);
+  }
+} 

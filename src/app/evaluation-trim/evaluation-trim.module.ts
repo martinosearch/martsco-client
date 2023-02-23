@@ -30,7 +30,7 @@ import { MaterialModule } from '../utilities/material.module';
     EvaluationFormComponent,
     SaisieNoteFormComponent,
     ConfigEvalFormComponent,
-    CoefSettingComponent
+    CoefSettingComponent,
   ],
   imports: [
     CommonModule,

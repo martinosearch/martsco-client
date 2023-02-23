@@ -26,7 +26,8 @@
             {{ currentCandidate.identity !== undefined ? currentCandidate.numTable : "" }}
         </div>
         <div>
-            {{ currentCandidate.identity !== undefined ? currentCandidate.identity.lastName + " " + currentCandidate.identity.firstName : "" }}
+            {{ currentCandidate.identity !== undefined ? currentCandidate.identity.lastName + " " +
+            currentCandidate.identity.firstName : "" }}
         </div>
         <div>{{ studentIndex + 1 }} / {{ total }}</div>
     </section>
@@ -36,21 +37,27 @@
             <form (ngSubmit)="onSubmit()" [formGroup]="markForm" class="example-form">
                 <div class="fields-container">
                     <mat-form-field class="element">
-                        <input matInput placeholder="Note 1" type="number" formControlName="note1" lang="fr" #firstNote />
+                        <input matInput placeholder="Note 1" type="number" formControlName="note1" lang="fr"
+                            #firstNote />
                     </mat-form-field>
                 </div>
 
                 <div class="action-container">
-                    <button mat-raised-button color="primary" [disabled]="markForm.invalid" type="submit"> Valider </button>
+                    <button mat-raised-button color="primary" [disabled]="markForm.invalid" type="submit"> Valider
+                    </button>
                     <button mat-raised-button color="warn" type="button" (click)="onNoClick()"> Quitter </button>
                 </div>
             </form>
 
             <div class="movment-button-container">
-                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-right mdi-24px" [disabled]="isLast" (click)="toLast()"></button>
-                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-right mdi-24px" [disabled]="isLast" (click)="next()"></button>
-                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-left mdi-24px" [disabled]="isFirst" (click)="previous()"></button>
-                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-left mdi-24px" [disabled]="isFirst" (click)="toFirst()"></button>
+                <button mat-raised-button color="primary" [disabled]="isLast" (click)="toLast()"><span
+                        class="movement-button mdi mdi-chevron-double-right mdi-24px"></span></button>
+                <button mat-raised-button color="primary" [disabled]="isLast" (click)="next()"><span
+                        class="movement-button mdi mdi-chevron-right mdi-24px"></span></button>
+                <button mat-raised-button color="primary" [disabled]="isFirst" (click)="previous()"><span
+                        class="movement-button mdi mdi-chevron-left mdi-24px"></span></button>
+                <button mat-raised-button color="primary" [disabled]="isFirst" (click)="toFirst()"><span
+                        class="movement-button mdi mdi-chevron-double-left mdi-24px"></span></button>
             </div>
         </div>
     </div>

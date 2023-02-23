@@ -1,9 +1,11 @@
 <br>
 <div class="container">
     <div class="content">
-        <button mat-fab color="primary" (click)="onExit()"><mat-icon class="mdi mdi-arrow-left-thick mdi-24px button-exit"></mat-icon></button>
+        <button mat-fab color="primary" (click)="onExit()"><mat-icon
+                class="mdi mdi-arrow-left-thick mdi-24px button-exit"></mat-icon></button>
         <div class="blocks">
-            <div class="title">{{data.titre}} {{(currentSchoolClass!==undefined?currentSchoolClass.designation:"")}}</div>
+            <div class="title">{{data.titre}} {{(currentSchoolClass!==undefined?currentSchoolClass.designation:"")}}
+            </div>
         </div>
         <div class="title"></div>
     </div>
@@ -33,7 +35,8 @@
                 <mat-card-content>
                     <div class="search-field-container">
                         <mat-form-field class="search-field">
-                            <input matInput [formControl]="filterControl" class="search-input" type="text" placeholder="Filtrer" aria-label="Number">
+                            <input matInput [formControl]="filterControl" class="search-input" type="text"
+                                placeholder="Filtrer" aria-label="Number">
                             <mat-icon matPrefix class="mdi mdi-filter"></mat-icon>
                         </mat-form-field>
                     </div>
@@ -57,14 +60,35 @@
                             <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
                             <ng-container matColumnDef="expandedDetail">
                                 <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-                                    <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                    <div class="example-element-detail"
+                                        [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                                     </div>
+                                </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                        [checked]="selection.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                        [aria-label]="masterCheckboxLabel()">
+                                    </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let element; let index = dataIndex;">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                        (change)="$event ? selection.toggle(element) : null"
+                                        [checked]="selection.isSelected(element)"
+                                        [aria-label]="checkboxLabel(element,index)">
+                                    </mat-checkbox>
                                 </td>
                             </ng-container>
 
                             <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
 
-                            <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element" (click)=defaultSelected(element)>
+                            <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row"
+                                [class.example-expanded-row]="expandedElement === element"
+                                (click)="expandedElement = expandedElement === element ? null : element"
+                                (click)=defaultSelected(element)>
                             </tr>
                             <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
                             </tr>
@@ -76,10 +100,18 @@
 
         <div class="movement-column">
             <div class="movement-button-container">
-                <button mat-raised-button color="primary"  [disabled]="currentDefaultSubject===undefined" (click)="moveAllDefault()"><span class="movement-button mdi mdi-chevron-double-right mdi-24px"></span></button>
-                <button mat-raised-button color="primary"  [disabled]="currentDefaultSubject===undefined" (click)="moveDefault()"><span class="movement-button mdi mdi-chevron-right mdi-24px"></span></button>
-                <button mat-raised-button color="primary"  [disabled]="currentSelectedSubject===undefined" (click)="moveSelected()"><span class="movement-button mdi mdi-chevron-left mdi-24px"></span></button>
-                <button mat-raised-button color="primary"  [disabled]="currentSelectedSubject===undefined" (click)="moveAllSelected()"><span class="movement-button mdi mdi-chevron-double-left mdi-24px"></span></button>
+                <button mat-raised-button color="primary" [disabled]="currentDefaultSubject===undefined"
+                    (click)="moveAllDefault()"><span
+                        class="movement-button mdi mdi-chevron-double-right mdi-24px"></span></button>
+                <button mat-raised-button color="primary" [disabled]="currentDefaultSubject===undefined"
+                    (click)="moveDefault()"><span
+                        class="movement-button mdi mdi-chevron-right mdi-24px"></span></button>
+                <button mat-raised-button color="primary" [disabled]="currentSelectedSubject===undefined"
+                    (click)="moveSelected()"><span
+                        class="movement-button mdi mdi-chevron-left mdi-24px"></span></button>
+                <button mat-raised-button color="primary" [disabled]="currentSelectedSubject===undefined"
+                    (click)="moveAllSelected()"><span
+                        class="movement-button mdi mdi-chevron-double-left mdi-24px"></span></button>
             </div>
         </div>
 
@@ -96,7 +128,7 @@
                 </mat-card-title>
                 <mat-card-content>
                     <div class="mat-elevation-z8 selected-list-container">
-                        <table mat-table [dataSource]="selectedAdd|async">
+                        <table mat-table [dataSource]="selectedAdd">
                             <ng-container matColumnDef="num">
                                 <th mat-header-cell *matHeaderCellDef> N° ord. </th>
                                 <td mat-cell *matCellDef="let element; let i = index;"> {{i+1}} </td>
@@ -110,7 +142,8 @@
                             <ng-container matColumnDef="charge">
                                 <th mat-header-cell *matHeaderCellDef> Chargé du cours </th>
                                 <td mat-cell *matCellDef="let element; let i = index;">
-                                    <mat-select matInput placeholder="Type" required [(ngModel)]="chargeIds[i]" name="charge" (ngModelChange)="setCharger(i)">
+                                    <mat-select matInput placeholder="Enseignant" required [(ngModel)]="chargeIds[i]"
+                                        name="charge" (ngModelChange)="setCharger(i)">
                                         <mat-option *ngFor="let item of employees" [value]="item.id">
                                             {{item.identity.lastName}} {{item.identity.firstName}}
                                         </mat-option>
@@ -118,18 +151,38 @@
                                 </td>
                             </ng-container>
 
+                            <ng-container matColumnDef="select">
+                                <th mat-header-cell *matHeaderCellDef>
+                                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                                        [checked]="selection.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()"
+                                        [aria-label]="masterCheckboxLabel()">
+                                    </mat-checkbox>
+                                </th>
+                                <td mat-cell *matCellDef="let element; let i = index;">
+                                    <mat-checkbox (click)="$event.stopPropagation()"
+                                        (change)="$event ? selection.toggle(element) : null"
+                                        [checked]="selection.isSelected(element)"
+                                        [aria-label]="checkboxLabel(element,i)" [(ngModel)]="selectedAdd[i].isOptional">
+                                    </mat-checkbox>
+                                </td>
+                            </ng-container>
+
 
                             <tr mat-header-row *matHeaderRowDef="displayedColumnsSelected sticky:true"></tr>
-                            <tr mat-row *matRowDef="let element; columns: displayedColumnsSelected;" (click)=isSelected(element) class="selected-element-row">
+                            <tr mat-row *matRowDef="let element; columns: displayedColumnsSelected;"
+                                (click)=isSelected(element) class="selected-element-row">
                             </tr>
                         </table>
 
                     </div>
 
                     <div class="button-group">
-                        <button mat-raised-button color="warn" class="mdi mdi-check mdi-24px" (click)="onSubmit()" [disabled]="!enableAction">Valider
-            </button>
+                        <button mat-raised-button color="warn" class="mdi mdi-check mdi-24px" (click)="onSubmit()"
+                            [disabled]="!enableAction">Valider
+                        </button>
                     </div>
+                    <!-- <pre>all-selected: {{isAllSelected()}}</pre> -->
                 </mat-card-content>
             </mat-card>
         </div>
