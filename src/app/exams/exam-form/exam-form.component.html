@@ -5,7 +5,8 @@
             <mat-tab label="Identité" *ngIf="!isSetting">
                 <div class="example-form">
                     <mat-form-field class="element">
-                        <input matInput placeholder="Désignation" type="text" required [(ngModel)]="modelIdentityBean.designation" name="designation">
+                        <input matInput placeholder="Désignation" type="text" required
+                            [(ngModel)]="modelIdentityBean.designation" name="designation">
                     </mat-form-field>
                 </div>
             </mat-tab>
@@ -39,17 +40,24 @@
 
                                         <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
                                         <ng-container matColumnDef="expandedDetail">
-                                            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-                                                <div class="example-element-detail" [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                            <td mat-cell *matCellDef="let element"
+                                                [attr.colspan]="displayedColumns.length">
+                                                <div class="example-element-detail"
+                                                    [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                                                 </div>
                                             </td>
                                         </ng-container>
 
                                         <tr mat-header-row *matHeaderRowDef="displayedColumns sticky:true"></tr>
 
-                                        <tr mat-row *matRowDef="let element; columns: displayedColumns;" class="example-element-row" [class.example-expanded-row]="expandedElement === element" (click)="expandedElement = expandedElement === element ? null : element" (click)=defaultSelected(element)>
+                                        <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+                                            class="example-element-row"
+                                            [class.example-expanded-row]="expandedElement === element"
+                                            (click)="expandedElement = expandedElement === element ? null : element"
+                                            (click)=defaultSelected(element)>
                                         </tr>
-                                        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
+                                        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']"
+                                            class="example-detail-row">
                                         </tr>
                                     </table>
                                 </mat-card-content>
@@ -59,10 +67,18 @@
                         <!-- movment actions-->
                         <div class="movement-column">
                             <div class="movement-button-container">
-                                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-right mdi-24px" [disabled]="currentDefaultSubject===undefined" (click)="moveAllDefault()"></button>
-                                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-right mdi-24px" [disabled]="currentDefaultSubject===undefined" (click)="moveDefault()"></button>
-                                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-left mdi-24px" [disabled]="currentSelectedSubject===undefined" (click)="moveSelected()"></button>
-                                <button mat-raised-button color="primary" class="movement-button mdi mdi-chevron-double-left mdi-24px" [disabled]="currentSelectedSubject===undefined" (click)="moveAllSelected()"></button>
+                                <button mat-raised-button color="primary" [disabled]="currentDefaultSubject===undefined"
+                                    (click)="moveAllDefault()">
+                                    <span class="movement-button mdi mdi-chevron-double-right mdi-24px"></span></button>
+                                <button mat-raised-button color="primary" [disabled]="currentDefaultSubject===undefined"
+                                    (click)="moveDefault()"><span
+                                        class="movement-button mdi mdi-chevron-right mdi-24px"></span></button>
+                                <button mat-raised-button color="primary"
+                                    [disabled]="currentSelectedSubject===undefined" (click)="moveSelected()"><span
+                                        class="movement-button mdi mdi-chevron-left mdi-24px"></span></button>
+                                <button mat-raised-button color="primary"
+                                    [disabled]="currentSelectedSubject===undefined" (click)="moveAllSelected()"><span
+                                        class="movement-button mdi mdi-chevron-double-left mdi-24px"></span></button>
                             </div>
                         </div>
 
@@ -82,13 +98,15 @@
 
                                         <ng-container matColumnDef="designation">
                                             <th mat-header-cell *matHeaderCellDef> Désignation </th>
-                                            <td mat-cell *matCellDef="let element"> {{element.subject.designation}} </td>
+                                            <td mat-cell *matCellDef="let element"> {{element.subject.designation}}
+                                            </td>
                                         </ng-container>
 
                                         <ng-container matColumnDef="coef">
                                             <th mat-header-cell *matHeaderCellDef> Coef. </th>
                                             <td mat-cell *matCellDef="let element; let i = index;">
-                                                <mat-select matInput placeholder="Coef." required [(ngModel)]="element.coef" name="coef_{{i}}">
+                                                <mat-select matInput placeholder="Coef." required
+                                                    [(ngModel)]="element.coef" name="coef_{{i}}">
                                                     <mat-option *ngFor="let item of defaultCoefs" [value]="item">
                                                         {{item}}
                                                     </mat-option>
@@ -97,7 +115,8 @@
                                         </ng-container>
 
                                         <tr mat-header-row *matHeaderRowDef="displayedColumnsSelected sticky:true"></tr>
-                                        <tr mat-row *matRowDef="let element; columns: displayedColumnsSelected;" (click)=isSelected(element) class="selected-element-row">
+                                        <tr mat-row *matRowDef="let element; columns: displayedColumnsSelected;"
+                                            (click)=isSelected(element) class="selected-element-row">
                                         </tr>
                                     </table>
                                 </mat-card-content>
@@ -110,12 +129,25 @@
             <mat-tab label="Responsable" *ngIf="isSetting">
                 <div class="example-form">
                     <mat-form-field class="element">
-                        <input matInput placeholder="Nom du responsable" type="text" required [(ngModel)]="modelSettingBean.responsableName" name="responsableName">
+                        <input matInput placeholder="Nom du responsable" type="text" required
+                            [(ngModel)]="modelSettingBean.responsableName" name="responsableName">
                     </mat-form-field>
 
                     <mat-form-field class="element">
-                        <input matInput placeholder="Titre du responsable" type="text" required [(ngModel)]="modelSettingBean.responsableTitle" name="responsableTitle">
+                        <input matInput placeholder="Titre du responsable" type="text" required
+                            [(ngModel)]="modelSettingBean.responsableTitle" name="responsableTitle">
                     </mat-form-field>
+                </div>
+            </mat-tab>
+
+            <!--View-->
+            <mat-tab label="Affichage" *ngIf="isSetting">
+                <div class="checkContainer">
+                    <mat-checkbox [(ngModel)]="modelSettingBean.showCandidateName" name="showCandidateName">Afficher le
+                        nom
+                        des candidats lors de la saisie des notes
+                    </mat-checkbox>
+
                 </div>
             </mat-tab>
         </mat-tab-group>

@@ -7,6 +7,7 @@ import { MessageService } from 'src/app/utilities/services/message.service';
 import { ExamChooserModel } from '../models/exam-chooser-model';
 import { EstablishmentExamIdentityBean } from '../models/exam-establishment-identity-bean';
 import { ExamIdentityBean } from '../models/exam-identity-bean';
+import { ExamSettingBean } from '../models/exam-setting-bean';
 import { EstablishmentExamIdentityService } from '../services/establishment-exam-identity.service';
 import { ExamIdentityService } from '../services/exam-identity.service';
 import { ExamSettingService } from '../services/exam-setting.service';
@@ -26,10 +27,11 @@ export class ExamChooserComponent implements OnInit {
   isExamChooser = true;
   isSubjectChooser = false;
   isEstablishmentChooser = false;
-
   currentExamId: number;
   currentSubjectId: number;
   currentEstablishmentId: number;
+
+  examSettingBean: ExamSettingBean;
 
   eventEmitter: EventEmitter<any> = new EventEmitter();
   title: string;
@@ -66,8 +68,9 @@ export class ExamChooserComponent implements OnInit {
 
   setSubjectList() {
     this.subjectService.getAll().subscribe((resp) => {
-      this.examSettingService.getOne(this.currentExamId).subscribe((respAttrib) => {
-        const attribs = respAttrib.subjectAttributions;
+      this.examSettingService.getOne(this.currentExamId).subscribe((settingBean) => {
+        const attribs = settingBean.subjectAttributions;
+        this.examSettingBean = settingBean;
 
         this.subjects = resp.filter((item) => {
           const test = attribs.filter((itemAttrib) => (itemAttrib.subject.id === item.id));
@@ -103,9 +106,12 @@ export class ExamChooserComponent implements OnInit {
       this.model.establishment = testEstablishment[0];
     }
 
-    this.eventEmitter.emit(this.model);
-    this.form.close();
 
+    // settingModel
+    this.model.examSettingBean = this.examSettingBean;
+    this.eventEmitter.emit(this.model);
+
+    this.form.close();
   }
 
   sleep(ms: number) {

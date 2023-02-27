@@ -5,4 +5,5 @@ export class ExamSettingBean {
   subjectAttributions: SubjectAttribExam[] = [];
   responsableName: string;
   responsableTitle: string;
+  showCandidateName = true;
 }

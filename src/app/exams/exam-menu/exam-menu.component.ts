@@ -5,6 +5,7 @@ import { ActionService } from 'src/app/utilities/services/action.service';
 import { ConstanceService } from 'src/app/utilities/services/constance.service';
 import { ExamChooserComponent } from '../exam-chooser/exam-chooser.component';
 import { SaisieNoteFormExamComponent } from '../saisie-note-form-exam/saisie-note-form-exam.component';
+import { ExamEffectifReportService } from '../services/exam-effectif-report.service';
 import { ExamResultReportService } from '../services/exam-result-report.service';
 import { ExamRoutesService } from '../services/exam-routes.service';
 import { ExamStatReportService } from '../services/exam-stat-report.service';
@@ -15,11 +16,14 @@ import { ExamStatReportService } from '../services/exam-stat-report.service';
   styleUrls: ['./exam-menu.component.scss']
 })
 export class ExamMenuComponent implements OnInit {
+
   public expanded = false;
 
   constructor(private router: Router, private dialog: MatDialog, private actionService: ActionService,
     private examResultReportService: ExamResultReportService, private examStatReportService: ExamStatReportService,
-    private constanceService: ConstanceService, private routeService: ExamRoutesService) { }
+    private constanceService: ConstanceService, private routeService: ExamRoutesService,
+    private effectifReportService: ExamEffectifReportService
+  ) { }
 
   ngOnInit() {
   }
@@ -91,5 +95,11 @@ export class ExamMenuComponent implements OnInit {
 
   toStatAll() {
 
+  }
+
+  onFormulaireImportList() {
+    console.log("I am called for formulaire");
+    this.actionService.launchAction(this.effectifReportService.generateFormulaireImportList())
+      .subscribe((resp) => { });
   }
 }

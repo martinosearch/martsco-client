@@ -43,6 +43,13 @@ export class ConstanceService {
       }
 
       this.isLoaded = true;
+
+      // go to the previous view menu
+      const currentMenuId = localStorage.getItem("id_menu");
+      const menu = this.getMenu(Number(currentMenuId));
+      if (menu) {
+        this.setMenu(menu);
+      }
     });
   }
 
@@ -61,6 +68,8 @@ export class ConstanceService {
     this.toAccueil();
     this.storageLocation.setItem("id_menu", this.currentMenu.id.toString());
   }
+
+
 
   getMenu(id: number): Menu {
     for (const m of this.menus) {

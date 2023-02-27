@@ -8,6 +8,7 @@ import { MessageService } from 'src/app/utilities/services/message.service';
 import { CandidateIdentityBean } from '../models/candidate-identity-bean';
 import { ExamChooserModel } from '../models/exam-chooser-model';
 import { ExamIdentityBean } from '../models/exam-identity-bean';
+import { ExamSettingBean } from '../models/exam-setting-bean';
 import { MarkExam } from '../models/mark-exam';
 import { CandidateIdentityService } from '../services/candidate-identity.service';
 
@@ -28,6 +29,8 @@ export class SaisieNoteFormExamComponent implements OnInit {
 
   //exam
   currentExam: ExamIdentityBean;
+  currentExamSettingBean: ExamSettingBean;
+
   currentSubject: MySubject;
   chooserModel: ExamChooserModel;
 
@@ -52,6 +55,7 @@ export class SaisieNoteFormExamComponent implements OnInit {
 
     this.chooserModel = this.data.chooserModel;
     this.currentExam = this.chooserModel.exam;
+    this.currentExamSettingBean = this.chooserModel.examSettingBean;
     this.currentSubject = this.chooserModel.subject;
 
     this.candidateIdentityService.getAllByTableNumber(this.currentExam.id).subscribe((resp) => {

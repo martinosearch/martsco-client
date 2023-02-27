@@ -25,10 +25,11 @@
         <div class="num_table">
             {{ currentCandidate.identity !== undefined ? currentCandidate.numTable : "" }}
         </div>
-        <div>
+        <div *ngIf="currentExamSettingBean.showCandidateName">
             {{ currentCandidate.identity !== undefined ? currentCandidate.identity.lastName + " " +
             currentCandidate.identity.firstName : "" }}
         </div>
+
         <div>{{ studentIndex + 1 }} / {{ total }}</div>
     </section>
 

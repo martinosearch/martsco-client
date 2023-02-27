@@ -41,7 +41,6 @@ export class MessageService {
         dialogRef.close();
       })
     }
-
   }
 
   showReject(message?: string, autoClose?: boolean) {

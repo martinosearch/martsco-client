@@ -9,6 +9,7 @@ import { ExamSettingBean } from '../models/exam-setting-bean';
 import { SubjectAttribExam } from '../models/subject-attrib-exam';
 import { ExamSettingService } from '../services/exam-setting.service';
 import { ExamIdentityService } from '../services/exam-identity.service';
+import { MessageService } from 'src/app/utilities/services/message.service';
 
 @Component({
   selector: 'app-exam-form',
@@ -54,7 +55,8 @@ export class ExamFormComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
     public form: MatDialogRef<EvaluationFormComponent>, private examSettingService: ExamSettingService,
-    public examService: ExamIdentityService, private subjectService: SubjectService
+    public examService: ExamIdentityService, private subjectService: SubjectService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit() {
@@ -103,11 +105,10 @@ export class ExamFormComponent implements OnInit {
         this.modelSettingBean.subjectAttributions = this.selected;
         this.examSettingService.save(this.modelSettingBean).subscribe(resp => {
           this.event.emit();
-          this.form.close();
+          this.messageService.showSucces(null, true)
         });
       } else {
         this.event.emit();
-        this.form.close();
       }
     });
   }

@@ -19,5 +19,4 @@ export class PrincipalMenuComponent implements OnInit {
   isActive(menu: Menu): boolean {
     return this.constanceService.currentMenu !== null ? menu.id === this.constanceService.currentMenu.id : false;
   }
-
 }

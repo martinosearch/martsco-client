@@ -1,5 +1,18 @@
 @import "../../../assets/css/form-presentation.scss";
 @import "../../../assets/css/mat-table.scss";
+
 .coefField {
     text-align: center;
+}
+
+.checkContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.checkContainer>* {
+    width: 40%;
 }
