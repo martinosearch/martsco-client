@@ -3,13 +3,22 @@
     <form (ngSubmit)="onSubmit()">
         <div class="example-form">
             <mat-form-field class="element">
-                <input matInput placeholder="Désignation" type="text" required [(ngModel)]="model.designation" name="designation">
+                <input matInput placeholder="Désignation" type="text" required [(ngModel)]="model.designation"
+                    name="designation">
             </mat-form-field>
             <mat-form-field class="element">
                 <input matInput placeholder="Ville" type="text" required [(ngModel)]="model.city" name="city">
             </mat-form-field>
             <mat-form-field class="element">
                 <input matInput placeholder="Téléphone" type="text" required [(ngModel)]="model.tel" name="tel">
+            </mat-form-field>
+            <mat-form-field class="element">
+                <input matInput placeholder="Titre du responsable" type="text" required
+                    [(ngModel)]="model.responsableTitle" name="responsableTitle">
+            </mat-form-field>
+            <mat-form-field class="element">
+                <input matInput placeholder="Nom du responsable" type="text" required
+                    [(ngModel)]="model.responsableName" name="responsableName">
             </mat-form-field>
         </div>
 

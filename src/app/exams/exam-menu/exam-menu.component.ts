@@ -94,7 +94,8 @@ export class ExamMenuComponent implements OnInit {
   }
 
   toStatAll() {
-
+    this.actionService.launchAction(this.examStatReportService
+      .generateStatAllPdf()).subscribe();
   }
 
   onFormulaireImportList() {

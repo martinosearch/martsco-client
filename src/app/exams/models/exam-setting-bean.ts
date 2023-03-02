@@ -1,3 +1,4 @@
+import { EstablishmentExamIdentityBean } from "./exam-establishment-identity-bean";
 import { SubjectAttribExam } from "./subject-attrib-exam";
 
 export class ExamSettingBean {
@@ -6,4 +7,5 @@ export class ExamSettingBean {
   responsableName: string;
   responsableTitle: string;
   showCandidateName = true;
+  establishmentHost = new EstablishmentExamIdentityBean();
 }

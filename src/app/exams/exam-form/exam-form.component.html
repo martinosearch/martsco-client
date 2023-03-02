@@ -126,8 +126,17 @@
                 </div>
             </mat-tab>
             <!--Responsable-->
-            <mat-tab label="Responsable" *ngIf="isSetting">
+            <mat-tab label="Centre d'écrit" *ngIf=" isSetting">
                 <div class="example-form">
+                    <mat-form-field class="element">
+                        <mat-select [(ngModel)]="establishmentHostId" placeholder="Centre d'écrit"
+                            name="establishmentHost">
+                            <mat-option *ngFor="let item of listEstablishment" [value]="item.id">
+                                {{ item.designation }}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
                     <mat-form-field class="element">
                         <input matInput placeholder="Nom du responsable" type="text" required
                             [(ngModel)]="modelSettingBean.responsableName" name="responsableName">

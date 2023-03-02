@@ -3,4 +3,6 @@ export class EstablishmentExamIdentityBean {
   designation: string;
   city: string;
   tel: string;
+  responsableTitle: string;
+  responsableName: string;
 }

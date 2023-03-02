@@ -54,4 +54,31 @@ export class ExamStatReportService {
         });
     });
   }
+
+  generateStatAllPdf(): Observable<any> {
+    return new Observable((observer) => {
+      const dialogRef = this.dialog.open(ExamChooserComponent, {
+        width: '600px',
+        data: { titre: 'Choisir les paramètres', isEstablishmentChooser: false }
+      });
+
+      dialogRef.componentInstance.eventEmitter.subscribe(
+        (chooserModel: ExamChooserModel) => {
+          this.progressService.getNewProgressId().subscribe((progressId) => {
+            observer.next(progressId);
+
+            observer.next(this.progressService.getProgress(progressId));
+
+            console.log(JSON.stringify(chooserModel));
+
+            const url = this.API + "/exam-stat/stat-all/" + chooserModel.exam.id + "/" + this.currentUserId + "/" + progressId;
+            console.log(url);
+
+            this.fileService.downloadAndShowPdf(url, "stat_tous_" + chooserModel.exam.designation, progressId);
+
+            return observer.next();
+          });
+        });
+    });
+  }
 }

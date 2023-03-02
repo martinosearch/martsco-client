@@ -31,7 +31,7 @@ export class UserService {
 
   getUserTypeByLogin(login: string): Observable<UserType> {
     return new Observable((observer) => {
-      console.log("login: " + JSON.stringify(login));
+      // console.log("login: " + JSON.stringify(login));
 
       if (login !== null && login !== undefined) {
 
@@ -39,7 +39,7 @@ export class UserService {
           "/user/find-user-type-by-login/" + login).subscribe({
             next: (userType) => {
 
-              console.log("userTypeId: " + JSON.stringify(userType));
+              // console.log("userTypeId: " + JSON.stringify(userType));
 
               // console.log("user type: " + JSON.stringify(resp));
               observer.next(userType);

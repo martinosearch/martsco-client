@@ -10,6 +10,8 @@ import { SubjectAttribExam } from '../models/subject-attrib-exam';
 import { ExamSettingService } from '../services/exam-setting.service';
 import { ExamIdentityService } from '../services/exam-identity.service';
 import { MessageService } from 'src/app/utilities/services/message.service';
+import { EstablishmentExamIdentityBean } from '../models/exam-establishment-identity-bean';
+import { EstablishmentExamIdentityService } from '../services/establishment-exam-identity.service';
 
 @Component({
   selector: 'app-exam-form',
@@ -52,11 +54,14 @@ export class ExamFormComponent implements OnInit {
   coefs: number[] = [];
   defaultCoefs: number[] = [0.5, 1, 2, 3, 4, 5];
 
+  establishmentHostId: number;
+  listEstablishment: EstablishmentExamIdentityBean[] = [];
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    public form: MatDialogRef<EvaluationFormComponent>, private examSettingService: ExamSettingService,
+    public form: MatDialogRef<ExamFormComponent>, private examSettingService: ExamSettingService,
     public examService: ExamIdentityService, private subjectService: SubjectService,
-    private messageService: MessageService
+    private messageService: MessageService, private establishmentExamService: EstablishmentExamIdentityService
   ) { }
 
   ngOnInit() {
@@ -66,11 +71,19 @@ export class ExamFormComponent implements OnInit {
     //console.log(JSON.stringify(this.data.obj));
     this.modelIdentityBean = this.data.obj !== undefined ? Object.assign({}, this.data.obj) : new ExamIdentityBean();
 
+
     if (this.isSetting) {
       // we fetch older configuration
       this.examSettingService.getOne(this.modelIdentityBean.id).subscribe((resp) => {
         if (resp !== null) {
           this.modelSettingBean = resp;
+
+          //init host establishment
+          if (this.modelSettingBean.establishmentHost != null) {
+            this.establishmentHostId = this.modelSettingBean.establishmentHost.id;
+          }
+
+          // init subjectAttributions
           this.selected = resp.subjectAttributions.slice();
           this.selected.slice();
         }
@@ -84,6 +97,12 @@ export class ExamFormComponent implements OnInit {
         });
 
         this.subjectList = this.filteredSubjectList;
+      });
+
+      this.establishmentExamService.getAll().subscribe({
+        next: (resp) => {
+          this.listEstablishment = resp;
+        }
       });
     }
   }
@@ -102,13 +121,23 @@ export class ExamFormComponent implements OnInit {
 
       if (this.isSetting) {
         this.modelSettingBean.id = resp.id;
+
+        // set subject attribution
         this.modelSettingBean.subjectAttributions = this.selected;
+
+        // set host establishment
+        const establishmentHost = this.listEstablishment.filter(item => item.id === this.establishmentHostId)[0];
+        this.modelSettingBean.establishmentHost = establishmentHost;
+
+        console.log("settings: " + JSON.stringify(this.modelSettingBean));
+
         this.examSettingService.save(this.modelSettingBean).subscribe(resp => {
           this.event.emit();
           this.messageService.showSucces(null, true)
         });
       } else {
         this.event.emit();
+        this.form.close();
       }
     });
   }
