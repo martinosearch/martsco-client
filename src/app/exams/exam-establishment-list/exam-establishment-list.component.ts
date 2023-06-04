@@ -21,6 +21,7 @@ import { EstablishmentExamIdentityService } from '../services/establishment-exam
   ],
 })
 export class ExamEstablishmentListComponent implements OnInit {
+
   expandedElement: EstablishmentExamIdentityBean | null;
   displayedColumns = [
     'num',

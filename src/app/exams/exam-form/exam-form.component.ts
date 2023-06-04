@@ -1,7 +1,6 @@
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { EvaluationFormComponent } from 'src/app/evaluation-trim/evaluation-form/evaluation-form.component';
 import { MySubject } from 'src/app/subject-mg/models/subject';
 import { SubjectService } from 'src/app/subject-mg/subject.service';
 import { ExamIdentityBean } from '../models/exam-identity-bean';
@@ -12,6 +11,10 @@ import { ExamIdentityService } from '../services/exam-identity.service';
 import { MessageService } from 'src/app/utilities/services/message.service';
 import { EstablishmentExamIdentityBean } from '../models/exam-establishment-identity-bean';
 import { EstablishmentExamIdentityService } from '../services/establishment-exam-identity.service';
+import { Year } from 'src/app/establishment/models/year';
+import { ConstanceService } from 'src/app/utilities/services/constance.service';
+import { Room } from '../models/room';
+import { ActionService } from 'src/app/utilities/services/action.service';
 
 @Component({
   selector: 'app-exam-form',
@@ -26,6 +29,9 @@ import { EstablishmentExamIdentityService } from '../services/establishment-exam
   ],
 })
 export class ExamFormComponent implements OnInit {
+
+
+
   viewHeight = 200;
   isSetting = false;
   public modelIdentityBean = new ExamIdentityBean();
@@ -40,6 +46,8 @@ export class ExamFormComponent implements OnInit {
   expandedElement: MySubject | null;
 
   numberOfResult = 0;
+  roomsIndex = 0;
+
   currentFilterValue: string;
   count: number;
   enableAction = true;
@@ -47,9 +55,11 @@ export class ExamFormComponent implements OnInit {
   subjectList: MySubject[] = [];
   filteredSubjectList: MySubject[] = [];
   selected: SubjectAttribExam[] = [];
+  rooms: Room[] = [];
 
   currentDefaultSubject: MySubject;
   currentSelectedSubject: SubjectAttribExam;
+  currentYear: Year;
 
   coefs: number[] = [];
   defaultCoefs: number[] = [0.5, 1, 2, 3, 4, 5];
@@ -61,7 +71,9 @@ export class ExamFormComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any,
     public form: MatDialogRef<ExamFormComponent>, private examSettingService: ExamSettingService,
     public examService: ExamIdentityService, private subjectService: SubjectService,
-    private messageService: MessageService, private establishmentExamService: EstablishmentExamIdentityService
+    private messageService: MessageService, private actionService: ActionService,
+    private constanceService: ConstanceService,
+    private establishmentExamService: EstablishmentExamIdentityService
   ) { }
 
   ngOnInit() {
@@ -71,6 +83,10 @@ export class ExamFormComponent implements OnInit {
     //console.log(JSON.stringify(this.data.obj));
     this.modelIdentityBean = this.data.obj !== undefined ? Object.assign({}, this.data.obj) : new ExamIdentityBean();
 
+
+    this.constanceService.currentYearSubject.subscribe({
+      next: resp => this.currentYear = resp
+    });
 
     if (this.isSetting) {
       // we fetch older configuration
@@ -85,7 +101,17 @@ export class ExamFormComponent implements OnInit {
 
           // init subjectAttributions
           this.selected = resp.subjectAttributions.slice();
-          this.selected.slice();
+
+          //init rooms
+          if (resp.rooms !== undefined) {
+            this.rooms = resp.rooms;
+          }
+
+          this.rooms.map(item => {
+            if (item.index > this.roomsIndex) {
+              this.roomsIndex = item.index;
+            }
+          });
         }
       });
 
@@ -104,6 +130,8 @@ export class ExamFormComponent implements OnInit {
           this.listEstablishment = resp;
         }
       });
+
+
     }
   }
 
@@ -115,7 +143,31 @@ export class ExamFormComponent implements OnInit {
     this.form.close();
   }
 
+  // rooms management
+  onAddRoom() {
+    this.roomsIndex++;
+
+    const room = new Room();
+    room.index = this.roomsIndex;
+    room.designation = "Salle " + this.roomsIndex;
+
+    this.rooms.push(room);
+    this.rooms = this.rooms.slice();
+  }
+
+  onDeleteRoom(room: Room) {
+    this.rooms = this.rooms.filter(item => item.index !== room.index);
+  }
+
+  onUpdateTableNumber() {
+    this.examService.updateTableNumber(this.modelIdentityBean.id);
+  }
+
   onSubmit(): void {
+    // set year
+    this.modelIdentityBean.year = this.currentYear;
+    console.log("exam to save: " + JSON.stringify(this.modelIdentityBean));
+
     this.examService.save(this.modelIdentityBean).subscribe((resp) => {
       this.modelIdentityBean = resp;
 
@@ -124,6 +176,9 @@ export class ExamFormComponent implements OnInit {
 
         // set subject attribution
         this.modelSettingBean.subjectAttributions = this.selected;
+
+        // set rooms
+        this.modelSettingBean.rooms = this.rooms;
 
         // set host establishment
         const establishmentHost = this.listEstablishment.filter(item => item.id === this.establishmentHostId)[0];
@@ -142,6 +197,7 @@ export class ExamFormComponent implements OnInit {
     });
   }
 
+  // table methods ******************************
   defaultSelected(element) {
     console.log('I was called!!');
     this.currentDefaultSubject = element;

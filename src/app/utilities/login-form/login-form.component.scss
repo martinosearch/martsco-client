@@ -1,26 +1,28 @@
-.example-form {
-    display: flex;
-    flex-direction: column;
-    align-items: space-around;
-    flex-wrap: wrap;
-    justify-content: space-around;
-}
+@import "../../../assets/css/form-presentation.scss";
 
-.action-container {
-    display: flex;
-    flex-direction: row;
-    align-items: right;
-    justify-content: flex-end;
-}
+// .example-form {
+//     display: flex;
+//     flex-direction: column;
+//     align-items: space-around;
+//     flex-wrap: wrap;
+//     justify-content: space-around;
+// }
 
-.action-container button {
-    margin: 2px;
-}
+// .action-container {
+//     display: flex;
+//     flex-direction: row;
+//     align-items: right;
+//     justify-content: flex-end;
+// }
 
-.example-form element {
-    width: 80%;
-}
+// .action-container button {
+//     margin: 2px;
+// }
 
-.identity {
-    color: rgb(89, 89, 240);
-}
+// .example-form element {
+//     width: 80%;
+// }
+
+// .identity {
+//     color: rgb(89, 89, 240);
+// }

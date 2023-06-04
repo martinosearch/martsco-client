@@ -78,7 +78,7 @@ export class EvaluationTrimMenuComponent implements OnInit {
   onBulletinNotePdf(singleEval: boolean) {
     this.actionService.launchAction(this.studentResultReportService
       .generateBulletinNotePdf(singleEval)).subscribe((resp) => {
-        console.log(">>>>>>>>>>>>")
+        console.log(">>>>>>>>>>> has response");
       });
   }
 

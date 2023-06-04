@@ -17,6 +17,7 @@ import { ExamStatReportService } from '../services/exam-stat-report.service';
 })
 export class ExamMenuComponent implements OnInit {
 
+
   public expanded = false;
 
   constructor(private router: Router, private dialog: MatDialog, private actionService: ActionService,
@@ -102,5 +103,10 @@ export class ExamMenuComponent implements OnInit {
     console.log("I am called for formulaire");
     this.actionService.launchAction(this.effectifReportService.generateFormulaireImportList())
       .subscribe((resp) => { });
+  }
+
+  onRepartionInRooms(type: number) {
+    this.actionService.launchAction(this.effectifReportService
+      .generateRepartionInRoomsPdf(type)).subscribe();
   }
 }

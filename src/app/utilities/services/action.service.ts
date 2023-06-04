@@ -24,7 +24,7 @@ export class ActionService {
   }
 
   launchWaiting(progressId: number) {
-    console.log("launch waiting...");
+    console.log("launch waiting..."); 
     const action = new Action();
     action.progressId = progressId;
     action.mode = "indeterminate";
@@ -48,8 +48,8 @@ export class ActionService {
   }
 
   launchAction(observable: Observable<any>, progressDeterminate?: boolean): Observable<any> {
-    return new Observable((observer) => {
 
+    return new Observable((observer) => {
       const action = new Action();
       if (progressDeterminate) {
         if (progressDeterminate == true) {
@@ -64,43 +64,51 @@ export class ActionService {
         action.mode = "determinate";
       }
 
-      observable.subscribe(
-        (resp) => {
+      observable.subscribe({
+        next: (resp) => {
           console.log("response >>>>> " + resp);
+          console.log("response >>>>> " + JSON.stringify(resp));
 
-          if (!isNaN(resp) && action.progressId === undefined) {
-            action.progressId = parseInt(resp.toString());
-          } else if (resp instanceof EventSource) {
-            resp.addEventListener('message', message => {
-              const progress = JSON.parse(message.data);
+          if (resp !== undefined) {
+            if (!isNaN(resp) && action.progressId === undefined) {
+              action.progressId = parseInt(resp.toString());
+              this.insureAction(action);
+            } else if (resp instanceof EventSource) {
+              resp.addEventListener('message', message => {
+                const progress = JSON.parse(message.data);
 
-              console.log("progress: >>> " + JSON.stringify(progress));
-              //console.log("progress ==> " + progress.message + " -- " + progress.progress);
+                console.log("progress: >>> " + JSON.stringify(progress));
 
-              action.progressValue = progress.progress;
-              action.progressMessage = progress.message;
+                action.progressValue = progress.progress;
+                action.progressMessage = progress.message;
 
-              //remove progress
-              if (action.progressValue >= 100) {
-                this.stopWaiting(action.progressId);
-              } else {
-                // add action to list of actions
-                const exists = this.actions.filter(item => item.progressId === action.progressId);
-                if (exists.length === 0) {
-                  this.actions.push(action);
+                //remove progress
+                if (action.progressValue >= 100) {
+                  this.stopWaiting(action.progressId);
+                } else {
+                  this.insureAction(action);
                 }
-              }
-            });
-          } else {
-            console.log(">>>> next ()");
-            observer.next(resp);
+              });
+            } else {
+              console.log(">>>> Action finished!");
+              observer.next(resp);
+            }
           }
         },
-        (error) => {
-          observer.error(error);
+
+        error: (e) => {
+          observer.error(e);
         }
-      );
+      });
     });
+  }
+
+  insureAction(action: Action) {
+    // add action to list of actions
+    const exists = this.actions.filter(item => item.progressId === action.progressId);
+    if (exists.length === 0) {
+      this.actions.push(action);
+    }
   }
 
   eventEmitDoubleClick(event: any) {

@@ -18,6 +18,7 @@ import { CandidateIdentityBean } from '../models/candidate-identity-bean';
 import { ExamChooserModel } from '../models/exam-chooser-model';
 import { ExamIdentityBean } from '../models/exam-identity-bean';
 import { CandidateIdentityService } from '../services/candidate-identity.service';
+import { ProgressService } from 'src/app/utilities/services/progress.service';
 
 @Component({
   selector: 'app-candidate-list',
@@ -62,7 +63,7 @@ export class CandidateListComponent implements OnInit {
     public auth: AuthService, public router: Router, private location: Location,
     private messageService: MessageService,
     private dialog: MatDialog,
-    private actionService: ActionService,
+    private actionService: ActionService, private progressService: ProgressService,
     private candidateIdentityService: CandidateIdentityService
   ) { }
 
@@ -77,6 +78,14 @@ export class CandidateListComponent implements OnInit {
     }
 
     this.setList();
+
+    this.selection.changed.subscribe(() => {
+      if (this.selection.selected.length > 1) {
+        this.showActions = true;
+      } else {
+        this.showActions = false;
+      }
+    });
   }
 
   setList() {
@@ -117,20 +126,53 @@ export class CandidateListComponent implements OnInit {
           "Voulez- vous vraiment supprimer: " +
           obj.identity.lastName +
           " " +
-          obj.identity.firstName,
+          obj.identity.firstName,Erreur:
       },
     });
 
     dialogRef.componentInstance.event.subscribe((response) => {
-      this.candidateIdentityService.delete(obj.id).subscribe(
-        (resp) => {
+      this.candidateIdentityService.delete(obj.id).subscribe({
+        next: (resp) => {
           console.log("deleted: " + obj);
           this.refresh();
-        },
-        (error: HttpErrorResponse) => {
-          this.messageService.showErrorMessage(error.error.message);
+        }, error: (error: HttpErrorResponse) => {
+          this.messageService.showErrorMessage("Erreur:" + error && error.error.message);
         }
+      }
       );
+    });
+  }
+
+  onDeleteAll(): void {
+    const dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: "600px",
+      data: {
+        titre:
+          "Voulez- vous vraiment supprimer tous ces candidats de cette classe? ",
+      },
+    });
+
+    dialogRef.componentInstance.event.subscribe((response) => {
+      console.log("element to be delete: " + this.selection.selected.length);
+      const stagged = this.holeList.filter(
+        (item) =>
+          this.selection.selected.filter((test) => item.id === test.id).length >
+          0
+      );
+
+      this.progressService.getNewProgressId().subscribe((progressId) => {
+        stagged.map(item => {
+          this.actionService.launchWaiting(progressId);
+
+          this.candidateIdentityService
+            .delete(item.id)
+            .subscribe((resp) => {
+              this.actionService.stopWaiting(progressId);
+              this.refresh();
+            });
+        });
+
+      });
     });
   }
 

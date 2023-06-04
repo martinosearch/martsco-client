@@ -101,7 +101,7 @@ export class EffectifReportService {
 
         console.log("ask for download formule import list");
 
-        let url = this.API_MARTSCO + "doc-effectif/formulaire-import-list";
+        let url = this.API_MARTSCO + "/doc-effectif/formulaire-import-list";
         this.fileService.downloadExcel(url, "liste_import", progressId);
         return observer.next();
       });

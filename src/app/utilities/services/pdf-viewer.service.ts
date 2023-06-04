@@ -16,7 +16,7 @@ export class PdfViewerService {
   show(blobInvoice: Blob, fileName?: string) {
     this.fileUrl = window.URL.createObjectURL(blobInvoice);
     // this.constanceService.toAccueil();
-    // this.sleep(10000);
+    // this.sleep(10000)
     // this.router.navigate([this.routeService.pdfViewerShowRoute]);
     if (fileName !== undefined) {
       //rename file

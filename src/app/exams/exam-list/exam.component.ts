@@ -88,7 +88,7 @@ export class ExamComponent implements OnInit {
     const data = Object.assign({}, currentObj);
     const dialogRef = this.dialog.open(ExamFormComponent, {
       width: '600px',
-      data: { titre: 'Modifier', obj: data }
+      data: { titre: 'Modifier: ' + data.designation, obj: data }
     });
 
     dialogRef.componentInstance.event.subscribe(
@@ -103,7 +103,7 @@ export class ExamComponent implements OnInit {
 
     const dialogRef = this.dialog.open(ExamFormComponent, {
       width: '1000px',
-      data: { titre: 'Configuration', obj: data, isSetting: true }
+      data: { titre: 'Configuration: ' + data.designation, obj: data, isSetting: true }
     });
 
     dialogRef.componentInstance.event.subscribe(

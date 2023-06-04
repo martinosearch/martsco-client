@@ -69,8 +69,6 @@ export class ConstanceService {
     this.storageLocation.setItem("id_menu", this.currentMenu.id.toString());
   }
 
-
-
   getMenu(id: number): Menu {
     for (const m of this.menus) {
       if (id === m.id) {
