@@ -3,7 +3,7 @@ name: Deploy Angular App to Nginx on Ubuntu
 on:
   push:
     branches:
-      - main # Change this to your main branch
+      - main # Change this to your main branch d
 
 jobs:
   build:
