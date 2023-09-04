@@ -123,10 +123,7 @@ export class CandidateListComponent implements OnInit {
       width: "600px",
       data: {
         titre:
-          "Voulez- vous vraiment supprimer: " +
-          obj.identity.lastName +
-          " " +
-          obj.identity.firstName,Erreur:
+          "Voulez- vous vraiment supprimer: " + obj.identity.lastName + " " + obj.identity.firstName
       },
     });
 

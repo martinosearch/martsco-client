@@ -1,0 +1,49 @@
+name: Deploy Angular App to Nginx on Ubuntu
+
+on:
+  push:
+    branches:
+      - main # Change this to your main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+
+      - name: Install Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build Angular App
+        run: ng build --prod
+
+      - name: Configure SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan brain-itek.com >> ~/.ssh/known_hosts
+        env:
+          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+
+      - name: Deploy to VPS via SSH
+        run: |
+          ssh root@brain-itek.com 'bash -s' <<EOF
+            cd /var/www/martsco-client
+            # Remove the old app files if needed
+            rm -rf *
+            # Copy the new build files to the server
+            scp -r /dist/* .
+            # Restart Nginx to apply changes
+            sudo systemctl restart nginx
+          EOF
