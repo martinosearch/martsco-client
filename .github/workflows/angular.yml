@@ -38,12 +38,4 @@ jobs:
 
       - name: Deploy to VPS via SSH
         run: |
-          ssh root@brain-itek.com 'bash -s' <<EOF
-            cd /var/www/martsco-client
-            # Remove the old app files if needed
-            rm -rf *
-            # Copy the new build files to the server
-            scp -r /dist/* .
-            # Restart Nginx to apply changes
-            sudo systemctl restart nginx
-          EOF
+          ssh root@brain-itek.com cd /var/www/martsco-client && rm -rf * && scp -r /dist/* . && sudo systemctl restart nginx
