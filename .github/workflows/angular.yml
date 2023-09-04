@@ -43,7 +43,7 @@ jobs:
             rm -rf *
           EOF
           cd dist/martsco-client && ls
-          scp -r . root@brain-itek.com:/var/www/martsco-client/
+          scp -r ./** root@brain-itek.com:/var/www/martsco-client/
           ssh root@brain-itek.com 'bash -s' << 'EOF'
             sudo systemctl restart nginx
           EOF
