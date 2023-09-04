@@ -38,5 +38,6 @@ jobs:
 
       - name: Deploy to VPS via SSH
         run: |
-          ssh root@brain-itek.com cd /var/www/martsco-client && rm -rf * && scp -r /dist/* .
+          ssh root@brain-itek.com cd /var/www/martsco-client && rm -rf *
+          scp -r /dist/* root@brain-itek.com:/var/www/martsco-client
           ssh root@brain-itek.com sudo systemctl restart nginx
