@@ -27,7 +27,7 @@ jobs:
       - name: Build Angular App
         run: ng build
 
-      - name: Configure SSH
+      - name: Configure SSH f
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
