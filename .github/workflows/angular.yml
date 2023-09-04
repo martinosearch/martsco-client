@@ -34,7 +34,7 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan brain-itek.com >> ~/.ssh/known_hosts
         env:
-          ssh-private-key: ${{ secrets.DEPLOY_KEY }}
+          DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
 
       - name: Deploy to VPS via SSH
         run: |
