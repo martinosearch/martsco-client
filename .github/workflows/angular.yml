@@ -44,6 +44,8 @@ jobs:
           EOF
           cd dist/martsco-client && ls
           scp -r ./** root@brain-itek.com:/var/www/martsco-client/
+      - name: Restart Nginx Service
+        run: |
           ssh root@brain-itek.com 'bash -s' << 'EOF'
             sudo systemctl restart nginx
           EOF
