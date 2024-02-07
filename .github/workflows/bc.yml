@@ -30,7 +30,7 @@ jobs:
       - name: Copy configuration file
         run: cp -f ./src/assets/configs/configs-bc.json ./src/assets/configs/configs.json
 
-      - name: Configure SSH f
+      - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
@@ -39,7 +39,7 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Deploy to VPS via SSH
+      - name: Deploy to VPS via SSH f
         run: |
           ssh martin@brain-itek.com 'bash -s' << 'EOF'
             cd /var/www
