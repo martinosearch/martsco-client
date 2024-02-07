@@ -45,6 +45,7 @@ jobs:
             cd /var/www
             sudo mkdir -p bc-martsco-client
             sudo chmod 755 /var/www/bc-martsco-client
+            sudo chown -R martin:martin /var/www/bc-martsco-client/
             cd bc-martsco-client
             sudo rm -rf *
           EOF
