@@ -44,11 +44,12 @@ jobs:
           ssh martin@brain-itek.com 'bash -s' << 'EOF'
             cd /var/www
             sudo mkdir -p bc-martsco-client
+            chmod 755 /var/www/bc-martsco-client/
             cd bc-martsco-client
             sudo rm -rf *
           EOF
-          cd dist/martsco-client && ls
-          sudo scp -r ./** martin@brain-itek.com:/var/www/bc-martsco-client/
+          cd dist/martsco-client
+          sudo scp -rf ./** martin@brain-itek.com:/var/www/bc-martsco-client/
       # - name: Restart Nginx Service
       #   run: |
       #     ssh root@brain-itek.com 'bash -s' << 'EOF'
