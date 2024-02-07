@@ -42,8 +42,10 @@ jobs:
       - name: Deploy to VPS via SSH
         run: |
           ssh martin@brain-itek.com 'bash -s' << 'EOF'
-            cd /var/www/bc-martsco-client
-            rm -rf *
+            cd /var/www
+            sudo mkdir -p bc-martsco-client
+            cd bc-martsco-client
+            sudo rm -rf *
           EOF
           cd dist/martsco-client && ls
           scp -r ./** martin@brain-itek.com:/var/www/bc-martsco-client/
