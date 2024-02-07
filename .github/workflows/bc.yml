@@ -44,7 +44,7 @@ jobs:
           ssh martin@brain-itek.com 'bash -s' << 'EOF'
             cd /var/www
             sudo mkdir -p bc-martsco-client
-            sudo chmod 755 /var/www/bc-martsco-client/
+            sudo chmod 755 /var/www/bc-martsco-client
             cd bc-martsco-client
             sudo rm -rf *
           EOF
