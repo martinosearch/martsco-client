@@ -38,12 +38,12 @@ jobs:
 
       - name: Deploy to VPS via SSH
         run: |
-          ssh root@brain-itek.com 'bash -s' << 'EOF'
+          ssh martin@brain-itek.com 'bash -s' << 'EOF'
             cd /var/www/martsco-client
             rm -rf *
           EOF
           cd dist/martsco-client && ls
-          scp -r ./** root@brain-itek.com:/var/www/martsco-client/
+          scp -r ./** martin@brain-itek.com:/var/www/martsco-client/
       - name: Restart Nginx Service
         run: |
           ssh root@brain-itek.com 'bash -s' << 'EOF'
