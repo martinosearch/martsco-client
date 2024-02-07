@@ -27,6 +27,9 @@ jobs:
       - name: Build Angular App
         run: ng build
 
+      - name: Copy configuration file
+        run: cp -f ./src/assets/configs/configs-bc.json ./src/assets/configs/configs.json
+
       - name: Configure SSH f
         run: |
           mkdir -p ~/.ssh
