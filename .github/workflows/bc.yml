@@ -49,7 +49,7 @@ jobs:
             sudo rm -rf *
           EOF
           cd dist/martsco-client
-          sudo scp -rf ./** martin@brain-itek.com:/var/www/bc-martsco-client/
+          sudo scp -r ./** martin@brain-itek.com:/var/www/bc-martsco-client/
       # - name: Restart Nginx Service
       #   run: |
       #     ssh root@brain-itek.com 'bash -s' << 'EOF'
