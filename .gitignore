@@ -6,6 +6,9 @@
 /out-tsc
 /bazel-out
 
+# configuration files (customs)
+/src/assets/configs/configs.json
+
 # Node
 /node_modules
 npm-debug.log

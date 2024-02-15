@@ -3,7 +3,7 @@ name: Deploy Angular App to Nginx on Ubuntu
 on:
   push:
     branches:
-      - main # Change this to your main branch d
+      - bc # Change this to your main branch d
 
 jobs:
   build:
@@ -16,7 +16,7 @@ jobs:
       - name: Install Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 18
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli
@@ -24,10 +24,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Copy configuration file
+        run: cp -f ./src/assets/configs/configs-bc.json ./src/assets/configs/configs.json
+
       - name: Build Angular App
         run: ng build
 
-      - name: Configure SSH f
+      - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_KEY }}" > ~/.ssh/id_rsa
@@ -36,16 +39,20 @@ jobs:
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}
 
-      - name: Deploy to VPS via SSH
+      - name: Deploy to VPS via SSH f
         run: |
           ssh martin@brain-itek.com 'bash -s' << 'EOF'
-            cd /var/www/martsco-client
-            rm -rf *
+            cd /var/www
+            sudo mkdir -p bc-martsco-client
+            sudo chmod 755 /var/www/bc-martsco-client
+            sudo chown -R martin:martin /var/www/bc-martsco-client/
+            cd bc-martsco-client
+            sudo rm -rf *
           EOF
-          cd dist/martsco-client && ls
-          scp -r ./** martin@brain-itek.com:/var/www/martsco-client/
+          cd dist/martsco-client
+          scp -r ./** martin@brain-itek.com:/var/www/bc-martsco-client/
       # - name: Restart Nginx Service
       #   run: |
       #     ssh root@brain-itek.com 'bash -s' << 'EOF'
-      #       sudo systemctl restart nginx
+      #       sudo systemctl reload nginx
       #     EOF
