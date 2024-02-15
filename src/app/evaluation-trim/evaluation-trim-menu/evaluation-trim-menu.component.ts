@@ -24,6 +24,9 @@ import { ConstanceService } from 'src/app/utilities/services/constance.service';
   styleUrls: ['./evaluation-trim-menu.component.scss']
 })
 export class EvaluationTrimMenuComponent implements OnInit {
+  toGroupList() {
+    throw new Error('Method not implemented.');
+  }
 
   expanded = false;
 
