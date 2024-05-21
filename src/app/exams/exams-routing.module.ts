@@ -11,7 +11,6 @@ const routes = [
   { path: 'establishment-exam-identity/list', component: ExamEstablishmentListComponent },
   { path: 'candidate/list', component: CandidateListComponent },
 
-
 ]
 
 @NgModule({
