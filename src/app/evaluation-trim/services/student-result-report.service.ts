@@ -61,7 +61,7 @@ export class StudentResultReportService {
             observer.next(this.progressService.getProgress(progressId));
 
             const url = this.API_MARTSCO + "/bulletin-results/bulletin-notes/" + chooserModel.schoolClass.id
-              + "/" + chooserModel.year.id + "/" + chooserModel.decoupage.id + "/" + chooserModel.selectedEvaluationId + "/" + this.currentUserId + "/" + progressId;
+              + "/" + chooserModel.year.id + "/" + chooserModel.decoupage.id + "/" + chooserModel.selectedEvaluationId + "/" + progressId;
 
             this.fileService.downloadAndShowPdf(url, "bulletin_" + chooserModel.schoolClass.designation, progressId);
 
