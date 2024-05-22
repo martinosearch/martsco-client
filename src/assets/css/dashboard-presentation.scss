@@ -1,5 +1,4 @@
-@import "my-theme.scss";
-
+//@import "my-theme.scss";
 .main-container {
     display: flex;
     flex-direction: row;
@@ -123,7 +122,6 @@ tr.mat-header-row {
     background-color: rgb(168, 168, 197);
     //color: mat-color($my-primary);
     color: rgb(44, 44, 44);
-
     font-weight: bold;
 }
 
