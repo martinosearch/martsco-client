@@ -1,4 +1,6 @@
-//@import "my-theme.scss";
+@import "my-theme.scss";
+// Apply the custom theme
+@include angular-material-theme($my-theme);
 .main-container {
     display: flex;
     flex-direction: row;
