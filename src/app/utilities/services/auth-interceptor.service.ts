@@ -13,20 +13,35 @@ const TOKEN_HEADER_KEY = "Authorization";
   providedIn: "root",
 })
 export class AuthInterceptorService implements HttpInterceptor {
+  private readonly excludesUrls = ['/utils/', '/auth/', '/progress/', '/employee-auth/', '/employee/list', '/year/',
+    '/establishment-identity/my-agency'
+  ];
+
   constructor() { }
 
-  intercept(req: HttpRequest<any>, next: HttpHandler) {
-    let authReq = req;
+  intercept(request: HttpRequest<any>, next: HttpHandler) {
     const token = this.getToken();
-    // console.log(" >>>>>>>>>>>>>>>>>>>>> I am working!!!!!!!!!!" + req.url);
-    // console.log(" >>>>>>>>>>>>>>>>>>>>> token: " + token);
+    //  console.log(" >>>>>>>>>>>>>>>>>>>>> I am working!!!!!!!!!!" + request.url);
+    //  console.log(" >>>>>>>>>>>>>>>>>>>>> token: " + token);
 
-    authReq = req.clone({
-      url: req.url,
-      headers: req.headers.set(TOKEN_HEADER_KEY, "Bearer " + token),
-    });
+    if (this.requiresAuthorization(request)) {
+      const modifiedRequest = request.clone({
+        url: request.url,
+        headers: request.headers.set(TOKEN_HEADER_KEY, "Bearer " + token),
+      });
 
-    return next.handle(authReq);
+      //console.log("request >>> " + JSON.stringify(modifiedRequest));
+
+      return next.handle(modifiedRequest);
+    } else {
+      return next.handle(request);
+    }
+  }
+
+  private requiresAuthorization(request: HttpRequest<any>): boolean {
+    // Add logic to determine if the request requires authorization
+    // For example, check the request URL, method, or other criteria
+    return !this.excludesUrls.some(url => request.url.includes(url));
   }
 
   getToken() {

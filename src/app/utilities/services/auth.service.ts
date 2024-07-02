@@ -63,9 +63,10 @@ export class AuthService {
 
     const body = { username: login, password: password };
 
-    this.httpClient.post<any>(this.API + "/login", body).subscribe(
+    this.httpClient.post<any>(this.API + "/auth/authenticate", body).subscribe(
       (response: any) => {
-        this.tokenStorageService.saveToken(response);
+        //console.log(">>> token: " + response)
+        this.tokenStorageService.saveToken(response.token);
 
         this.isAuthenticated = true;
         this.messageService.showSucces("Bienvenue " + this.tokenStorageService.getUserLogin().toUpperCase(), true);
