@@ -25,6 +25,7 @@ export class MessageService {
     });
   }
 
+
   showSucces(message?: string, autoClose?: boolean) {
     let finalMessage = "Succès !";
     if (message) {

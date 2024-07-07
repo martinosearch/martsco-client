@@ -148,7 +148,7 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
           }
         }
 
-        // all selected
+        // this help to check optional subjectAttribs
         if (subj.isOptional) {
           this.selection.selected.push(subj);
         }
@@ -248,7 +248,7 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
       this.isRunning = false;
       this.currentSchoolClassSubjectBean = resp;
       this.refresh();
-      this.messageService.showSucces();
+      this.messageService.showSucces("Succès !", true);
     });
   }
 
@@ -294,7 +294,7 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
         attrib.subject = item;
 
         this.selectedAdd.push(attrib);
-        this.selectedAdd.slice();
+        this.selectedAdd = this.selectedAdd.slice();
       }
     }
 
@@ -381,4 +381,4 @@ export class SubjectAttributionComponent implements OnInit, OnDestroy {
     const option = this.selection.isSelected(row) ? "deselect" : "select";
     return option + " row " + (index + 1);
   }
-} 
+}
