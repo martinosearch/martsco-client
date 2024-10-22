@@ -112,6 +112,7 @@ export class StudentListComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void { }
 
   refresh() {
+    console.log("refresh is called!");
     this.progressService.getNewProgressId().subscribe((progressId) => {
       this.actionService.launchWaiting(progressId);
 
@@ -129,6 +130,8 @@ export class StudentListComponent implements OnInit, OnDestroy {
 
               this.filter();
               this.actionService.stopWaiting(progressId);
+
+
             },
 
             (error) => {
@@ -136,6 +139,8 @@ export class StudentListComponent implements OnInit, OnDestroy {
               this.actionService.stopWaiting(progressId);
             }
           );
+
+
         }
       );
     });
@@ -184,9 +189,10 @@ export class StudentListComponent implements OnInit, OnDestroy {
   masterToggle() {
     if (this.isAllSelected()) {
       this.selection.clear();
-      return;
+      this.masterCheckboxLabel();
     } else {
       this.selection.select(...this.filteredStudents);
+      this.masterCheckboxLabel();
     }
   }
 
@@ -200,6 +206,10 @@ export class StudentListComponent implements OnInit, OnDestroy {
   checkboxLabel(row: StudentListModel, index: number): string {
     const option = this.selection.isSelected(row) ? "deselect" : "select";
     return option + " row " + (index + 1);
+  }
+
+  resetSelection() {
+    this.selection = new SelectionModel<StudentListModel>(true, []);
   }
 
   onDelete(obj: StudentListModel) {
@@ -384,6 +394,9 @@ export class StudentListComponent implements OnInit, OnDestroy {
                 this.refresh();
               });
           });
+
+          // reset selection
+          this.resetSelection();
         }
       }
     );
@@ -442,6 +455,9 @@ export class StudentListComponent implements OnInit, OnDestroy {
             this.refresh();
             this.actionService.stopWaiting(progressId);
             this.messageService.showSucces();
+
+            // reset selection
+            this.resetSelection();
           });
       });
     });
